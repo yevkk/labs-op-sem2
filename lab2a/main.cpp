@@ -21,34 +21,34 @@ struct List {
     Node *head = nullptr, *tail = nullptr;
 } queue_list;
 
-void create_empty_list(List queue) {
+void create_empty(List queue) {
     while (queue.head != queue.tail) {
         queue.tail = queue.tail->next;
         delete queue.tail;
     }
 }
 
-void create_empty_array(int queue_size) {
+void create_empty(int queue_size) {
     queue_size = 0;
 }
 
-void create_empty_array(vector<Circle> queue) {
+void create_empty(vector<Circle> queue) {
     queue.clear();
 }
 
-bool is_empty_list(List queue) {
+bool is_empty(List queue) {
     return (queue.head == nullptr) ? true : false;
 }
 
-bool is_empty_list(int queue_size) {
+bool is_empty(int queue_size) {
     return (queue_size == 0) ? true : false;
 }
 
-bool is_empty_list(vector<Circle> queue) {
+bool is_empty(vector<Circle> queue) {
     return (queue.size() == 0) ? true : false;
 }
 
-void enqueue_list(List queue, double x, double y, double radius) {
+void enqueue(List queue, double x, double y, double radius) {
     Node *ptr = new Node;
     ptr->next = nullptr;
     ptr->prev = queue.tail;
@@ -58,7 +58,7 @@ void enqueue_list(List queue, double x, double y, double radius) {
     queue.tail = ptr;
 }
 
-void enqueue_array(Circle *queue_data, int &queue_size, double x, double y, double radius) {
+void enqueue(Circle *queue_data, int &queue_size, double x, double y, double radius) {
     if (queue_size + 1 > MAX_SIZE) {
         cout << "element cannot be added, queue is full";
         return;
@@ -69,9 +69,26 @@ void enqueue_array(Circle *queue_data, int &queue_size, double x, double y, doub
     queue_size++;
 }
 
-void enqueue_vector(vector<Circle> queue, double x, double y, double radius) {
+void enqueue(vector<Circle> queue, double x, double y, double radius) {
     Circle circle = {x, y, radius};
-    queue.insert(queue.begin(), circle);
+    queue.push_back(circle);
+}
+
+void dequeue(List queue) {
+    queue.head = queue.head->next;
+    delete queue.head->prev;
+    queue.head->prev = nullptr;
+}
+
+void dequeue(Circle *queue_data, int &queue_size) {
+    for (int i = 0; i < queue_size - 1; i++) {
+        queue_data[i] = queue_data[i + 1];
+    }
+    queue_size--;
+}
+
+void dequeue(vector<Circle> queue){
+    queue.erase(queue.begin());
 }
 
 int main() {
