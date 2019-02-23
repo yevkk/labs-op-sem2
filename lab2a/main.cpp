@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -56,8 +57,7 @@ void enqueue(List &queue, double x, double y, double radius) {
     if (queue.head == nullptr) {
         queue.head = ptr;
         queue.tail = ptr;
-    }
-    else {
+    } else {
         queue.tail->next = ptr;
         queue.tail = ptr;
     }
@@ -108,6 +108,15 @@ void dequeue(vector<Circle> &queue) {
     queue.erase(queue.begin());
 }
 
+void input_values(double &x, double &y, double &radius) {
+    cout << "Input:\n" << "  center x:";
+    cin >> x;
+    cout << "  center y:";
+    cin >> y;
+    cout << "  radius:";
+    cin >> radius;
+}
+
 int main() {
     struct {
         Circle data[MAX_SIZE];
@@ -117,26 +126,63 @@ int main() {
     vector<Circle> queue_vector;
     List queue_list;
     double x, y, r;
-
-//    create_empty(queue_vector);
-//    create_empty(queue_list);
-//    create_empty(queue_array.size);
-//
-//    enqueue(queue_list, 1, 1, 1);
-//    enqueue(queue_vector, 1, 1, 1);
-//    enqueue(queue_array.data, queue_array.size, 1, 1, 1);
-//
-//    enqueue(queue_list, 2, 2, 2);
-//    enqueue(queue_list, 3, 3, 3);
-//    enqueue(queue_vector, 2, 2, 2);
-//    enqueue(queue_array.data, queue_array.size, 2, 2, 2);
-//
-//    dequeue(queue_list);
-//    dequeue(queue_vector);
-//    dequeue(queue_vector);
-//    dequeue(queue_vector);
-//    dequeue(queue_array.data, queue_array.size);
+    int mode = 0;
+    string str;
 
 
+    while (true) {
+        cout << "Enter command: ";
+        cin >> str;
+
+        if (str == "stop") break;
+
+        if (str == "select_mode") {
+            cout << "1 - list\n2 - array\n3 - vector\n";
+            do {
+                cin >> mode;
+                if ((mode < 1) || (mode > 3)) cout << "select correct mode\n";
+            } while ((mode < 1) || (mode > 3));
+            continue;
+        }
+
+        if (str == "create") {
+            switch (mode){
+                case 0: {
+                    cout << "Select mode first;";
+                    break;
+                }
+                case 1: {
+                    create_empty(queue_list);
+                    break;
+                }
+                case 2: {
+                    create_empty(queue_array.size);
+                    break;
+                }
+                case 3: {
+                    create_empty(queue_vector);
+                    break;
+                }
+            }
+            continue;
+        }
+
+
+        if (str == "command_list"){
+            cout << "  -stop\n"
+                    "  -select_mode\n"
+                    "  -demonstrate\n"
+                    "  -benchmark\n"
+                    "  -create\n"
+                    "  -add\n"
+                    "  -remove\n"
+                    "  -is_empty\n"
+                    "  -print\n";
+            continue;
+        }
+
+        cout << "Enter correct command (help: \"command_list\")\n";
+
+    }
     return 0;
 }
