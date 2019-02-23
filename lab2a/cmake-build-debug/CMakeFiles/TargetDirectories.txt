@@ -1,0 +1,3 @@
+C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2a/cmake-build-debug/CMakeFiles/lab2a.dir
+C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2a/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2a/cmake-build-debug/CMakeFiles/rebuild_cache.dir
