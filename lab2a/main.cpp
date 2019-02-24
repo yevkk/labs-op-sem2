@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <random>
 
 using namespace std;
 
@@ -20,6 +21,14 @@ struct Node {
 struct List {
     Node *head = nullptr, *tail = nullptr;
 };
+
+double rand_num(double max){
+    static random_device rd;
+    static mt19937 mt(rd());
+    static uniform_real_distribution<double> dist(0, max);
+
+    return dist(mt);
+}
 
 void create_empty(List &queue) {
     while (queue.head != queue.tail) {
@@ -126,6 +135,102 @@ void input_values(double &x, double &y, double &radius) {
     cin >> radius;
 }
 
+void print_queue(List queue){
+    if (is_queue_empty(queue)) cout << "Queue is empty;\n";
+    else {
+        Node* ptr = queue.head;
+        int i = 0;
+        while(ptr!=nullptr){
+            cout << ++i << ": ((" << ptr->circle.center.x << ", " << ptr->circle.center.y << "), " << ptr->circle.radius << ");\n";
+            ptr = ptr->next;
+        }
+    }
+}
+
+void print_queue(Circle *queue_data, int &queue_size){
+    if (is_queue_empty(queue_size)) cout << "Queue is empty;\n";
+    else {
+        for (int i = 0; i < queue_size; i++) {
+            cout << i+1 << ": ((" << queue_data[i].center.x << ", " << queue_data[i].center.y << "), " << queue_data[i].radius << ");\n";
+        }
+    }
+}
+
+void print_queue(vector<Circle> queue){
+    if (is_queue_empty(queue)) cout << "Queue is empty;\n";
+    else {
+        for (int i = 0; i < queue.size(); i++) {
+            cout << i+1 << ": ((" << queue[i].center.x << ", " << queue[i].center.y << "), " << queue[i].radius << ");\n";
+        }
+    }
+}
+
+void demonstrate(List queue){
+    create_empty(queue);
+    int num = (int)rand_num(5);
+    for(int i = 0; i< num; i++){
+        enqueue(queue, rand_num(10), rand_num(10),rand_num(10));
+    }
+    cout << "Print:\n";
+    print_queue(queue);
+    num = (int)rand_num(5);
+    for(int i = 0; i< num; i++){
+        dequeue(queue);
+    }
+    cout << "Print:\n";
+    print_queue(queue);
+    num = (int)rand_num(3);
+    for(int i = 0; i< num; i++){
+        enqueue(queue, rand_num(10), rand_num(10),rand_num(10));
+    }
+    cout << "Print:\n";
+    print_queue(queue);
+}
+
+void demonstrate(Circle *queue_data, int &queue_size){
+    create_empty(queue_size);
+    int num = (int)rand_num(5);
+    for(int i = 0; i< num; i++){
+        enqueue(queue_data, queue_size, rand_num(10), rand_num(10),rand_num(10));
+    }
+    cout << "Print:\n";
+    print_queue(queue_data, queue_size);
+    num = (int)rand_num(5);
+    for(int i = 0; i< num; i++){
+        dequeue(queue_data, queue_size);
+    }
+    cout << "Print:\n";
+    print_queue(queue_data, queue_size);
+    num = (int)rand_num(3);
+    for(int i = 0; i< num; i++){
+        enqueue(queue_data, queue_size, rand_num(10), rand_num(10),rand_num(10));
+    }
+    cout << "Print:\n";
+    print_queue(queue_data, queue_size);
+}
+
+void demonstrate(vector<Circle> queue){
+    create_empty(queue);
+    int num = (int)rand_num(5);
+    for(int i = 0; i< num; i++){
+        enqueue(queue, rand_num(10), rand_num(10),rand_num(10));
+    }
+    cout << "Print:\n";
+    print_queue(queue);
+    num = (int)rand_num(5);
+    for(int i = 0; i< num; i++){
+        dequeue(queue);
+    }
+    cout << "Print:\n";
+    print_queue(queue);
+    num = (int)rand_num(3);
+    for(int i = 0; i< num; i++){
+        enqueue(queue, rand_num(10), rand_num(10),rand_num(10));
+    }
+    cout << "Print:\n";
+    print_queue(queue);
+}
+
 int main() {
     struct {
         Circle data[MAX_SIZE];
@@ -138,9 +243,8 @@ int main() {
     int mode = 0;
     string str;
 
-
     while (true) {
-        cout << "Enter command: ";
+        cout << "\nEnter command: ";
         cin >> str;
 
         if (str == "stop") break;
@@ -149,7 +253,9 @@ int main() {
             cout << "1 - list\n2 - array\n3 - vector\n";
             do {
                 cin >> mode;
+
                 if ((mode < 1) || (mode > 3)) cout << "select correct mode\n";
+                else cout<< "Mode " << mode << " selected\n";
             } while ((mode < 1) || (mode > 3));
             continue;
         }
@@ -247,16 +353,62 @@ int main() {
             continue;
         }
 
+        if (str == "print") {
+            switch (mode){
+                case 0: {
+                    cout << "Select mode first;\n";
+                    break;
+                }
+                case 1: {
+                    print_queue(queue_list);
+                    break;
+                }
+                case 2: {
+                    print_queue(queue_array.data, queue_array.size);
+                    break;
+                }
+                case 3: {
+                print_queue(queue_vector);
+                break;
+                }
+                default: break;
+            }
+            continue;
+        }
+
+        if (str == "demo") {
+            switch (mode){
+                case 0: {
+                    cout << "Select mode first;\n";
+                    break;
+                }
+                case 1: {
+                    demonstrate(queue_list);
+                    break;
+                }
+                case 2: {
+                    demonstrate(queue_array.data, queue_array.size);
+                    break;
+                }
+                case 3: {
+                    demonstrate(queue_vector);
+                    break;
+                }
+                default: break;
+            }
+            continue;
+        }
+
         if (str == "help"){
             cout << "  -stop\n"
-                    "  -@demonstrate\n"
+                    "  -demo\n"
                     "  -@benchmark\n"
                     "  -select_mode\n"
                     "  -create\n"
                     "  -add\n"
                     "  -remove\n"
                     "  -is_empty\n"
-                    "  -@print\n";
+                    "  -print\n";
             continue;
         }
 
