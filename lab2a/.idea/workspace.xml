@@ -47,8 +47,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="163" column="26" lean-forward="true" selection-start-line="163" selection-start-column="26" selection-end-line="163" selection-end-column="26" />
+            <state relative-caret-position="552">
+              <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -166,7 +166,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1550929547765</updated>
-      <workItem from="1550929549061" duration="24330000" />
+      <workItem from="1550929549061" duration="30181000" />
     </task>
     <task id="LOCAL-00001" summary="Files created&#10;Type defined">
       <created>1550930655565</created>
@@ -224,11 +224,27 @@
       <option name="project" value="LOCAL" />
       <updated>1550958891901</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="'create', 'stop', 'command_list', 'select_mode' commands added">
+      <created>1550962670921</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1550962670921</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24330000" />
+    <option name="totallyTimeSpent" value="30181000" />
+  </component>
+  <component name="TodoView" selected-index="1">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -249,7 +265,7 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32928178" />
       <window_info anchor="right" id="Database" weight="0.32994652" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -294,7 +310,8 @@
     <MESSAGE value="void enqueue() for list, vector and array added" />
     <MESSAGE value="void dequeue() for list, vector and array added; function overloading added;" />
     <MESSAGE value="is_empty check added to dequeue(); other small changes;" />
-    <option name="LAST_COMMIT_MESSAGE" value="is_empty check added to dequeue(); other small changes;" />
+    <MESSAGE value="'create', 'stop', 'command_list', 'select_mode' commands added" />
+    <option name="LAST_COMMIT_MESSAGE" value="'create', 'stop', 'command_list', 'select_mode' commands added" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
@@ -302,8 +319,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="163" column="26" lean-forward="true" selection-start-line="163" selection-start-column="26" selection-end-line="163" selection-end-column="26" />
+        <state relative-caret-position="552">
+          <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

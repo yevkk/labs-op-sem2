@@ -61,22 +61,25 @@ void enqueue(List &queue, double x, double y, double radius) {
         queue.tail->next = ptr;
         queue.tail = ptr;
     }
+    cout << "Element ((" << x << ", " << y << "), " << radius << ") added;\n";
 }
 
 void enqueue(Circle *queue_data, int &queue_size, double x, double y, double radius) {
     if (queue_size + 1 > MAX_SIZE) {
-        cout << "element cannot be added, queue is full";
+        cout << "Element cannot be added, queue is full\n";
         return;
     }
     queue_data[queue_size].center.x = x;
     queue_data[queue_size].center.y = y;
     queue_data[queue_size].radius = radius;
     queue_size++;
+    cout << "Element ((" << x << ", " << y << "), " << radius << ") added;\n";
 }
 
 void enqueue(vector<Circle> &queue, double x, double y, double radius) {
     Circle circle = {x, y, radius};
     queue.push_back(circle);
+    cout << "Element ((" << x << ", " << y << "), " << radius << ") added;\n";
 }
 
 void dequeue(List &queue) {
@@ -85,8 +88,10 @@ void dequeue(List &queue) {
         return;
     }
     Node *ptr = queue.head->next;
+    cout << "Element ((" << queue.head->circle.center.x << ", " << queue.head->circle.center.y << "), " << queue.head->circle.radius << ")";
     delete queue.head;
     queue.head = ptr;
+    cout  << "removed;\n";
 }
 
 void dequeue(Circle *queue_data, int &queue_size) {
@@ -94,10 +99,12 @@ void dequeue(Circle *queue_data, int &queue_size) {
         cout << "Element cannot be removed, queue is empty\n";
         return;
     }
+    cout << "Element ((" << queue_data[0].center.x << ", " << queue_data[0].center.y << "), " << queue_data[0].radius << ") ";
     for (int i = 0; i < queue_size - 1; i++) {
         queue_data[i] = queue_data[i + 1];
     }
     queue_size--;
+    cout  << "removed;\n";
 }
 
 void dequeue(vector<Circle> &queue) {
@@ -105,7 +112,9 @@ void dequeue(vector<Circle> &queue) {
         cout << "Element cannot be removed, queue is empty\n";
         return;
     }
+    cout << "Element ((" << queue.at(0).center.x << ", " << queue.at(0).center.y << "), " << queue.at(0).radius << ") ";
     queue.erase(queue.begin());
+    cout  << "removed;\n";
 }
 
 void input_values(double &x, double &y, double &radius) {
@@ -148,7 +157,7 @@ int main() {
         if (str == "create") {
             switch (mode){
                 case 0: {
-                    cout << "Select mode first;";
+                    cout << "Select mode first;\n";
                     break;
                 }
                 case 1: {
@@ -163,25 +172,95 @@ int main() {
                     create_empty(queue_vector);
                     break;
                 }
+                default: break;
             }
             continue;
         }
 
+        if (str == "add") {
+            input_values(x, y, r);
+            switch (mode){
+                case 0: {
+                    cout << "Select mode first;\n";
+                    break;
+                }
+                case 1: {
+                    enqueue(queue_list, x, y, r);
+                    break;
+                }
+                case 2: {
+                    enqueue(queue_array.data, queue_array.size, x, y, r);
+                    break;
+                }
+                case 3: {
+                    enqueue(queue_vector, x, y, r);
+                    break;
+                }
+                default: break;
+            }
+            continue;
+        }
 
-        if (str == "command_list"){
+        if (str == "remove") {
+            switch (mode){
+                case 0: {
+                    cout << "Select mode first;\n";
+                    break;
+                }
+                case 1: {
+                    dequeue(queue_list);
+                    break;
+                }
+                case 2: {
+                    dequeue(queue_array.data, queue_array.size);
+                    break;
+                }
+                case 3: {
+                    dequeue(queue_vector);
+                    break;
+                }
+                default: break;
+            }
+            continue;
+        }
+
+        if (str == "is_empty") {
+            switch (mode){
+                case 0: {
+                    cout << "Select mode first;\n";
+                    break;
+                }
+                case 1: {
+                    cout << boolalpha << is_queue_empty(queue_list) << endl;
+                    break;
+                }
+                case 2: {
+                    cout << boolalpha << is_queue_empty(queue_array.size) << endl;
+                    break;
+                }
+                case 3: {
+                    cout << boolalpha << is_queue_empty(queue_vector) << endl;
+                    break;
+                }
+                default: break;
+            }
+            continue;
+        }
+
+        if (str == "help"){
             cout << "  -stop\n"
+                    "  -@demonstrate\n"
+                    "  -@benchmark\n"
                     "  -select_mode\n"
-                    "  -demonstrate\n"
-                    "  -benchmark\n"
                     "  -create\n"
                     "  -add\n"
                     "  -remove\n"
                     "  -is_empty\n"
-                    "  -print\n";
+                    "  -@print\n";
             continue;
         }
 
-        cout << "Enter correct command (help: \"command_list\")\n";
+        cout << "Enter correct command (help)\n";
 
     }
     return 0;
