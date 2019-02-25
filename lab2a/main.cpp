@@ -8,7 +8,7 @@
 using namespace std;
 using namespace std::chrono;
 
-const int MAX_SIZE = 100;
+const long int MAX_SIZE = 1000;
 struct Circle {
     struct {
         double x, y;
@@ -78,7 +78,7 @@ void enqueue(List &queue, double x, double y, double radius, int flag = 1) {
 
 void enqueue(Circle *queue_data, int &queue_size, double x, double y, double radius, int flag = 1) {
     if (queue_size + 1 > MAX_SIZE) {
-         if (flag) cout << "Element cannot be added, queue is full\n";
+        if (flag) cout << "Element cannot be added, queue is full\n";
         return;
     }
     queue_data[queue_size].center.x = x;
@@ -180,19 +180,19 @@ void print_queue(vector<Circle> queue) {
 
 void demonstrate(List queue) {
     create_empty(queue);
-    int num = (int) rand_num(5);
+    int num = 1 + (int) rand_num(4);
     for (int i = 0; i < num; i++) {
         enqueue(queue, rand_num(10), rand_num(10), rand_num(10));
     }
     cout << "Print:\n";
     print_queue(queue);
-    num = (int) rand_num(5);
+    num = 1 + (int) rand_num(4);
     for (int i = 0; i < num; i++) {
         dequeue(queue);
     }
     cout << "Print:\n";
     print_queue(queue);
-    num = (int) rand_num(3);
+    num = 1 + (int) rand_num(2);
     for (int i = 0; i < num; i++) {
         enqueue(queue, rand_num(10), rand_num(10), rand_num(10));
     }
@@ -205,19 +205,19 @@ void demonstrate(Circle *queue_data, int queue_size) {
     for (int i = 0; i < queue_size; i++) queue[i] = queue_data[i];
 
     create_empty(queue_size);
-    int num = (int) rand_num(5);
+    int num = 1 + (int) rand_num(4);
     for (int i = 0; i < num; i++) {
         enqueue(queue, queue_size, rand_num(10), rand_num(10), rand_num(10));
     }
     cout << "Print:\n";
     print_queue(queue, queue_size);
-    num = (int) rand_num(5);
+    num = 1 +(int) rand_num(4);
     for (int i = 0; i < num; i++) {
         dequeue(queue, queue_size);
     }
     cout << "Print:\n";
     print_queue(queue, queue_size);
-    num = (int) rand_num(3);
+    num = 1 + (int) rand_num(2);
     for (int i = 0; i < num; i++) {
         enqueue(queue, queue_size, rand_num(10), rand_num(10), rand_num(10));
     }
@@ -227,19 +227,19 @@ void demonstrate(Circle *queue_data, int queue_size) {
 
 void demonstrate(vector<Circle> queue) {
     create_empty(queue);
-    int num = (int) rand_num(5);
+    int num = 1 + (int) rand_num(4);
     for (int i = 0; i < num; i++) {
         enqueue(queue, rand_num(10), rand_num(10), rand_num(10));
     }
     cout << "Print:\n";
     print_queue(queue);
-    num = (int) rand_num(5);
+    num = 1 + (int) rand_num(4);
     for (int i = 0; i < num; i++) {
         dequeue(queue);
     }
     cout << "Print:\n";
     print_queue(queue);
-    num = (int) rand_num(3);
+    num = 1 + (int) rand_num(2);
     for (int i = 0; i < num; i++) {
         enqueue(queue, rand_num(10), rand_num(10), rand_num(10));
     }
@@ -259,10 +259,10 @@ auto time(const Func &func, size_t n) {
     return duration_cast<milliseconds>(end - begin).count();
 }
 
-void f(int val){
+void f(int val) {
     val++;
     val++;
-    val*=2;
+    val *= 2;
 }
 
 int main() {
@@ -453,19 +453,25 @@ int main() {
 
 
             cout << "\ncreate_empty:\n";
-            cout << "list (" << N  << "): " << time([&queue_list](){create_empty(queue_list);}, N) << endl;
-            cout << "array (" << N  << "): " << time([&queue_array](){create_empty(queue_array.size);}, N) << endl;
-            cout << "vector (" << N  << "): " << time([&queue_vector](){create_empty(queue_vector);}, N) << endl;
+            cout << "list (" << N << "): " << time([&queue_list]() { create_empty(queue_list); }, N) << endl;
+            cout << "array (" << N << "): " << time([&queue_array]() { create_empty(queue_array.size); }, N) << endl;
+            cout << "vector (" << N << "): " << time([&queue_vector]() { create_empty(queue_vector); }, N) << endl;
 
             cout << "\nenqueue:\n";
-            cout << "list (" << N  << "): " << time([&queue_list, &x, &y, &r](){enqueue(queue_list, x, y, r, 0);}, N) << endl;
-            cout << "array (" << N  << "): " << time([&queue_array, &x, &y, &r](){enqueue(queue_array.data, queue_array.size, x, y, r, 0);}, N) << endl;
-            cout << "vector (" << N  << "): " << time([&queue_vector, &x, &y, &r](){enqueue(queue_vector, x, y, r, 0);}, N) << endl;
+            cout << "list (" << N << "): " << time([&queue_list, &x, &y, &r]() { enqueue(queue_list, x, y, r, 0); }, N)
+                 << endl;
+            cout << "array (" << N << "): "
+                 << time([&queue_array, &x, &y, &r]() { enqueue(queue_array.data, queue_array.size, x, y, r, 0); }, N)
+                 << endl;
+            cout << "vector (" << N << "): "
+                 << time([&queue_vector, &x, &y, &r]() { enqueue(queue_vector, x, y, r, 0); }, N) << endl;
 
             cout << "\ndequeue:\n";
-            cout << "list  (" << N  << "): " << time([&queue_list](){dequeue(queue_list, 0);}, N) << endl;
-            cout << "array  (" << N  << "): " << time([&queue_array](){dequeue(queue_array.data, queue_array.size, 0);}, N) << endl;
-            cout << "vector  (" << (N/100000)  << "): " << time([&queue_vector](){dequeue(queue_vector, 0);}, (N/100000)) << endl;
+            cout << "list  (" << N << "): " << time([&queue_list]() { dequeue(queue_list, 0); }, N) << endl;
+            cout << "array  (" << N << "): "
+                 << time([&queue_array]() { dequeue(queue_array.data, queue_array.size, 0); }, N) << endl;
+            cout << "vector  (" << (N / 100000) << "): "
+                 << time([&queue_vector]() { dequeue(queue_vector, 0); }, (N / 100000)) << endl;
             continue;
         }
 
@@ -483,7 +489,6 @@ int main() {
         }
 
         cout << "Enter correct command (help)\n";
-//        cout << "\ncreate_empty:\n";
     }
     return 0;
 }
