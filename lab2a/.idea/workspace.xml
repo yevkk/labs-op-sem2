@@ -13,6 +13,10 @@
   <component name="ChangeListManager">
     <list default="true" id="45a9c9cd-a065-4d1b-934d-76d9fd4dfa96" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/lab2a.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/lab2a.dir/flags.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -38,7 +42,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor" />
@@ -47,10 +51,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
+            <state relative-caret-position="620">
+              <caret line="467" column="120" selection-start-line="467" selection-start-column="120" selection-end-line="467" selection-end-column="120" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#1069#1542#0" />
+                <element signature="e#1544#1998#0" />
+                <element signature="e#2000#2242#0" />
+                <element signature="e#2244#2702#0" />
+                <element signature="e#2704#3225#0" />
+                <element signature="e#3630#3829#0" />
+                <element signature="e#3831#4212#0" />
+                <element signature="e#4214#4567#0" />
+                <element signature="e#4569#4889#0" />
+                <element signature="e#6834#6849#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -69,7 +83,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="1912" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
@@ -84,6 +98,10 @@
       <pane id="ProjectPane">
         <subPane>
           <expand>
+            <path>
+              <item name="lab2a" type="b2602c69:ProjectViewProjectNode" />
+              <item name="lab2a" type="462c0819:PsiDirectoryNode" />
+            </path>
             <path>
               <item name="lab2a" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
@@ -133,9 +151,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../prog/smth" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -166,7 +185,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1550929547765</updated>
-      <workItem from="1550929549061" duration="30181000" />
+      <workItem from="1550929549061" duration="54555000" />
+      <workItem from="1551089363014" duration="4615000" />
     </task>
     <task id="LOCAL-00001" summary="Files created&#10;Type defined">
       <created>1550930655565</created>
@@ -231,11 +251,25 @@
       <option name="project" value="LOCAL" />
       <updated>1550962670921</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="'is_empty' command, console messages &quot;element ((x, y), r) added/removed&quot; added;">
+      <created>1551009257720</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1551009257720</updated>
+    </task>
+    <task id="LOCAL-00011" summary="print and demo added">
+      <created>1551024591373</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1551024591376</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30181000" />
+    <option name="totallyTimeSpent" value="59170000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -247,29 +281,29 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24973261" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25159574" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="CMake" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" weight="0.32928178" />
-      <window_info anchor="bottom" id="Messages" weight="0.32928178" />
-      <window_info anchor="bottom" id="Terminal" weight="0.32928178" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32928178" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.41316074" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32928178" />
-      <window_info anchor="right" id="Database" weight="0.32994652" />
+      <window_info anchor="bottom" id="Database Changes" order="7" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.3279396" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32900432" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32900432" />
+      <window_info anchor="bottom" id="CMake" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32994652" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,6 +334,20 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Files created&#10;Type defined" />
@@ -311,18 +359,37 @@
     <MESSAGE value="void dequeue() for list, vector and array added; function overloading added;" />
     <MESSAGE value="is_empty check added to dequeue(); other small changes;" />
     <MESSAGE value="'create', 'stop', 'command_list', 'select_mode' commands added" />
-    <option name="LAST_COMMIT_MESSAGE" value="'create', 'stop', 'command_list', 'select_mode' commands added" />
+    <MESSAGE value="'is_empty' command, console messages &quot;element ((x, y), r) added/removed&quot; added;" />
+    <MESSAGE value="print and demo added" />
+    <option name="LAST_COMMIT_MESSAGE" value="print and demo added" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/i686-w64-mingw32/include/mmcobj.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="79" column="15" selection-start-line="79" selection-start-column="15" selection-end-line="79" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
+        <state relative-caret-position="620">
+          <caret line="467" column="120" selection-start-line="467" selection-start-column="120" selection-end-line="467" selection-end-column="120" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#1069#1542#0" />
+            <element signature="e#1544#1998#0" />
+            <element signature="e#2000#2242#0" />
+            <element signature="e#2244#2702#0" />
+            <element signature="e#2704#3225#0" />
+            <element signature="e#3630#3829#0" />
+            <element signature="e#3831#4212#0" />
+            <element signature="e#4214#4567#0" />
+            <element signature="e#4569#4889#0" />
+            <element signature="e#6834#6849#0" expanded="true" />
           </folding>
         </state>
       </provider>
