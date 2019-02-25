@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2a/main.cpp
+iostream
+-
+vector
+-
+string
+-
+random
+-
+chrono
+-
+functional
+-
+
