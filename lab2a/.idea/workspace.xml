@@ -13,10 +13,6 @@
   <component name="ChangeListManager">
     <list default="true" id="45a9c9cd-a065-4d1b-934d-76d9fd4dfa96" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/lab2a.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/lab2a.dir/flags.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -51,8 +47,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="467" column="120" selection-start-line="467" selection-start-column="120" selection-end-line="467" selection-end-column="120" />
+            <state relative-caret-position="3652">
+              <caret line="471" column="39" selection-start-line="471" selection-start-column="39" selection-end-line="471" selection-end-column="39" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#1069#1542#0" />
@@ -60,11 +56,15 @@
                 <element signature="e#2000#2242#0" />
                 <element signature="e#2244#2702#0" />
                 <element signature="e#2704#3225#0" />
+                <element signature="e#3244#3645#0" />
                 <element signature="e#3630#3829#0" />
                 <element signature="e#3831#4212#0" />
                 <element signature="e#4214#4567#0" />
                 <element signature="e#4569#4889#0" />
+                <element signature="e#4891#5465#0" />
+                <element signature="e#5467#6238#0" />
                 <element signature="e#6834#6849#0" expanded="true" />
+                <element signature="e#6826#7097#0" />
               </folding>
             </state>
           </provider>
@@ -154,7 +154,8 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../prog/smth" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -186,7 +187,7 @@
       <option name="presentableId" value="Default" />
       <updated>1550929547765</updated>
       <workItem from="1550929549061" duration="54555000" />
-      <workItem from="1551089363014" duration="4615000" />
+      <workItem from="1551089363014" duration="6402000" />
     </task>
     <task id="LOCAL-00001" summary="Files created&#10;Type defined">
       <created>1550930655565</created>
@@ -265,11 +266,32 @@
       <option name="project" value="LOCAL" />
       <updated>1551024591376</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="benchmark added;">
+      <created>1551100552214</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1551100552214</updated>
+    </task>
+    <task id="LOCAL-00013" summary="small issues fixed;">
+      <created>1551101229404</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1551101229404</updated>
+    </task>
+    <task id="LOCAL-00014" summary="small issues fixed;">
+      <created>1551101271106</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1551101271106</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59170000" />
+    <option name="totallyTimeSpent" value="60957000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -282,23 +304,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.25159574" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.41316074" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.41261062" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32928178" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.3279396" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.32743362" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32900432" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32900432" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32853982" />
       <window_info anchor="bottom" id="CMake" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -361,7 +382,9 @@
     <MESSAGE value="'create', 'stop', 'command_list', 'select_mode' commands added" />
     <MESSAGE value="'is_empty' command, console messages &quot;element ((x, y), r) added/removed&quot; added;" />
     <MESSAGE value="print and demo added" />
-    <option name="LAST_COMMIT_MESSAGE" value="print and demo added" />
+    <MESSAGE value="benchmark added;" />
+    <MESSAGE value="small issues fixed;" />
+    <option name="LAST_COMMIT_MESSAGE" value="small issues fixed;" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/i686-w64-mingw32/include/mmcobj.h">
@@ -376,8 +399,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="467" column="120" selection-start-line="467" selection-start-column="120" selection-end-line="467" selection-end-column="120" />
+        <state relative-caret-position="3652">
+          <caret line="471" column="39" selection-start-line="471" selection-start-column="39" selection-end-line="471" selection-end-column="39" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#1069#1542#0" />
@@ -385,11 +408,15 @@
             <element signature="e#2000#2242#0" />
             <element signature="e#2244#2702#0" />
             <element signature="e#2704#3225#0" />
+            <element signature="e#3244#3645#0" />
             <element signature="e#3630#3829#0" />
             <element signature="e#3831#4212#0" />
             <element signature="e#4214#4567#0" />
             <element signature="e#4569#4889#0" />
+            <element signature="e#4891#5465#0" />
+            <element signature="e#5467#6238#0" />
             <element signature="e#6834#6849#0" expanded="true" />
+            <element signature="e#6826#7097#0" />
           </folding>
         </state>
       </provider>

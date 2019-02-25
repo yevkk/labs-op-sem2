@@ -466,6 +466,10 @@ int main() {
                  << time([&queue_array]() { dequeue(queue_array.data, queue_array.size, 0); }, N) << endl;
             cout << "vector  (" << (N / 100000) << "): "
                  << time([&queue_vector]() { dequeue(queue_vector, 0); }, (N / 100000)) << endl;
+
+            create_empty(queue_list);
+            create_empty(queue_array.size);
+            create_empty(queue_vector);
             continue;
         }
 
