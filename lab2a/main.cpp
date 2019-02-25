@@ -259,12 +259,6 @@ auto time(const Func &func, size_t n) {
     return duration_cast<milliseconds>(end - begin).count();
 }
 
-void f(int val) {
-    val++;
-    val++;
-    val *= 2;
-}
-
 int main() {
     struct {
         Circle data[MAX_SIZE];
