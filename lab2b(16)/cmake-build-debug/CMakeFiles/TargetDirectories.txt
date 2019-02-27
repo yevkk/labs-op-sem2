@@ -1,3 +1,3 @@
-C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2b/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2b/cmake-build-debug/CMakeFiles/lab2b.dir
-C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2b/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2b(16)/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2b(16)/cmake-build-debug/CMakeFiles/lab2b.dir
+C:/Users/kutse/OneDrive/Documents/YOGA/programming/labs/lab2b(16)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
