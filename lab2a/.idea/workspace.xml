@@ -12,8 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45a9c9cd-a065-4d1b-934d-76d9fd4dfa96" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab2b(16)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2b(16)/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab2b(16)/cmake-build-debug/CMakeFiles/lab2b.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2b(16)/cmake-build-debug/CMakeFiles/lab2b.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab2b(16)/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2b(16)/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,24 +48,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3652">
-              <caret line="471" column="39" selection-start-line="471" selection-start-column="39" selection-end-line="471" selection-end-column="39" />
+            <state relative-caret-position="-11081">
+              <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#1069#1542#0" />
-                <element signature="e#1544#1998#0" />
-                <element signature="e#2000#2242#0" />
-                <element signature="e#2244#2702#0" />
-                <element signature="e#2704#3225#0" />
                 <element signature="e#3244#3645#0" />
-                <element signature="e#3630#3829#0" />
-                <element signature="e#3831#4212#0" />
-                <element signature="e#4214#4567#0" />
-                <element signature="e#4569#4889#0" />
-                <element signature="e#4891#5465#0" />
-                <element signature="e#5467#6238#0" />
-                <element signature="e#6834#6849#0" expanded="true" />
-                <element signature="e#6826#7097#0" />
               </folding>
             </state>
           </provider>
@@ -83,7 +71,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
@@ -151,7 +139,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../prog/smth" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -188,6 +176,7 @@
       <updated>1550929547765</updated>
       <workItem from="1550929549061" duration="54555000" />
       <workItem from="1551089363014" duration="6402000" />
+      <workItem from="1551268713065" duration="48000" />
     </task>
     <task id="LOCAL-00001" summary="Files created&#10;Type defined">
       <created>1550930655565</created>
@@ -291,7 +280,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60957000" />
+    <option name="totallyTimeSpent" value="61005000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -303,20 +292,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.25159574" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.41261062" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5649279" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32928178" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32743362" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.32741398" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32900432" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32853982" />
@@ -399,24 +388,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3652">
-          <caret line="471" column="39" selection-start-line="471" selection-start-column="39" selection-end-line="471" selection-end-column="39" />
+        <state relative-caret-position="-11081">
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#1069#1542#0" />
-            <element signature="e#1544#1998#0" />
-            <element signature="e#2000#2242#0" />
-            <element signature="e#2244#2702#0" />
-            <element signature="e#2704#3225#0" />
             <element signature="e#3244#3645#0" />
-            <element signature="e#3630#3829#0" />
-            <element signature="e#3831#4212#0" />
-            <element signature="e#4214#4567#0" />
-            <element signature="e#4569#4889#0" />
-            <element signature="e#4891#5465#0" />
-            <element signature="e#5467#6238#0" />
-            <element signature="e#6834#6849#0" expanded="true" />
-            <element signature="e#6826#7097#0" />
           </folding>
         </state>
       </provider>
