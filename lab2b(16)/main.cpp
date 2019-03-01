@@ -2,10 +2,13 @@
 #include <cstring>
 #include <chrono>
 #include <ctime>
+#include <random>
 
-using namespace std;
+using std::cout;
+using std::cin;
+using std::string;
 
-const int MAX_CAP = 3;
+const int MAX_CAP = 10;
 
 struct Message {
     string text;
@@ -26,7 +29,7 @@ struct List {
 void add_msg(List &lst, string &msg) {
     if (lst.capacity == MAX_CAP) {
         lst.head->msg.text = msg;
-        lst.head->msg.time = chrono::system_clock::to_time_t(chrono::system_clock::now());
+        lst.head->msg.time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         lst.tail = lst.head;
         lst.head = lst.head->next;
     } else {
@@ -34,7 +37,7 @@ void add_msg(List &lst, string &msg) {
         if (lst.capacity == 0) lst.head = ptr;
         else lst.tail->next = ptr;
         ptr->msg.text = msg;
-        ptr->msg.time = chrono::system_clock::to_time_t(chrono::system_clock::now());
+        ptr->msg.time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         ptr->next = lst.head;
         lst.tail = ptr;
         lst.capacity++;
@@ -50,53 +53,53 @@ void print(List &lst, int k) {
     } while (ptr != lst.head);
 }
 
+double rand_num(double max) {
+    static std::random_device rd;
+    static std::mt19937 mt(rd());
+    std::uniform_real_distribution<double> dist(0, max);
+
+    return dist(mt);
+}
+
 void demonstration(List lst){
     string msg;
+    int num = 0;
 
-    cout << "Max capacity:" << MAX_CAP;
+    cout << "Max capacity:" << MAX_CAP << std::endl;
 
-    msg = "00000001";
-    add_msg(lst, msg);
-    cout << "Message \"" << msg << "\" added\n";
+    int count = 1 + (int) rand_num(MAX_CAP - 3);
+    for (int i = 0; i < count; i++){
+        msg = "Message " + std::to_string(num);
+        add_msg(lst, msg);
+        cout << msg << " added\n";
+        num++;
+    }
 
-    msg = "00000010";
-    add_msg(lst, msg);
-    cout << "Message \"" << msg << "\" added\n";
+    count = 1 + (int) rand_num(lst.capacity);
+    cout << "\nPrint (" << count << ")\n";
+    print(lst, count);
 
-    cout << "Print (2):\n";
-    print(lst, 2);
+    count = 1 + (int) rand_num(lst.capacity);
+    cout << "\nPrint (" << count << ")\n";
+    print(lst, count);
 
-    msg = "00000011";
-    add_msg(lst, msg);
-    cout << "Message \"" << msg << "\" added\n";
+    cout << "\nPrint all:\n";
+    print(lst, lst.capacity);
 
-    msg = "00000100";
-    add_msg(lst, msg);
-    cout << "Message \"" << msg << "\" added\n";
+    count = 1 + (int) rand_num(MAX_CAP-2);
+    for (int i = 0; i < count; i++){
+        msg = "Message " + std::to_string(num);
+        add_msg(lst, msg);
+        cout << msg << " added\n";
+        num++;
+    }
 
-    msg = "00000101";
-    add_msg(lst, msg);
-    cout << "Message \"" << msg << "\" added\n";
+    cout << "\nPrint all:\n";
+    print(lst, lst.capacity);
 
-    msg = "00000110";
-    add_msg(lst, msg);
-    cout << "Message \"" << msg << "\" added\n";
-    msg = "00000111";
-    add_msg(lst, msg);
-    cout << "Message \"" << msg << "\" added\n";
-
-    msg = "00001000";
-    add_msg(lst, msg);
-    cout << "Message \"" << msg << "\" added\n";
-
-    cout << "Print (3):\n";
-    print(lst, 3);
-
-    cout << "Print (1):\n";
-    print(lst, 1);
-
-    cout << "Print (2):\n";
-    print(lst, 2);
+    count = 1 + (int) rand_num(lst.capacity);
+    cout << "\nPrint (" << count << ")\n";
+    print(lst, count);
 }
 
 int main() {
@@ -117,9 +120,9 @@ int main() {
 
         if (str == "print_k") {
             do {
-                cout << "k (k <= " << MAX_CAP << ") = ";
+                cout << "k (0 < k <= " << lst.capacity << ") = ";
                 cin >> k;
-            } while ((k <= 0) || (k > MAX_CAP));
+            } while ((k <= 0) || (k > lst.capacity));
             print(lst, k);
             continue;
         }
