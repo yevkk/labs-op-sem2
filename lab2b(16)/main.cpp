@@ -118,7 +118,7 @@ int main() {
             continue;
         }
 
-        if (str == "print_k") {
+        if (str == "print") {
             do {
                 cout << "k (0 < k <= " << lst.capacity << ") = ";
                 cin >> k;
@@ -137,7 +137,7 @@ int main() {
             continue;
         }
 
-        cout << "Enter correct command";
+        if (str!= "stop") cout << "Enter correct command";
     } while (str != "stop");
 
     return 0;
