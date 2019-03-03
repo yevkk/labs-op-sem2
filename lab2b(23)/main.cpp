@@ -19,6 +19,7 @@ struct Node {
     int data = (int) 0;
     Node *next = nullptr;
     Node *bottom = nullptr;
+    int layer = 0;
 };
 typedef Node *Layer;
 typedef std::vector<Layer> SkipList;
@@ -56,6 +57,7 @@ void add_node_to_skiplist(SkipList &lst, int num, int mode = 1) {
         lyr_num++;
         if (lyr_num + 1 > lst.size()) lst.push_back(nullptr);
         ptr = add_node_to_layer(lst[lyr_num], num, ptr);
+        ptr->layer = lyr_num;
         if (mode) std::cout << lyr_num << ' ';
         rand = rand_num(10);
     }
@@ -79,6 +81,35 @@ void print_skiplist(SkipList lst) {
     }
 }
 
+Node *search_in_skiplist(SkipList lst, int num, int mode = 1) {
+    int lyr_num = lst.size() - 1;
+    Node *ptr = lst[lyr_num];
+
+    while (ptr->data > num) {
+        ptr = lst[--lyr_num];
+        if (mode) std::cout << "| ";
+    }
+    if (mode) std::cout << "- ";
+
+    while (true) {
+        while (true) {
+            if (ptr->next == nullptr) {
+                break;
+            }
+            else if (ptr->next->data > num) {
+                break;
+            }
+            if (mode) std::cout << "- ";
+            ptr = ptr->next;
+        }
+        if (ptr->layer == 0) break;
+
+        ptr = ptr->bottom;
+        if (mode) std::cout << "| ";
+    }
+    if (mode) std::cout << std::endl;
+    return ((ptr->data == num) ? ptr : nullptr);
+}
 
 int main() {
     SkipList lst;
@@ -114,8 +145,16 @@ int main() {
             continue;
         }
 
+        if (str == "search") {
+            std::cout << "value: ";
+            std::cin >> num;
+            std::cout << search_in_skiplist(lst, num) << std::endl;
+            continue;
+        }
+
         if (str == "help") {
-            std::cout << " - stop\n" << " - add\n" << " - print_list\n" << " - print_layer\n" << " - find\n" << " - demo\n";
+            std::cout << " - stop\n" << " - add\n" << " - print_list\n" << " - print_layer\n" << " - search\n"
+                      << " - demo\n";
             continue;
         }
 
