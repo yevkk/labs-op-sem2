@@ -26,11 +26,12 @@ struct List {
 };
 
 double rand_num(double max) {
-    static random_device rd;
-    static mt19937 mt(rd());
-    static uniform_real_distribution<double> dist(0, max);
+    static std::random_device rd;
+    static std::seed_seq seed { rd(), static_cast<unsigned int>(time(nullptr))};
+    static std::mt19937_64 gen(seed);
+    std::uniform_real_distribution<double> dist(0, max);
 
-    return dist(mt);
+    return dist(gen);
 }
 
 void create_empty(List &queue) {

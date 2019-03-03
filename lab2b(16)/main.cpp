@@ -55,10 +55,11 @@ void print(List &lst, int k) {
 
 double rand_num(double max) {
     static std::random_device rd;
-    static std::mt19937 mt(rd());
-    std::uniform_real_distribution<double> dist(0, max);
+    static std::seed_seq seed { rd(), static_cast<unsigned int>(time(nullptr))};
+    static std::mt19937_64 gen(seed);
+    static std::uniform_real_distribution<double> dist(0, max);
 
-    return dist(mt);
+    return dist(gen);
 }
 
 void demonstration(List lst){
