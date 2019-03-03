@@ -141,8 +141,6 @@ int main() {
     std::string str;
     int num;
 
-    //for (size_t i = 0; i <= 300; i++) demonstration(lst);
-
     while (true) {
         std::cout << "\nEnter command: ";
         std::cin >> str;

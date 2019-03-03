@@ -33,10 +33,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="150" column="25" lean-forward="true" selection-start-line="150" selection-start-column="25" selection-end-line="150" selection-end-column="25" />
+            <state relative-caret-position="2318">
+              <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#527#1174#0" />
               </folding>
             </state>
           </provider>
@@ -106,7 +107,7 @@
       <updated>1551103541765</updated>
       <workItem from="1551103543033" duration="854000" />
       <workItem from="1551546160625" duration="18512000" />
-      <workItem from="1551621990408" duration="8216000" />
+      <workItem from="1551621990408" duration="14423000" />
     </task>
     <task id="LOCAL-00001" summary="project created;">
       <created>1551103565801</created>
@@ -143,22 +144,35 @@
       <option name="project" value="LOCAL" />
       <updated>1551626356412</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="(lab2b(23)) search by value added;">
+      <created>1551632070217</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1551632070217</updated>
+    </task>
+    <task id="LOCAL-00007" summary="(lab2b(23)) demonstration mode added, search issues fixed;">
+      <created>1551638514722</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1551638514722</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27582000" />
+    <option name="totallyTimeSpent" value="33789000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.25294748" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994641" weight="0.32963374" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32963374" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994641" weight="0.95782465" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39955604" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -224,7 +238,9 @@
     <MESSAGE value="(lab2b(23)) add_node_to_layer() function added;" />
     <MESSAGE value="(lab2b(23)) add_node_to_skiplist() function added; random fixed in all projects;" />
     <MESSAGE value="(lab2b(23)) console control added;" />
-    <option name="LAST_COMMIT_MESSAGE" value="(lab2b(23)) console control added;" />
+    <MESSAGE value="(lab2b(23)) search by value added;" />
+    <MESSAGE value="(lab2b(23)) demonstration mode added, search issues fixed;" />
+    <option name="LAST_COMMIT_MESSAGE" value="(lab2b(23)) demonstration mode added, search issues fixed;" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
@@ -232,10 +248,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="150" column="25" lean-forward="true" selection-start-line="150" selection-start-column="25" selection-end-line="150" selection-end-column="25" />
+        <state relative-caret-position="2318">
+          <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#527#1174#0" />
           </folding>
         </state>
       </provider>
