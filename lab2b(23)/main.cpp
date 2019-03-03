@@ -13,7 +13,7 @@ double rand_num(double max) {
     return dist(gen);
 }
 
-const double chance = 5;
+const double CHANCE = 0.5; // (0, 1);
 
 struct Node {
     int data = (int) 0;
@@ -23,6 +23,37 @@ struct Node {
 };
 typedef Node *Layer;
 typedef std::vector<Layer> SkipList;
+
+Node *search_in_skiplist(SkipList lst, int num, int mode = 1) {
+    if (lst[0] == nullptr) return nullptr;
+    int lyr_num = lst.size() - 1;
+    Node *ptr = lst[lyr_num];
+
+    while (ptr->data > num) {
+        ptr = lst[--lyr_num];
+        if (mode) std::cout << "| ";
+        if (lyr_num <= 0) return nullptr;
+    }
+    if (mode) std::cout << "- ";
+
+    while (true) {
+        while (true) {
+            if (ptr->next == nullptr) {
+                break;
+            } else if (ptr->next->data > num) {
+                break;
+            }
+            if (mode) std::cout << "- ";
+            ptr = ptr->next;
+        }
+        if (ptr->layer == 0) break;
+
+        ptr = ptr->bottom;
+        if (mode) std::cout << "| ";
+    }
+    if (mode) std::cout << std::endl;
+    return ((ptr->data == num) ? ptr : nullptr);
+}
 
 Node *add_node_to_layer(Layer &lyr, int num, Node *bottom) {
     if ((lyr == nullptr) || (lyr->data > num)) {
@@ -49,17 +80,21 @@ Node *add_node_to_layer(Layer &lyr, int num, Node *bottom) {
 }
 
 void add_node_to_skiplist(SkipList &lst, int num, int mode = 1) {
+    if (search_in_skiplist(lst, num, 0) != nullptr) {
+        if (mode) std::cout << "Element " << num << " already exists\n";
+        return;
+    }
+
     int lyr_num = 0;
-    double rand = rand_num(10);
     Node *ptr = add_node_to_layer(lst[0], num, nullptr);
     if (mode) std::cout << "Element " << num << " added to layers: 0 ";
-    while (rand < chance) {
+
+    while (rand_num(1) < CHANCE) {
         lyr_num++;
         if (lyr_num + 1 > lst.size()) lst.push_back(nullptr);
         ptr = add_node_to_layer(lst[lyr_num], num, ptr);
         ptr->layer = lyr_num;
         if (mode) std::cout << lyr_num << ' ';
-        rand = rand_num(10);
     }
     if (mode) std::cout << std::endl;
 
@@ -81,34 +116,23 @@ void print_skiplist(SkipList lst) {
     }
 }
 
-Node *search_in_skiplist(SkipList lst, int num, int mode = 1) {
-    int lyr_num = lst.size() - 1;
-    Node *ptr = lst[lyr_num];
-
-    while (ptr->data > num) {
-        ptr = lst[--lyr_num];
-        if (mode) std::cout << "| ";
+void demonstration(SkipList lst) {
+    int num;
+    for (int i = 0; i < rand_num(10); i++) {
+        num = (int) rand_num(10);
+        add_node_to_skiplist(lst, num);
     }
-    if (mode) std::cout << "- ";
 
-    while (true) {
-        while (true) {
-            if (ptr->next == nullptr) {
-                break;
-            }
-            else if (ptr->next->data > num) {
-                break;
-            }
-            if (mode) std::cout << "- ";
-            ptr = ptr->next;
-        }
-        if (ptr->layer == 0) break;
+    std::cout << std::endl;
+    std::cout << "Print:\n";
+    print_skiplist(lst);
+    std::cout << std::endl;
 
-        ptr = ptr->bottom;
-        if (mode) std::cout << "| ";
+    for (int i = 0; i < rand_num(10); i++) {
+        num = (int) rand_num(10);
+        std::cout << "Search " << num << std::endl;
+        std::cout << search_in_skiplist(lst, num) << std::endl << std::endl;
     }
-    if (mode) std::cout << std::endl;
-    return ((ptr->data == num) ? ptr : nullptr);
 }
 
 int main() {
@@ -116,6 +140,8 @@ int main() {
     lst.push_back(nullptr);
     std::string str;
     int num;
+
+    //for (size_t i = 0; i <= 300; i++) demonstration(lst);
 
     while (true) {
         std::cout << "\nEnter command: ";
@@ -149,6 +175,11 @@ int main() {
             std::cout << "value: ";
             std::cin >> num;
             std::cout << search_in_skiplist(lst, num) << std::endl;
+            continue;
+        }
+
+        if (str == "demo") {
+            demonstration(lst);
             continue;
         }
 
