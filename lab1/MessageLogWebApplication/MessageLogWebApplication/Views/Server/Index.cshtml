@@ -9,6 +9,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="Server" asp-action="Index" method="get">
+    Text: <input type="text" name="SearchString">
+    Date 1: <input type="datetime-local" name="FirstDate">
+    Date 2: <input type="datetime-local" name="SecondDate">
+    Min Load: <input type="number" name="MinLoad">  
+    <br /><br />
+    <input type="submit" value="Search" />
+</form>
 <table class="table">
     <thead>
         <tr>

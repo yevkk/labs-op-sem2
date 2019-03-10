@@ -5,13 +5,31 @@
 }
 
 <h2>Index</h2>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="Message" asp-action="Index" method="get">
+    Text: <input type="text" name="SearchString">
+    Date:  <input type="datetime-local" name="SearchDate">
+    Min Priority: <input type="number" name="MinPriority">
+    Max Priority: <input type="number" name="MaxPriority">
+    Type:  <select name="SearchType">
+        <option value=""></option>
+        <option value="debug">debug</option>
+        <option value="info">info</option>
+        <option value="warning">warning</option>
+        <option value="error">error</option>
+        <option value="fatal">fatal</option>
+    </select>
+    <br /><br />
+    <input type="submit" value="Search" />
+</form>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Server)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Text)
             </th>
@@ -27,15 +45,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.LoadLevel)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Server)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServerId)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
             </td>
@@ -50,9 +68,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LoadLevel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Server.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

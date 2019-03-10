@@ -18,10 +18,44 @@ namespace MessageLogWebApplication.Models
         }
 
         // GET: Message
-        public async Task<IActionResult> Index()
+       public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType)
         {
-            var messageLogWebApplicationContext = _context.Message.Include(m => m.Server);
-            return View(await messageLogWebApplicationContext.ToListAsync());
+            var messages = from m in _context.Message
+                           select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                messages = messages.Where(s => s.Text.Contains(searchString));
+            }
+
+            if (searchDate != null)
+            {
+                messages = messages.Where(x => x.ProcessingDate >= searchDate);
+            }
+
+            if (minPriority != null)
+            {
+                messages = messages.Where(s => s.Priority >= minPriority);
+            }
+
+            if (maxPriority != null)
+            {
+                messages = messages.Where(s => s.Priority <= maxPriority);
+            }
+
+            if (!string.IsNullOrEmpty(searchType))
+            {
+                messages = messages.Where(s => s.Type == searchType);
+            }
+
+
+            return View(await messages.ToListAsync());
+        }
+
+        [HttpPost]
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
         }
 
         // GET: Message/Details/5
@@ -46,7 +80,7 @@ namespace MessageLogWebApplication.Models
         // GET: Message/Create
         public IActionResult Create()
         {
-            ViewData["ServerId"] = new SelectList(_context.Set<Server>(), "Id", "Id");
+            ViewData["ServerId"] = new SelectList(_context.Set<Server>(), "Id", "Description");
             return View();
         }
 
@@ -80,7 +114,7 @@ namespace MessageLogWebApplication.Models
             {
                 return NotFound();
             }
-            ViewData["ServerId"] = new SelectList(_context.Set<Server>(), "Id", "Id", message.ServerId);
+            ViewData["ServerId"] = new SelectList(_context.Set<Server>(), "Id", "Description", message.ServerId);
             return View(message);
         }
 

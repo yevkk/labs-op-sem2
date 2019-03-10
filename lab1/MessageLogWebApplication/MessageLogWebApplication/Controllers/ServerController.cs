@@ -18,10 +18,50 @@ namespace MessageLogWebApplication.Models
         }
 
         // GET: Server
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, DateTime? firstDate, DateTime? secondDate, double? minLoad)
         {
-            return View(await _context.Server.ToListAsync());
+            IQueryable<Server> servers = Search(searchString, firstDate, secondDate, minLoad);
+
+            return View(await servers.ToListAsync());
         }
+
+        private IQueryable<Server> Search(string searchString, DateTime? firstDate, DateTime? secondDate, double? minLoad)
+        {
+            var servers = from m in _context.Server
+                          select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                servers = servers.Where(s => s.Description.Contains(searchString));
+            }
+
+            if (firstDate != null)
+            {
+                var messages = from m in _context.Message
+                               select m;
+                messages = messages.Where(m => m.ProcessingDate >= firstDate);
+                servers = servers.Where(s => messages.Intersect(s.Message.AsQueryable()).Count() != 0);
+            }
+
+            if (secondDate != null)
+            {
+                var messages = from m in _context.Message
+                               select m;
+                messages = messages.Where(m => m.ProcessingDate <= secondDate);
+                servers = servers.Where(s => messages.Intersect(s.Message.AsQueryable()).Count() != 0);
+            }
+
+            if (minLoad != null)
+            {
+                var messages = from m in _context.Message
+                               select m;
+                messages = messages.Where(m => m.LoadLevel >= minLoad);
+                servers = servers.Where(s => messages.Intersect(s.Message.AsQueryable()).Count() != 0);
+            }
+
+            return servers;
+        }
+
 
         // GET: Server/Details/5
         public async Task<IActionResult> Details(int? id)
