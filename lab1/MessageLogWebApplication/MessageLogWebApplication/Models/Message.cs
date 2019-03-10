@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MessageLogWebApplication.Models
 {
@@ -19,5 +21,6 @@ namespace MessageLogWebApplication.Models
         public float? LoadLevel { get; set; }
 
         public Server Server { get; set; }
+        
     }
 }
