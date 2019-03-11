@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Xml;
+using System.Xml.Linq;
+using System.IO;
 
 namespace MessageLogWebApplication.Models
 {
@@ -188,5 +191,56 @@ namespace MessageLogWebApplication.Models
         {
             return _context.Message.Any(e => e.Id == id);
         }
+
+        public void XmlCreate() {
+            XmlDocument xdoc = new XmlDocument();
+            //xdoc.Load("~/images/messages.xml");
+            XmlElement xRoot = xdoc.CreateElement("messages"); ;
+
+            var messages = from m in _context.Message
+                           select m;
+
+            foreach (var m in messages) {
+                XmlElement message = xdoc.CreateElement("message");
+                XmlAttribute messageIdAttr = xdoc.CreateAttribute("id");
+                XmlElement messageServerIdElem = xdoc.CreateElement("server_id");
+                XmlElement messageTextElem = xdoc.CreateElement("text");
+                XmlElement messageProcessingDateElem = xdoc.CreateElement("processing_date");
+                XmlElement messageTypeElem = xdoc.CreateElement("type");
+                XmlElement messagePriorityElem = xdoc.CreateElement("priority");
+                XmlElement messageLoadLevelElem = xdoc.CreateElement("load_level");
+
+                XmlText idText = xdoc.CreateTextNode(m.Id.ToString());
+                XmlText serverIdText = xdoc.CreateTextNode(m.ServerId.ToString());
+                XmlText textText = xdoc.CreateTextNode(m.Text);
+                XmlText processingDateText = xdoc.CreateTextNode(m.ProcessingDate.ToString());
+                XmlText typeText = xdoc.CreateTextNode(m.Type);
+                XmlText priorityText = xdoc.CreateTextNode(m.Priority.ToString());
+                XmlText loadLevelText = xdoc.CreateTextNode(m.LoadLevel.ToString());
+
+                messageIdAttr.AppendChild(idText);
+                messageServerIdElem.AppendChild(serverIdText);
+                messageTextElem.AppendChild(textText);
+                messageProcessingDateElem.AppendChild(processingDateText);
+                messageTypeElem.AppendChild(typeText);
+                messagePriorityElem.AppendChild(priorityText);
+                messageLoadLevelElem.AppendChild(loadLevelText);
+
+                message.Attributes.Append(messageIdAttr);
+                message.AppendChild(messageServerIdElem);
+                message.AppendChild(messageTextElem);
+                message.AppendChild(messageProcessingDateElem);
+                message.AppendChild(messageTypeElem);
+                message.AppendChild(messagePriorityElem);
+                message.AppendChild(messageLoadLevelElem);
+
+                xRoot.AppendChild(message);
+            }
+            xdoc.AppendChild(xRoot);
+            xdoc.Save("wwwroot/Xml/messages.xml");
+        }
+
+       
+
     }
 }
