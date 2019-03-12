@@ -1,30 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<messages>
-  <message id="77">
-    <server_id>1</server_id>
-    <text>texttexttext</text>
-    <processing_date>2019-03-11T23:02:00</processing_date>
-    <type>error     </type>
-    <priority>123</priority>
-    <load_level>0.6</load_level>
-  </message>
-  <message id="76">
-    <server_id>2</server_id>
-    <text>Hello world!</text>
-    <processing_date>2019-03-11T21:02:00</processing_date>
-    <type>info      </type>
-    <priority>6</priority>
-    <load_level>0.12</load_level>
-  </message>
-  <message id="75">
-    <server_id>1</server_id>
-    <text>Text Message</text>
-    <processing_date>2001-11-11T14:02:00</processing_date>
-    <type>error     </type>
-    <priority>123</priority>
-    <load_level>0.41</load_level>
-  </message>
-  <message id="74">
+<root>
+  <server id="10">
+    <description>Server 1</description>
+    <ip>123.234.123.211</ip>
+    <reload_date />
+  </server>
+  <server id="9">
+    <description>Server 2</description>
+    <ip>123.234.123.211</ip>
+    <reload_date />
+  </server>
+  <server id="8">
+    <description>Server 3d</description>
+    <ip>123.234.123.211</ip>
+    <reload_date>2003-02-02T01:01:00</reload_date>
+  </server>
+  <server id="7">
+    <description>4th server</description>
+    <ip>66.249.64.3</ip>
+    <reload_date />
+  </server>
+  <server id="6">
+    <description>5 s</description>
+    <ip>66.249.64.3</ip>
+    <reload_date />
+  </server>
+  <message id="5">
     <server_id>6</server_id>
     <text>THIS IS MESSAGE</text>
     <processing_date>2019-03-01T02:01:00</processing_date>
@@ -32,4 +33,28 @@
     <priority>200</priority>
     <load_level>0.56</load_level>
   </message>
-</messages>
+  <message id="4">
+    <server_id>10</server_id>
+    <text>Text Message</text>
+    <processing_date>2001-11-11T14:02:00</processing_date>
+    <type>error     </type>
+    <priority>123</priority>
+    <load_level>0.41</load_level>
+  </message>
+  <message id="3">
+    <server_id>9</server_id>
+    <text>Hello world!</text>
+    <processing_date>2019-03-11T21:02:00</processing_date>
+    <type>info      </type>
+    <priority>6</priority>
+    <load_level>0.12</load_level>
+  </message>
+  <message id="2">
+    <server_id>10</server_id>
+    <text>texttexttext</text>
+    <processing_date>2019-03-11T23:02:00</processing_date>
+    <type>error     </type>
+    <priority>123</priority>
+    <load_level>0.6</load_level>
+  </message>
+</root>

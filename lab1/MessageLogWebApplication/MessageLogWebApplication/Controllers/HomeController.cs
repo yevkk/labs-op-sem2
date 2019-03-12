@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MessageLogWebApplication.Models;
 using System.Xml.Linq;
-
+using System.Data.SqlClient;
 
 namespace MessageLogWebApplication.Controllers
 {
@@ -14,26 +14,17 @@ namespace MessageLogWebApplication.Controllers
     {
         private readonly MessageLogWebApplicationContext _context;
 
+        public HomeController(MessageLogWebApplicationContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
+        public IActionResult Tools()
         {
             return View();
         }
@@ -47,7 +38,7 @@ namespace MessageLogWebApplication.Controllers
         public async Task<IActionResult> XmlCreate()
         {
             XDocument xdoc = new XDocument();
-            XElement xRoot = new XElement("messages"); ;
+            XElement xRoot = new XElement("root"); ;
 
             var messages = from m in _context.Message
                            select m;
@@ -74,24 +65,71 @@ namespace MessageLogWebApplication.Controllers
 
                 xRoot.AddFirst(message);
             }
-            xdoc.Add(xRoot);
-            xdoc.Save("wwwroot/Xml/messages.xml");
 
-            return RedirectToAction(nameof(Index));
+            var servers = from m in _context.Server
+                           select m;
+
+            foreach (var s in servers)
+            {
+                XElement server = new XElement("server");
+
+                XAttribute idAttr = new XAttribute("id", s.Id);
+                XElement descriptionElem = new XElement("description", s.Description);
+                XElement ipElem = new XElement("ip", s.Ip);
+                XElement reloadDateElem = new XElement("reload_date", s.ReloadDate);
+
+                server.Add(idAttr);
+                server.Add(descriptionElem);
+                server.Add(ipElem);
+                server.Add(reloadDateElem);
+         
+                xRoot.AddFirst(server);
+            }
+
+            xdoc.Add(xRoot);
+            xdoc.Save("wwwroot/xml/messages.xml");
+            
+            return RedirectToAction(nameof(Tools));
         }
 
 
         public async Task<IActionResult> LoadXml()
         {
             XDocument xdoc = XDocument.Load("wwwroot/Xml/messages.xml");
-
+            
             foreach (var message in _context.Message)
                 _context.Message.Remove(message);
+             
+            foreach (var server in _context.Server)
+               _context.Server.Remove(server);
             _context.SaveChanges();
 
-            foreach (XElement messageElem in xdoc.Element("messages").Elements("message"))
+            foreach (XElement serverElem in xdoc.Element("root").Elements("server"))
             {
-                XAttribute idAttr = messageElem.Attribute("id");
+                XAttribute idAttr = serverElem.Attribute("id");
+                XElement descriptionElem = serverElem.Element("description");
+                XElement ipElem = serverElem.Element("ip");
+                XElement reloadDateElem = serverElem.Element("reload_date");
+
+                if (descriptionElem != null && ipElem != null && reloadDateElem != null)
+                {
+                    Server server = new Server();
+                    server.prevId = int.Parse(idAttr.Value);
+                    server.Description = descriptionElem.Value;
+                    server.Ip = ipElem.Value;
+                    if (reloadDateElem.Value != "") server.ReloadDate = DateTime.Parse(reloadDateElem.Value);
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(server);
+                    }
+
+                }
+            }
+            _context.SaveChanges();
+
+            foreach (XElement messageElem in xdoc.Element("root").Elements("message"))
+            {
+                //XAttribute idAttr = messageElem.Attribute("id");
                 XElement serverIdElem = messageElem.Element("server_id");
                 XElement textElem = messageElem.Element("text");
                 XElement processingDateElem = messageElem.Element("processing_date");
@@ -100,10 +138,12 @@ namespace MessageLogWebApplication.Controllers
                 XElement loadLevelElem = messageElem.Element("load_level");
 
 
-                if (idAttr != null && serverIdElem != null && textElem != null && processingDateElem != null && typeElem != null && priorityElem != null && loadLevelElem != null)
+                if (serverIdElem != null && textElem != null && processingDateElem != null && typeElem != null && priorityElem != null && loadLevelElem != null)
                 {
                     Message message = new Message();
-                    message.ServerId = int.Parse(serverIdElem.Value);
+                    //message.ServerId = int.Parse(serverIdElem.Value);
+                    Server server = _context.Server.First(s => s.prevId == int.Parse(serverIdElem.Value));
+                    message.ServerId = server.Id;
                     message.Text = textElem.Value;
                     if (processingDateElem.Value != "") message.ProcessingDate = DateTime.Parse(processingDateElem.Value);
                     message.Type = typeElem.Value;
@@ -118,7 +158,7 @@ namespace MessageLogWebApplication.Controllers
                 }
             }
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Tools));
         }
     }
 }

@@ -162,6 +162,10 @@ namespace MessageLogWebApplication.Models
                 return NotFound();
             }
 
+            foreach (var message in _context.Message)
+                if (message.ServerId == id) _context.Message.Remove(message);
+            _context.SaveChanges();
+
             var server = await _context.Server
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (server == null)
