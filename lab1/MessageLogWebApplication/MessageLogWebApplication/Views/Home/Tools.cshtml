@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<form asp-controller="Home" asp-action="XmlCreate">
+    <input type="submit" value="Create XML" /> &nbsp; &nbsp;
+    <a download="messages.xml" href="Xml/messages.xml">Download XML</a>
+</form>
+<form asp-controller="Home" asp-action="LoadXml">
+    <input type="submit" value="Load XML" /> &nbsp; &nbsp;
+</form>

@@ -1,42 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <messages>
-  <message id="10">
+  <message id="77">
     <server_id>1</server_id>
-    <text>This is message</text>
-    <processing_date>3/1/2019 2:01:00 AM</processing_date>
-    <type>debug     </type>
-    <priority>200</priority>
-    <load_level>0.56</load_level>
-  </message>
-  <message id="11">
-    <server_id>2</server_id>
-    <text>Txt txt</text>
-    <processing_date>3/22/2019 11:11:00 AM</processing_date>
-    <type>warning   </type>
-    <priority>11</priority>
-    <load_level>0.43</load_level>
-  </message>
-  <message id="12">
-    <server_id>1</server_id>
-    <text>Text Message</text>
-    <processing_date>11/11/2001 2:02:00 PM</processing_date>
+    <text>texttexttext</text>
+    <processing_date>2019-03-11T23:02:00</processing_date>
     <type>error     </type>
     <priority>123</priority>
-    <load_level>0.41</load_level>
+    <load_level>0.6</load_level>
   </message>
-  <message id="13">
+  <message id="76">
     <server_id>2</server_id>
     <text>Hello world!</text>
-    <processing_date>3/11/2019 9:02:00 PM</processing_date>
+    <processing_date>2019-03-11T21:02:00</processing_date>
     <type>info      </type>
     <priority>6</priority>
     <load_level>0.12</load_level>
   </message>
-  <message id="14">
+  <message id="75">
     <server_id>1</server_id>
-    <text>Паша</text>
-    <processing_date>3/11/2019 11:02:00 PM</processing_date>
+    <text>Text Message</text>
+    <processing_date>2001-11-11T14:02:00</processing_date>
     <type>error     </type>
     <priority>123</priority>
-    <load_level>0.6</load_level>
+    <load_level>0.41</load_level>
+  </message>
+  <message id="74">
+    <server_id>6</server_id>
+    <text>THIS IS MESSAGE</text>
+    <processing_date>2019-03-01T02:01:00</processing_date>
+    <type>info      </type>
+    <priority>200</priority>
+    <load_level>0.56</load_level>
   </message>
 </messages>
