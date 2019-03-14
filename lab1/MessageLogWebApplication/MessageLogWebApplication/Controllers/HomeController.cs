@@ -180,7 +180,7 @@ namespace MessageLogWebApplication.Controllers
             SerializableDB dB = new SerializableDB(_context.Message.ToList(), _context.Server.ToList());
            
             BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream fs = new FileStream("wwwroot/bin/messages.bin", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("wwwroot/dat/messages.bin", FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, dB);
             }
@@ -199,7 +199,7 @@ namespace MessageLogWebApplication.Controllers
             _context.SaveChanges();
 
             BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream fs = new FileStream("wwwroot/bin/messages.bin", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("wwwroot/dat/messages.bin", FileMode.OpenOrCreate))
             {
                 SerializableDB dB = (SerializableDB)formatter.Deserialize(fs);
 
