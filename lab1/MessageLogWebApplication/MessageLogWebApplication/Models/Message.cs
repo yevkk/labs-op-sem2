@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MessageLogWebApplication.Models
 {
+    [Serializable]
     public partial class Message
     {
         public int Id { get; set; }

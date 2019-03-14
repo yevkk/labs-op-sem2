@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MessageLogWebApplication.Models
 {
+    [Serializable]
     public partial class Server
     {
         public Server()

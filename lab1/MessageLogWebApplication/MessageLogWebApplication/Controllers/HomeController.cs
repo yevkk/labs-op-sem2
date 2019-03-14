@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MessageLogWebApplication.Models;
 using System.Xml.Linq;
-using System.Data.SqlClient;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace MessageLogWebApplication.Controllers
 {
@@ -67,7 +69,7 @@ namespace MessageLogWebApplication.Controllers
             }
 
             var servers = from m in _context.Server
-                           select m;
+                          select m;
 
             foreach (var s in servers)
             {
@@ -82,26 +84,26 @@ namespace MessageLogWebApplication.Controllers
                 server.Add(descriptionElem);
                 server.Add(ipElem);
                 server.Add(reloadDateElem);
-         
+
                 xRoot.AddFirst(server);
             }
 
             xdoc.Add(xRoot);
             xdoc.Save("wwwroot/xml/messages.xml");
-            
+
             return RedirectToAction(nameof(Tools));
         }
 
 
-        public async Task<IActionResult> LoadXml()
+        public async Task<IActionResult> XmlLoad()
         {
-            XDocument xdoc = XDocument.Load("wwwroot/Xml/messages.xml");
-            
+            XDocument xdoc = XDocument.Load("wwwroot/xml/messages.xml");
+
             foreach (var message in _context.Message)
                 _context.Message.Remove(message);
-             
+
             foreach (var server in _context.Server)
-               _context.Server.Remove(server);
+                _context.Server.Remove(server);
             _context.SaveChanges();
 
             foreach (XElement serverElem in xdoc.Element("root").Elements("server"))
@@ -118,6 +120,7 @@ namespace MessageLogWebApplication.Controllers
                     server.Description = descriptionElem.Value;
                     server.Ip = ipElem.Value;
                     if (reloadDateElem.Value != "") server.ReloadDate = DateTime.Parse(reloadDateElem.Value);
+
                     if (ModelState.IsValid)
                     {
                         _context.Add(server);
@@ -141,9 +144,8 @@ namespace MessageLogWebApplication.Controllers
                 if (serverIdElem != null && textElem != null && processingDateElem != null && typeElem != null && priorityElem != null && loadLevelElem != null)
                 {
                     Message message = new Message();
-                    //message.ServerId = int.Parse(serverIdElem.Value);
-                    Server server = _context.Server.First(s => s.prevId == int.Parse(serverIdElem.Value));
-                    message.ServerId = server.Id;
+                    message.Server = _context.Server.First(s => s.prevId == int.Parse(serverIdElem.Value));
+                    message.ServerId = message.Server.Id;
                     message.Text = textElem.Value;
                     if (processingDateElem.Value != "") message.ProcessingDate = DateTime.Parse(processingDateElem.Value);
                     message.Type = typeElem.Value;
@@ -157,6 +159,83 @@ namespace MessageLogWebApplication.Controllers
 
                 }
             }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Tools));
+        }
+
+        [Serializable]
+        class SerializableDB
+        {
+            public List<Message> Message { get; set; }
+            public List<Server> Server { get; set; }
+            public SerializableDB(List<Message> messages, List<Server> servers) {
+                Message = messages;
+                Server = servers;
+            }
+        }
+
+        public async Task<IActionResult> BinCreate()
+        {
+
+            SerializableDB dB = new SerializableDB(_context.Message.ToList(), _context.Server.ToList());
+           
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fs = new FileStream("wwwroot/bin/messages.bin", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, dB);
+            }
+
+            dB.Server.Clear();
+            return RedirectToAction(nameof(Tools));
+        }
+
+        public async Task<IActionResult> BinLoad()
+        {
+            foreach (var message in _context.Message)
+                _context.Message.Remove(message);
+
+            foreach (var server in _context.Server)
+                _context.Server.Remove(server);
+            _context.SaveChanges();
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fs = new FileStream("wwwroot/bin/messages.bin", FileMode.OpenOrCreate))
+            {
+                SerializableDB dB = (SerializableDB)formatter.Deserialize(fs);
+
+                foreach (var s in dB.Server)
+                {
+                    Server server = new Server();
+                    server.Description = s.Description;
+                    server.Ip = s.Ip;
+                    server.prevId = s.Id;
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(server);
+                    }
+                }
+                _context.SaveChanges();
+
+                foreach (var m in dB.Message)
+                {
+                    Message message = new Message();
+                    message.Server = _context.Server.First(s => s.prevId == m.ServerId);
+                    message.ServerId = message.Server.Id;
+                    message.Text = m.Text;
+                    if (m.ProcessingDate != null) message.ProcessingDate = m.ProcessingDate;
+                    message.Type = m.Type;
+                    message.Priority = m.Priority;
+                    message.LoadLevel = m.LoadLevel;
+                    
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(message);
+                    }
+                }
+
+
+            }
+
             _context.SaveChanges();
             return RedirectToAction(nameof(Tools));
         }
