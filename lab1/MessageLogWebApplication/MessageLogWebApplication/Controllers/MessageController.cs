@@ -5,54 +5,30 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace MessageLogWebApplication.Models
 {
     public class MessageController : Controller
     {
         private readonly MessageLogWebApplicationContext _context;
+        private readonly Functions func;
+
 
         public MessageController(MessageLogWebApplicationContext context)
         {
             _context = context;
+            func = new Functions(context);
         }
+
 
         // GET: Message
         public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType)
         {
-            var messages = from m in _context.Message
-                           select m;
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                messages = messages.Where(s => s.Text.Contains(searchString));
-            }
-
-            if (searchDate != null)
-            {
-                messages = messages.Where(x => x.ProcessingDate >= searchDate);
-            }
-
-            if (minPriority != null)
-            {
-                messages = messages.Where(s => s.Priority >= minPriority);
-            }
-
-            if (maxPriority != null)
-            {
-                messages = messages.Where(s => s.Priority <= maxPriority);
-            }
-
-            if (!string.IsNullOrEmpty(searchType))
-            {
-                messages = messages.Where(s => s.Type == searchType);
-            }
-
+            IQueryable<Message> messages = func.SearchMessages(searchString, searchDate, minPriority, maxPriority, searchType);
 
             return View(await messages.ToListAsync());
         }
-
+        
         [HttpPost]
         public string Index(string searchString, bool notUsed)
         {
