@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Diagnostics;
 
 namespace MessageLogWebApplication.Models
 {
@@ -15,6 +15,72 @@ namespace MessageLogWebApplication.Models
         public Functions(MessageLogWebApplicationContext context)
         {
             _context = context;
+        }
+
+        public void ClearContext() {
+            foreach (var message in _context.Message)
+                _context.Message.Remove(message);
+
+            foreach (var server in _context.Server)
+                _context.Server.Remove(server);
+            _context.SaveChanges();
+        }
+
+        private static Random random = new Random();
+        private string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+        private DateTime RandomDateTime(DateTime max)
+        {
+            DateTime start = new DateTime(2000, 1, 1);
+            int range = (max - start).Days;
+            return start.AddDays(random.Next(range));
+        }
+
+        public Server GenerateRandomServer()
+        {
+            Server server = new Server
+            {
+                Description = RandomString(random.Next(5, 20)),
+                Ip = random.Next(256).ToString() + "." + random.Next(256).ToString() + "." + random.Next(256).ToString() + "." + random.Next(256).ToString(),
+                ReloadDate = RandomDateTime(DateTime.Today)
+            };
+            return server;
+        }
+
+        public Message GenerateRandomMessage()
+        {
+            List<int> ServerIdList = new List<int>();
+            foreach (var s in _context.Server)
+                ServerIdList.Add(s.Id);
+            List<string> TypeList = new List<string>()
+            {
+                "debug",
+                "info",
+                "warning",
+                "error",
+                "fatal"
+            };
+            if (ServerIdList.Count() > 0)
+            {
+                Message message = new Message
+                {
+                    ServerId = ServerIdList[random.Next(ServerIdList.Count)],
+                    Text = RandomString(random.Next(5, 50)),
+                    Type = TypeList[random.Next(TypeList.Count)],
+                    Priority = random.Next(200),
+                    LoadLevel = (float)random.NextDouble()
+                };
+                message.Server = _context.Server.First(s => s.Id == message.ServerId);
+                message.ProcessingDate = RandomDateTime(DateTime.Today);
+                if (message.ProcessingDate > message.Server.ReloadDate) message.ProcessingDate = message.Server.ReloadDate;
+
+                return message;
+            }
+            return null;
         }
 
         public IQueryable<Message> SearchMessages(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType)
@@ -146,12 +212,7 @@ namespace MessageLogWebApplication.Models
         {
             XDocument xdoc = XDocument.Load(filename);
 
-            foreach (var message in _context.Message)
-                _context.Message.Remove(message);
-
-            foreach (var server in _context.Server)
-                _context.Server.Remove(server);
-            _context.SaveChanges();
+            ClearContext();
 
             foreach (XElement serverElem in xdoc.Element("root").Elements("server"))
             {
@@ -271,29 +332,43 @@ namespace MessageLogWebApplication.Models
             _context.SaveChanges();
         }
 
-        //private long Time(???)
+        public long Time(int n = 100) {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            for (int i = 1; i <= n; i++)
+                _context.Add(GenerateRandomServer());
+            for (int i = 1; i <= n; i++)
+                _context.Add(GenerateRandomMessage());
+
+            
+
+            sw.Stop();
+            return sw.ElapsedMilliseconds;
+        }
+
+        //public List<string> Benchmark(int sec) // 0 - time ms; 1 - N; 3 - data size; 
         //{
-        //    var watch = System.Diagnostics.Stopwatch.StartNew();
-        //    // function();
-        //    watch.Stop();
+        //    List<string> results = new List<string>();
+        //    int n = 1;
 
-        //    return watch.ElapsedMilliseconds;
-        //}
-
-        //public long Benchmark(???)
-        //{
-        //    long n = 1;
-        //    long time = 0;
-
-        //    do
+        //    while (Time(n) < sec * 1000)
         //    {
+        //        Time(n);
         //        n *= 2;
-        //        for (long i = 1; i <= n; i++)
-        //            time = Time(theMethod, parametrs);
-        //    } while (time < 10000);
+        //    }
 
-        //    return n;
+        //    return results;
         //}
+        public void Benchmark() {
+            for (int i = 1; i <= 100; i++)
+                _context.Add(GenerateRandomServer());
+            _context.SaveChanges();
+            for (int i = 1; i <= 100; i++)
+                _context.Add(GenerateRandomMessage());
+            _context.SaveChanges();
+        }
+
 
 
     }

@@ -155,5 +155,15 @@ namespace MessageLogWebApplication.Models
         {
             return _context.Server.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> CreateRandom()
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(func.GenerateRandomServer());
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

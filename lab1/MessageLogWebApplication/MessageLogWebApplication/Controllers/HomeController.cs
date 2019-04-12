@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MessageLogWebApplication.Models;
-using System.Threading;
 
-namespace MessageLogWebApplication.Controllers
+namespace MessageLogWebApplication.Models
 {
     public class HomeController : Controller
     {
         private readonly MessageLogWebApplicationContext _context;
-        private readonly Functions func;
+        public static Functions func;
 
         public HomeController(MessageLogWebApplicationContext context)
         {
@@ -29,7 +27,12 @@ namespace MessageLogWebApplication.Controllers
             return View();
         }
                
-        public IActionResult Demo( )
+        public IActionResult Demo()
+        {
+            return View();
+        }
+
+        public IActionResult Benchmark()
         {
             return View();
         }
@@ -38,6 +41,12 @@ namespace MessageLogWebApplication.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult ClearContext()
+        {
+            func.ClearContext();
+            return RedirectToAction(nameof(Tools));
         }
 
         public IActionResult XmlCreate()
@@ -65,9 +74,10 @@ namespace MessageLogWebApplication.Controllers
             return RedirectToAction(nameof(Tools));
         }
 
-        public void Demonstration() {
-            
-           
+        public IActionResult BenchmarkResult() {
+            //ViewData["Text"] = func.Benchmark();
+            func.Benchmark();
+            return View("Benchmark");
         }
     }
 }

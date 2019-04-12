@@ -166,5 +166,15 @@ namespace MessageLogWebApplication.Models
             return _context.Message.Any(e => e.Id == id);
         }
 
+        public async Task<IActionResult> CreateRandom()
+        {
+            Message message = func.GenerateRandomMessage();
+            if (message != null)
+            {
+                _context.Add(message);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

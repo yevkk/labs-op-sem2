@@ -2,6 +2,11 @@
     ViewData["Title"] = "Tools";
 }
 <h2>Tools</h2>
+<h3>Clear All Data</h3>
+<form asp-controller="Home" asp-action="ClearContext">
+    <input type="submit" value="Clear" />
+</form>
+<br />
 <h3>.XML</h3>
 <form asp-controller="Home" asp-action="XmlCreate">
     <input type="submit" value="Create" /> &nbsp; &nbsp;
@@ -20,3 +25,10 @@
 <form asp-controller="Home" asp-action="BinLoad">
     <input type="submit" value="Load" /> &nbsp; &nbsp;
 </form>
+<h3>Benchmark</h3>
+<form asp-controller="Home" asp-action="BenchmarkResult">
+    <input type="submit" value="Start" />
+</form>
+
+
+
