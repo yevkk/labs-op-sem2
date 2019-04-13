@@ -43,9 +43,15 @@ namespace MessageLogWebApplication.Models
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult ClearContext()
+        public IActionResult ClearMessages()
         {
-            func.ClearContext();
+            func.ClearMessages();
+            return RedirectToAction(nameof(Tools));
+        }
+
+        public IActionResult ClearServers()
+        {
+            func.ClearServers();
             return RedirectToAction(nameof(Tools));
         }
 
@@ -75,8 +81,10 @@ namespace MessageLogWebApplication.Models
         }
 
         public IActionResult BenchmarkResult() {
-            //ViewData["Text"] = func.Benchmark();
-            func.Benchmark();
+            List<string> results = func.Benchmark(10);
+            ViewData["BenchmarkN"] = results[0];
+            ViewData["BenchmarkTime"] = results[1];
+            ViewData["BenchmarkSize"] = results[2];
             return View("Benchmark");
         }
     }

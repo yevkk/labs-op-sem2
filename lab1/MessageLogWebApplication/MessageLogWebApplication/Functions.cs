@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace MessageLogWebApplication.Models
 {
@@ -17,12 +18,19 @@ namespace MessageLogWebApplication.Models
             _context = context;
         }
 
-        public void ClearContext() {
+        public void ClearMessages() {
             foreach (var message in _context.Message)
                 _context.Message.Remove(message);
+            _context.SaveChanges();
+        }
 
-            foreach (var server in _context.Server)
+        public void ClearServers() //method is equal to clearing all data, because messages cannot exist without servers;
+        {
+            foreach (var server in _context.Server) {
+                foreach (var message in _context.Message)
+                    if (message.ServerId == server.Id) _context.Message.Remove(message);
                 _context.Server.Remove(server);
+            }
             _context.SaveChanges();
         }
 
@@ -40,6 +48,15 @@ namespace MessageLogWebApplication.Models
             return start.AddDays(random.Next(range));
         }
 
+        List<string> TypeList = new List<string>()
+            {
+                "debug",
+                "info",
+                "warning",
+                "error",
+                "fatal"
+            };
+
         public Server GenerateRandomServer()
         {
             Server server = new Server
@@ -56,14 +73,6 @@ namespace MessageLogWebApplication.Models
             List<int> ServerIdList = new List<int>();
             foreach (var s in _context.Server)
                 ServerIdList.Add(s.Id);
-            List<string> TypeList = new List<string>()
-            {
-                "debug",
-                "info",
-                "warning",
-                "error",
-                "fatal"
-            };
             if (ServerIdList.Count() > 0)
             {
                 Message message = new Message
@@ -212,7 +221,7 @@ namespace MessageLogWebApplication.Models
         {
             XDocument xdoc = XDocument.Load(filename);
 
-            ClearContext();
+            ClearServers();
 
             foreach (XElement serverElem in xdoc.Element("root").Elements("server"))
             {
@@ -289,12 +298,7 @@ namespace MessageLogWebApplication.Models
 
         public void BinLoad(string filename)
         {
-            foreach (var message in _context.Message)
-                _context.Message.Remove(message);
-
-            foreach (var server in _context.Server)
-                _context.Server.Remove(server);
-            _context.SaveChanges();
+            ClearServers();
 
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
@@ -303,10 +307,12 @@ namespace MessageLogWebApplication.Models
 
                 foreach (var s in dB.Server)
                 {
-                    Server server = new Server();
-                    server.Description = s.Description;
-                    server.Ip = s.Ip;
-                    server.prevId = s.Id;
+                    Server server = new Server
+                    {
+                        Description = s.Description,
+                        Ip = s.Ip,
+                        prevId = s.Id
+                    };
 
                     _context.Add(server);
                 }
@@ -314,14 +320,17 @@ namespace MessageLogWebApplication.Models
 
                 foreach (var m in dB.Message)
                 {
-                    Message message = new Message();
-                    message.Server = _context.Server.First(s => s.prevId == m.ServerId);
+                    Message message = new Message
+                    {
+                        Server = _context.Server.First(s => s.prevId == m.ServerId),
+                        Type = m.Type,
+                        Priority = m.Priority,
+                        LoadLevel = m.LoadLevel,
+                        Text = m.Text
+                    };
                     message.ServerId = message.Server.Id;
-                    message.Text = m.Text;
                     if (m.ProcessingDate != null) message.ProcessingDate = m.ProcessingDate;
-                    message.Type = m.Type;
-                    message.Priority = m.Priority;
-                    message.LoadLevel = m.LoadLevel;
+                    
 
                     _context.Add(message);
                 }
@@ -333,41 +342,62 @@ namespace MessageLogWebApplication.Models
         }
 
         public long Time(int n = 100) {
+            ClearServers();
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
             for (int i = 1; i <= n; i++)
                 _context.Add(GenerateRandomServer());
+            _context.SaveChanges();
             for (int i = 1; i <= n; i++)
                 _context.Add(GenerateRandomMessage());
+            _context.SaveChanges();
 
-            
+            XmlCreate("wwwroot/xml/demo.xml");
+            BinCreate("wwwroot/dat/demo.bin");
+            XmlLoad("wwwroot/xml/demo.xml");
+            BinLoad("wwwroot/dat/demo.bin");
+            int priority = random.Next(200);
+            DateTime date2 = RandomDateTime(DateTime.Today);
+            DateTime date1 = RandomDateTime(date2);
+            SearchMessages(RandomString(random.Next(5, 10)), RandomDateTime(DateTime.Today), priority, random.Next(priority), TypeList[random.Next(TypeList.Count)]);
+            SearchServers(RandomString(random.Next(5, 10)), date2, date1, (float)random.NextDouble());
 
             sw.Stop();
             return sw.ElapsedMilliseconds;
         }
 
-        //public List<string> Benchmark(int sec) // 0 - time ms; 1 - N; 3 - data size; 
-        //{
-        //    List<string> results = new List<string>();
-        //    int n = 1;
+        public List<string> Benchmark(int sec) // 0 - time ms; 1 - N; 3 - data size; 
+        {
+            XmlCreate("wwwroot/xml/temp.xml");
+            ClearServers();
 
-        //    while (Time(n) < sec * 1000)
-        //    {
-        //        Time(n);
-        //        n *= 2;
-        //    }
+            List<string> results = new List<string>();
+            int n = 1;
+            long time = 0;
 
-        //    return results;
-        //}
-        public void Benchmark() {
-            for (int i = 1; i <= 100; i++)
-                _context.Add(GenerateRandomServer());
-            _context.SaveChanges();
-            for (int i = 1; i <= 100; i++)
-                _context.Add(GenerateRandomMessage());
-            _context.SaveChanges();
+            while (time < sec * 1000)
+            {
+                time = Time(n);
+                if (time < sec * 100)
+                    n *= 2;
+                else n += 20;
+            }
+            results.Add("N: " + n.ToString());
+            results.Add("Time (ms): " + time.ToString());
+
+            SerializableDB dB = new SerializableDB(_context.Message.ToList(), _context.Server.ToList());
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            FileInfo xmlFile = new FileInfo("wwwroot/xml/demo.xml");
+            FileInfo binFile = new FileInfo("wwwroot/dat/demo.bin");
+
+            bf.Serialize(ms, dB);
+            results.Add("Size (bytes): " + (ms.Length + xmlFile.Length + binFile.Length).ToString());
+            
+            return results;
         }
+
 
 
 

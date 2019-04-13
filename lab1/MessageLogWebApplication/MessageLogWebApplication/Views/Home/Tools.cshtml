@@ -2,9 +2,13 @@
     ViewData["Title"] = "Tools";
 }
 <h2>Tools</h2>
-<h3>Clear All Data</h3>
-<form asp-controller="Home" asp-action="ClearContext">
-    <input type="submit" value="Clear" />
+<h3>Clear Data</h3>
+<form asp-controller="Home" asp-action="ClearMessages">
+    <input type="submit" value="Clear Messages" />
+</form>
+<br />
+<form asp-controller="Home" asp-action="ClearServers">
+    <input type="submit" value="Clear Servers" />
 </form>
 <br />
 <h3>.XML</h3>

@@ -3,13 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-
 <h2>Messages</h2>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 <p>
-    <a asp-action="CreateRandom">Create Random</a>
+    <a asp-action="CreateRandom">Create Random</a> (At least one server should exist)
 </p>
 <form asp-controller="Message" asp-action="Index" method="get">
     Text: <input type="text" name="SearchString">
