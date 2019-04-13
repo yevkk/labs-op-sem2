@@ -1,18 +1,5 @@
-﻿@model MessageLogWebApplicationContext
-@{
+﻿@{
     ViewData["Title"] = "Demo";
-    MessageLogWebApplication.Models.Functions func = MessageLogWebApplication.Models.HomeController.func;
 }
-<script>
-    function Demo() {
-        var p = document.getElementById("demo_text");
-        var str = "2";
-        p.innerHTML = str;
-        setTimeout(function () { p.innerHTML = "333"; }, 3000);
-        
-        
-    }
-</script>
 <h2>Demo</h2>
-<input type ="button" onclick="Demo()" value="Start" /> &nbsp; &nbsp;
-<p id="demo_text"><p>
+<a download="demo.txt" href="~/demo/result.txt">Download results</a>

@@ -11,11 +11,11 @@
     <a asp-action="CreateRandom">Create Random</a> (At least one server should exist)
 </p>
 <form asp-controller="Message" asp-action="Index" method="get">
-    Text: <input type="text" name="SearchString">
-    Date:  <input type="datetime-local" name="SearchDate">
-    Min Priority: <input type="number" name="MinPriority">
-    Max Priority: <input type="number" name="MaxPriority">
-    Type:  <select name="SearchType">
+    Text:<input type="text" name="SearchString">
+    Date (from):<input type="datetime-local" name="SearchDate">
+    Min Priority:<input type="number" name="MinPriority">
+    Max Priority:<input type="number" name="MaxPriority">
+    Type:<select name="SearchType">
         <option value=""></option>
         <option value="debug">debug</option>
         <option value="info">info</option>

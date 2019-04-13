@@ -1,0 +1,433 @@
+Demo:
+
+6 servers added;
+
+10 messages added;
+
+Servers:
+ID: 31944
+Description: KM25JBT
+IP: 239.102.33.228
+ReloadDate: 10/13/2018 12:00:00 AM
+
+ID: 31945
+Description: QI57356HTINU6ZXMR6K
+IP: 123.181.87.32
+ReloadDate: 8/22/2004 12:00:00 AM
+
+ID: 31946
+Description: DYMVE49KWNE7GAEHJ6
+IP: 174.240.221.136
+ReloadDate: 6/9/2014 12:00:00 AM
+
+ID: 31947
+Description: FQIIK2HQH653JLJK
+IP: 130.156.174.143
+ReloadDate: 12/22/2003 12:00:00 AM
+
+ID: 31948
+Description: PW10TE
+IP: 59.83.122.148
+ReloadDate: 10/3/2014 12:00:00 AM
+
+ID: 31949
+Description: WD85YMQN
+IP: 116.139.173.225
+ReloadDate: 12/9/2007 12:00:00 AM
+
+Messages:
+ID: 21638
+Server ID: 31946
+Text: R6O7XULTILQ8JJIEDW1TSDLJH3WRU1NPPT927G
+Processing Date: 6/9/2014 12:00:00 AM
+TypeType: warning
+Priority: 118
+Load Level: 0.9555479
+
+ID: 21639
+Server ID: 31947
+Text: 2DKYFA2MK8INUF03849R8BSZJPG6B
+Processing Date: 12/22/2003 12:00:00 AM
+TypeType: debug
+Priority: 114
+Load Level: 0.7077935
+
+ID: 21640
+Server ID: 31948
+Text: DS8LT9BERKWH2Q1XE3CV1UUO0
+Processing Date: 8/27/2002 12:00:00 AM
+TypeType: fatal
+Priority: 173
+Load Level: 0.3165976
+
+ID: 21641
+Server ID: 31946
+Text: 33YWK9SPR67BOXHNQJSQ5RGZS7UV
+Processing Date: 6/9/2014 12:00:00 AM
+TypeType: error
+Priority: 21
+Load Level: 0.7189674
+
+ID: 21642
+Server ID: 31944
+Text: 2OD3RXVOUZ3TF0SQOCW6XMW9DNP7ZOG88X53JX2
+Processing Date: 5/26/2017 12:00:00 AM
+TypeType: fatal
+Priority: 174
+Load Level: 0.4822697
+
+ID: 21643
+Server ID: 31946
+Text: 914DJZXNGEQ1EZDIXYGS5VS4ZG1K0BFPGEEVV4QYTV1
+Processing Date: 11/30/2002 12:00:00 AM
+TypeType: warning
+Priority: 83
+Load Level: 0.03564638
+
+ID: 21644
+Server ID: 31949
+Text: XH2Z89OI9OC7NWE8AVAVSX3IR8K3APXB4VD
+Processing Date: 12/11/2003 12:00:00 AM
+TypeType: fatal
+Priority: 73
+Load Level: 0.7224144
+
+ID: 21645
+Server ID: 31944
+Text: MVPN1F8WTOPFLGANUH9ZUIT0BD1TKVKO56FB
+Processing Date: 7/28/2015 12:00:00 AM
+TypeType: info
+Priority: 170
+Load Level: 0.743839
+
+ID: 21646
+Server ID: 31945
+Text: QBI5SPCQ2SHOE
+Processing Date: 8/22/2004 12:00:00 AM
+TypeType: debug
+Priority: 14
+Load Level: 0.7088135
+
+ID: 21647
+Server ID: 31947
+Text: PM8DAJPA99ZQGON2RSFVLQ3
+Processing Date: 12/22/2003 12:00:00 AM
+TypeType: error
+Priority: 157
+Load Level: 0.1881903
+
+ID: 21648
+Server ID: 31948
+Text: 8YSDO5
+Processing Date: 12/15/2003 12:00:00 AM
+TypeType: fatal
+Priority: 100
+Load Level: 0.9455583
+
+
+Search messages by name "VC":
+Messages:
+
+Search messages by priority range: (from 8 to 84):
+Messages:
+1) 21641
+2) 21643
+3) 21644
+4) 21646
+
+Search messages by date: (after 4/29/2009 12:00:00 AM):
+Messages:
+1) 21638
+2) 21641
+3) 21642
+4) 21645
+
+Search servers by name "DB":
+Servers:
+
+Search servers by messages with date range (from 1/4/2000 12:00:00 AM to 8/7/2000 12:00:00 AM) and Load level higher than 0.7405283:
+Servers:
+
+Deleting servers found earlier by messages;
+
+Deleting messages found earlier by date;
+
+Servers:
+ID: 31944
+Description: KM25JBT
+IP: 239.102.33.228
+ReloadDate: 10/13/2018 12:00:00 AM
+
+ID: 31945
+Description: QI57356HTINU6ZXMR6K
+IP: 123.181.87.32
+ReloadDate: 8/22/2004 12:00:00 AM
+
+ID: 31946
+Description: DYMVE49KWNE7GAEHJ6
+IP: 174.240.221.136
+ReloadDate: 6/9/2014 12:00:00 AM
+
+ID: 31947
+Description: FQIIK2HQH653JLJK
+IP: 130.156.174.143
+ReloadDate: 12/22/2003 12:00:00 AM
+
+ID: 31948
+Description: PW10TE
+IP: 59.83.122.148
+ReloadDate: 10/3/2014 12:00:00 AM
+
+ID: 31949
+Description: WD85YMQN
+IP: 116.139.173.225
+ReloadDate: 12/9/2007 12:00:00 AM
+
+Messages:
+ID: 21639
+Server ID: 31947
+Text: 2DKYFA2MK8INUF03849R8BSZJPG6B
+Processing Date: 12/22/2003 12:00:00 AM
+TypeType: debug
+Priority: 114
+Load Level: 0.7077935
+
+ID: 21640
+Server ID: 31948
+Text: DS8LT9BERKWH2Q1XE3CV1UUO0
+Processing Date: 8/27/2002 12:00:00 AM
+TypeType: fatal
+Priority: 173
+Load Level: 0.3165976
+
+ID: 21643
+Server ID: 31946
+Text: 914DJZXNGEQ1EZDIXYGS5VS4ZG1K0BFPGEEVV4QYTV1
+Processing Date: 11/30/2002 12:00:00 AM
+TypeType: warning
+Priority: 83
+Load Level: 0.03564638
+
+ID: 21644
+Server ID: 31949
+Text: XH2Z89OI9OC7NWE8AVAVSX3IR8K3APXB4VD
+Processing Date: 12/11/2003 12:00:00 AM
+TypeType: fatal
+Priority: 73
+Load Level: 0.7224144
+
+ID: 21646
+Server ID: 31945
+Text: QBI5SPCQ2SHOE
+Processing Date: 8/22/2004 12:00:00 AM
+TypeType: debug
+Priority: 14
+Load Level: 0.7088135
+
+ID: 21647
+Server ID: 31947
+Text: PM8DAJPA99ZQGON2RSFVLQ3
+Processing Date: 12/22/2003 12:00:00 AM
+TypeType: error
+Priority: 157
+Load Level: 0.1881903
+
+ID: 21648
+Server ID: 31948
+Text: 8YSDO5
+Processing Date: 12/15/2003 12:00:00 AM
+TypeType: fatal
+Priority: 100
+Load Level: 0.9455583
+
+Saving data to .xml file;
+Saving data to .bin file;
+
+Clearing all data, print:
+Servers:
+Messages:
+
+Loading data from .xml file, print:
+Servers:
+ID: 31950
+Description: KM25JBT
+IP: 239.102.33.228
+ReloadDate: 10/13/2018 12:00:00 AM
+
+ID: 31951
+Description: QI57356HTINU6ZXMR6K
+IP: 123.181.87.32
+ReloadDate: 8/22/2004 12:00:00 AM
+
+ID: 31952
+Description: DYMVE49KWNE7GAEHJ6
+IP: 174.240.221.136
+ReloadDate: 6/9/2014 12:00:00 AM
+
+ID: 31953
+Description: FQIIK2HQH653JLJK
+IP: 130.156.174.143
+ReloadDate: 12/22/2003 12:00:00 AM
+
+ID: 31954
+Description: PW10TE
+IP: 59.83.122.148
+ReloadDate: 10/3/2014 12:00:00 AM
+
+ID: 31955
+Description: WD85YMQN
+IP: 116.139.173.225
+ReloadDate: 12/9/2007 12:00:00 AM
+
+Messages:
+ID: 21649
+Server ID: 31953
+Text: 2DKYFA2MK8INUF03849R8BSZJPG6B
+Processing Date: 12/22/2003 12:00:00 AM
+TypeType: debug
+Priority: 114
+Load Level: 0.7077935
+
+ID: 21650
+Server ID: 31954
+Text: DS8LT9BERKWH2Q1XE3CV1UUO0
+Processing Date: 8/27/2002 12:00:00 AM
+TypeType: fatal
+Priority: 173
+Load Level: 0.3165976
+
+ID: 21651
+Server ID: 31952
+Text: 914DJZXNGEQ1EZDIXYGS5VS4ZG1K0BFPGEEVV4QYTV1
+Processing Date: 11/30/2002 12:00:00 AM
+TypeType: warning
+Priority: 83
+Load Level: 0.03564638
+
+ID: 21652
+Server ID: 31955
+Text: XH2Z89OI9OC7NWE8AVAVSX3IR8K3APXB4VD
+Processing Date: 12/11/2003 12:00:00 AM
+TypeType: fatal
+Priority: 73
+Load Level: 0.7224144
+
+ID: 21653
+Server ID: 31951
+Text: QBI5SPCQ2SHOE
+Processing Date: 8/22/2004 12:00:00 AM
+TypeType: debug
+Priority: 14
+Load Level: 0.7088135
+
+ID: 21654
+Server ID: 31953
+Text: PM8DAJPA99ZQGON2RSFVLQ3
+Processing Date: 12/22/2003 12:00:00 AM
+TypeType: error
+Priority: 157
+Load Level: 0.1881903
+
+ID: 21655
+Server ID: 31954
+Text: 8YSDO5
+Processing Date: 12/15/2003 12:00:00 AM
+TypeType: fatal
+Priority: 100
+Load Level: 0.9455583
+
+Clearing all data, print:
+Servers:
+Messages:
+
+Loading data from .bin file, print:
+Servers:
+ID: 31956
+Description: WD85YMQN
+IP: 116.139.173.225
+ReloadDate: 
+
+ID: 31957
+Description: PW10TE
+IP: 59.83.122.148
+ReloadDate: 
+
+ID: 31958
+Description: FQIIK2HQH653JLJK
+IP: 130.156.174.143
+ReloadDate: 
+
+ID: 31959
+Description: DYMVE49KWNE7GAEHJ6
+IP: 174.240.221.136
+ReloadDate: 
+
+ID: 31960
+Description: QI57356HTINU6ZXMR6K
+IP: 123.181.87.32
+ReloadDate: 
+
+ID: 31961
+Description: KM25JBT
+IP: 239.102.33.228
+ReloadDate: 
+
+Messages:
+ID: 21656
+Server ID: 31957
+Text: 8YSDO5
+Processing Date: 12/15/2003 12:00:00 AM
+TypeType: fatal
+Priority: 100
+Load Level: 0.9455583
+
+ID: 21657
+Server ID: 31958
+Text: PM8DAJPA99ZQGON2RSFVLQ3
+Processing Date: 12/22/2003 12:00:00 AM
+TypeType: error
+Priority: 157
+Load Level: 0.1881903
+
+ID: 21658
+Server ID: 31960
+Text: QBI5SPCQ2SHOE
+Processing Date: 8/22/2004 12:00:00 AM
+TypeType: debug
+Priority: 14
+Load Level: 0.7088135
+
+ID: 21659
+Server ID: 31956
+Text: XH2Z89OI9OC7NWE8AVAVSX3IR8K3APXB4VD
+Processing Date: 12/11/2003 12:00:00 AM
+TypeType: fatal
+Priority: 73
+Load Level: 0.7224144
+
+ID: 21660
+Server ID: 31959
+Text: 914DJZXNGEQ1EZDIXYGS5VS4ZG1K0BFPGEEVV4QYTV1
+Processing Date: 11/30/2002 12:00:00 AM
+TypeType: warning
+Priority: 83
+Load Level: 0.03564638
+
+ID: 21661
+Server ID: 31957
+Text: DS8LT9BERKWH2Q1XE3CV1UUO0
+Processing Date: 8/27/2002 12:00:00 AM
+TypeType: fatal
+Priority: 173
+Load Level: 0.3165976
+
+ID: 21662
+Server ID: 31958
+Text: 2DKYFA2MK8INUF03849R8BSZJPG6B
+Processing Date: 12/22/2003 12:00:00 AM
+TypeType: debug
+Priority: 114
+Load Level: 0.7077935
+
+
+Demo finished;

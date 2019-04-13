@@ -5,7 +5,6 @@ using System.Xml.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace MessageLogWebApplication.Models
 {
@@ -18,15 +17,15 @@ namespace MessageLogWebApplication.Models
             _context = context;
         }
 
-        public void ClearMessages() {
-            foreach (var message in _context.Message)
+        public void ClearMessages(IQueryable<Message> messages) {
+            foreach (var message in messages)
                 _context.Message.Remove(message);
             _context.SaveChanges();
         }
 
-        public void ClearServers() //method is equal to clearing all data, because messages cannot exist without servers;
+        public void ClearServers(IQueryable<Server> servres) // with _context.Server argument method is equal to clearing all data, because messages cannot exist without servers;
         {
-            foreach (var server in _context.Server) {
+            foreach (var server in servres) {
                 foreach (var message in _context.Message)
                     if (message.ServerId == server.Id) _context.Message.Remove(message);
                 _context.Server.Remove(server);
@@ -34,14 +33,14 @@ namespace MessageLogWebApplication.Models
             _context.SaveChanges();
         }
 
-        private static Random random = new Random();
-        private string RandomString(int length)
+        public Random random = new Random();
+        public string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        private DateTime RandomDateTime(DateTime max)
+        public DateTime RandomDateTime(DateTime max)
         {
             DateTime start = new DateTime(2000, 1, 1);
             int range = (max - start).Days;
@@ -221,7 +220,7 @@ namespace MessageLogWebApplication.Models
         {
             XDocument xdoc = XDocument.Load(filename);
 
-            ClearServers();
+            ClearServers(_context.Server);
 
             foreach (XElement serverElem in xdoc.Element("root").Elements("server"))
             {
@@ -298,7 +297,7 @@ namespace MessageLogWebApplication.Models
 
         public void BinLoad(string filename)
         {
-            ClearServers();
+            ClearServers(_context.Server);
 
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
@@ -342,7 +341,7 @@ namespace MessageLogWebApplication.Models
         }
 
         public long Time(int n = 100) {
-            ClearServers();
+            ClearServers(_context.Server);
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
@@ -370,7 +369,7 @@ namespace MessageLogWebApplication.Models
         public List<string> Benchmark(int sec) // 0 - time ms; 1 - N; 3 - data size; 
         {
             XmlCreate("wwwroot/xml/temp.xml");
-            ClearServers();
+            ClearServers(_context.Server);
 
             List<string> results = new List<string>();
             int n = 1;
@@ -394,7 +393,9 @@ namespace MessageLogWebApplication.Models
 
             bf.Serialize(ms, dB);
             results.Add("Size (bytes): " + (ms.Length + xmlFile.Length + binFile.Length).ToString());
-            
+
+            ClearServers(_context.Server);
+
             return results;
         }
 

@@ -10,11 +10,13 @@ namespace MessageLogWebApplication.Models
     {
         private readonly MessageLogWebApplicationContext _context;
         public static Functions func;
+        public static Demo demo;
 
         public HomeController(MessageLogWebApplicationContext context)
         {
             _context = context;
             func = new Functions(context);
+            demo = new Demo(context);
         }
 
         public IActionResult Index()
@@ -45,13 +47,13 @@ namespace MessageLogWebApplication.Models
 
         public IActionResult ClearMessages()
         {
-            func.ClearMessages();
+            func.ClearMessages(_context.Message);
             return RedirectToAction(nameof(Tools));
         }
 
         public IActionResult ClearServers()
         {
-            func.ClearServers();
+            func.ClearServers(_context.Server);
             return RedirectToAction(nameof(Tools));
         }
 
@@ -86,6 +88,12 @@ namespace MessageLogWebApplication.Models
             ViewData["BenchmarkTime"] = results[1];
             ViewData["BenchmarkSize"] = results[2];
             return View("Benchmark");
+        }
+
+        public IActionResult DemoResult()
+        {
+            demo.Main();
+            return View("Demo");
         }
     }
 }
