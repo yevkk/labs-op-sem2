@@ -1,245 +1,241 @@
 Demo:
 
-6 servers added;
+5 servers added;
 
-10 messages added;
+17 messages added;
 
 Servers:
-ID: 31944
-Description: KM25JBT
-IP: 239.102.33.228
-ReloadDate: 10/13/2018 12:00:00 AM
+ID: 39329
+Description: RFZLRXA35X3RVOUF5
+IP: 189.235.231.220
+ReloadDate: 12/11/2013 12:00:00 AM
 
-ID: 31945
-Description: QI57356HTINU6ZXMR6K
-IP: 123.181.87.32
-ReloadDate: 8/22/2004 12:00:00 AM
+ID: 39330
+Description: OC7LUXMR9
+IP: 106.180.142.142
+ReloadDate: 3/3/2010 12:00:00 AM
 
-ID: 31946
-Description: DYMVE49KWNE7GAEHJ6
-IP: 174.240.221.136
-ReloadDate: 6/9/2014 12:00:00 AM
+ID: 39331
+Description: 8CTQDX
+IP: 193.92.75.173
+ReloadDate: 9/17/2016 12:00:00 AM
 
-ID: 31947
-Description: FQIIK2HQH653JLJK
-IP: 130.156.174.143
-ReloadDate: 12/22/2003 12:00:00 AM
+ID: 39332
+Description: ARAV714LIU
+IP: 84.118.42.135
+ReloadDate: 1/10/2003 12:00:00 AM
 
-ID: 31948
-Description: PW10TE
-IP: 59.83.122.148
-ReloadDate: 10/3/2014 12:00:00 AM
-
-ID: 31949
-Description: WD85YMQN
-IP: 116.139.173.225
-ReloadDate: 12/9/2007 12:00:00 AM
+ID: 39333
+Description: C54AW124MOWXWZWXY
+IP: 66.86.254.248
+ReloadDate: 7/24/2015 12:00:00 AM
 
 Messages:
-ID: 21638
-Server ID: 31946
-Text: R6O7XULTILQ8JJIEDW1TSDLJH3WRU1NPPT927G
-Processing Date: 6/9/2014 12:00:00 AM
+ID: 29032
+Server ID: 39333
+Text: H5O0DKUR7LO341JZFJTEGYT7Y16GF5IEBLO5
+Processing Date: 6/15/2002 12:00:00 AM
 TypeType: warning
-Priority: 118
-Load Level: 0.9555479
+Priority: 21
+Load Level: 0.2624452
 
-ID: 21639
-Server ID: 31947
-Text: 2DKYFA2MK8INUF03849R8BSZJPG6B
-Processing Date: 12/22/2003 12:00:00 AM
-TypeType: debug
-Priority: 114
-Load Level: 0.7077935
-
-ID: 21640
-Server ID: 31948
-Text: DS8LT9BERKWH2Q1XE3CV1UUO0
-Processing Date: 8/27/2002 12:00:00 AM
+ID: 29033
+Server ID: 39333
+Text: 4J09MPIW1FNEV67838P5
+Processing Date: 7/21/2006 12:00:00 AM
 TypeType: fatal
-Priority: 173
-Load Level: 0.3165976
+Priority: 125
+Load Level: 0.324852
 
-ID: 21641
-Server ID: 31946
-Text: 33YWK9SPR67BOXHNQJSQ5RGZS7UV
-Processing Date: 6/9/2014 12:00:00 AM
+ID: 29034
+Server ID: 39329
+Text: DNRCD0BMXB9HNM9GR3KWEW
+Processing Date: 7/20/2010 12:00:00 AM
+TypeType: debug
+Priority: 165
+Load Level: 0.07117131
+
+ID: 29035
+Server ID: 39332
+Text: HYAP0KFJMHFVHMCJXC6YS3LAJIQ5WIU92F2I7
+Processing Date: 1/10/2003 12:00:00 AM
+TypeType: error
+Priority: 163
+Load Level: 0.1480813
+
+ID: 29036
+Server ID: 39330
+Text: 8UWTMS6Y8IL7P5967ITP4P0KTDKP3
+Processing Date: 3/3/2010 12:00:00 AM
+TypeType: info
+Priority: 197
+Load Level: 0.7266847
+
+ID: 29037
+Server ID: 39329
+Text: 13S5MJHY2KT2JG4HVSCBDL
+Processing Date: 12/19/2011 12:00:00 AM
+TypeType: fatal
+Priority: 39
+Load Level: 0.8771926
+
+ID: 29038
+Server ID: 39333
+Text: 7IV7PFS6YSQDXGXT2HRA2VZ
+Processing Date: 9/6/2011 12:00:00 AM
+TypeType: error
+Priority: 67
+Load Level: 0.8038839
+
+ID: 29039
+Server ID: 39330
+Text: 7O9M7TTX4OMC4R8GK8QBLA844A5AG01GPKZ0ZKF4MYYFIY
+Processing Date: 3/3/2010 12:00:00 AM
 TypeType: error
 Priority: 21
-Load Level: 0.7189674
+Load Level: 0.2112395
 
-ID: 21642
-Server ID: 31944
-Text: 2OD3RXVOUZ3TF0SQOCW6XMW9DNP7ZOG88X53JX2
-Processing Date: 5/26/2017 12:00:00 AM
+ID: 29040
+Server ID: 39331
+Text: Q8OAZZ2T71CED58A57WTTQVRQGB7EUZHXEZXCO5LTUV1RVF
+Processing Date: 9/3/2007 12:00:00 AM
 TypeType: fatal
-Priority: 174
-Load Level: 0.4822697
+Priority: 37
+Load Level: 0.3622123
 
-ID: 21643
-Server ID: 31946
-Text: 914DJZXNGEQ1EZDIXYGS5VS4ZG1K0BFPGEEVV4QYTV1
-Processing Date: 11/30/2002 12:00:00 AM
-TypeType: warning
-Priority: 83
-Load Level: 0.03564638
-
-ID: 21644
-Server ID: 31949
-Text: XH2Z89OI9OC7NWE8AVAVSX3IR8K3APXB4VD
-Processing Date: 12/11/2003 12:00:00 AM
-TypeType: fatal
-Priority: 73
-Load Level: 0.7224144
-
-ID: 21645
-Server ID: 31944
-Text: MVPN1F8WTOPFLGANUH9ZUIT0BD1TKVKO56FB
-Processing Date: 7/28/2015 12:00:00 AM
+ID: 29041
+Server ID: 39329
+Text: Y3JFBURKSX5X9EAGP2CS461FCFVROVALETTTZI0F
+Processing Date: 10/7/2010 12:00:00 AM
 TypeType: info
-Priority: 170
-Load Level: 0.743839
+Priority: 53
+Load Level: 0.2027124
 
-ID: 21646
-Server ID: 31945
-Text: QBI5SPCQ2SHOE
-Processing Date: 8/22/2004 12:00:00 AM
+ID: 29042
+Server ID: 39330
+Text: N9O1Z5T0HNVPDP
+Processing Date: 3/3/2010 12:00:00 AM
 TypeType: debug
-Priority: 14
-Load Level: 0.7088135
+Priority: 32
+Load Level: 0.4872224
 
-ID: 21647
-Server ID: 31947
-Text: PM8DAJPA99ZQGON2RSFVLQ3
-Processing Date: 12/22/2003 12:00:00 AM
+ID: 29043
+Server ID: 39330
+Text: 6KFB2KMNG4U2NOW9SXUZ6W
+Processing Date: 12/12/2002 12:00:00 AM
 TypeType: error
-Priority: 157
-Load Level: 0.1881903
-
-ID: 21648
-Server ID: 31948
-Text: 8YSDO5
-Processing Date: 12/15/2003 12:00:00 AM
-TypeType: fatal
 Priority: 100
-Load Level: 0.9455583
+Load Level: 0.180726
+
+ID: 29044
+Server ID: 39333
+Text: M7BLFZ91T3URTG1HN8JQAMOO0Q3NABXPGL
+Processing Date: 11/3/2011 12:00:00 AM
+TypeType: fatal
+Priority: 155
+Load Level: 0.8071691
+
+ID: 29045
+Server ID: 39333
+Text: Z5N26U7
+Processing Date: 10/9/2012 12:00:00 AM
+TypeType: debug
+Priority: 189
+Load Level: 0.7509716
+
+ID: 29046
+Server ID: 39329
+Text: NNLCCK1TMNKB9ODA9FZ
+Processing Date: 1/30/2002 12:00:00 AM
+TypeType: fatal
+Priority: 185
+Load Level: 0.4106663
+
+ID: 29047
+Server ID: 39329
+Text: ZOH34RCK3TIY
+Processing Date: 1/1/2009 12:00:00 AM
+TypeType: warning
+Priority: 103
+Load Level: 0.3270381
+
+ID: 29048
+Server ID: 39330
+Text: JQHYAT6ZROK947DMOMPGBHYHAEE8P
+Processing Date: 3/3/2010 12:00:00 AM
+TypeType: info
+Priority: 186
+Load Level: 0.4099391
+
+ID: 29049
+Server ID: 39332
+Text: 1PDF3I6PTY3D
+Processing Date: 1/10/2003 12:00:00 AM
+TypeType: warning
+Priority: 155
+Load Level: 0.572789
 
 
-Search messages by name "VC":
+Search messages by name "96":
 Messages:
+1) 29036
 
-Search messages by priority range: (from 8 to 84):
+Search messages by priority range: (from 22 to 43):
 Messages:
-1) 21641
-2) 21643
-3) 21644
-4) 21646
+1) 29037
+2) 29040
+3) 29042
 
-Search messages by date: (after 4/29/2009 12:00:00 AM):
+Search messages by date: (after 5/1/2001 12:00:00 AM):
 Messages:
-1) 21638
-2) 21641
-3) 21642
-4) 21645
+1) 29032
+2) 29033
+3) 29034
+4) 29035
+5) 29036
+6) 29037
+7) 29038
+8) 29039
+9) 29040
+10) 29041
+11) 29042
+12) 29043
+13) 29044
+14) 29045
+15) 29046
+16) 29047
+17) 29048
+18) 29049
 
-Search servers by name "DB":
+Search servers by name "2A":
 Servers:
 
-Search servers by messages with date range (from 1/4/2000 12:00:00 AM to 8/7/2000 12:00:00 AM) and Load level higher than 0.7405283:
+Search servers by messages with date range (from 2/9/2011 12:00:00 AM to 8/1/2012 12:00:00 AM) and Load level higher than 0.4234013:
 Servers:
+1) 39329
+2) 39333
 
 Deleting servers found earlier by messages;
 
 Deleting messages found earlier by date;
 
 Servers:
-ID: 31944
-Description: KM25JBT
-IP: 239.102.33.228
-ReloadDate: 10/13/2018 12:00:00 AM
+ID: 39330
+Description: OC7LUXMR9
+IP: 106.180.142.142
+ReloadDate: 3/3/2010 12:00:00 AM
 
-ID: 31945
-Description: QI57356HTINU6ZXMR6K
-IP: 123.181.87.32
-ReloadDate: 8/22/2004 12:00:00 AM
+ID: 39331
+Description: 8CTQDX
+IP: 193.92.75.173
+ReloadDate: 9/17/2016 12:00:00 AM
 
-ID: 31946
-Description: DYMVE49KWNE7GAEHJ6
-IP: 174.240.221.136
-ReloadDate: 6/9/2014 12:00:00 AM
-
-ID: 31947
-Description: FQIIK2HQH653JLJK
-IP: 130.156.174.143
-ReloadDate: 12/22/2003 12:00:00 AM
-
-ID: 31948
-Description: PW10TE
-IP: 59.83.122.148
-ReloadDate: 10/3/2014 12:00:00 AM
-
-ID: 31949
-Description: WD85YMQN
-IP: 116.139.173.225
-ReloadDate: 12/9/2007 12:00:00 AM
+ID: 39332
+Description: ARAV714LIU
+IP: 84.118.42.135
+ReloadDate: 1/10/2003 12:00:00 AM
 
 Messages:
-ID: 21639
-Server ID: 31947
-Text: 2DKYFA2MK8INUF03849R8BSZJPG6B
-Processing Date: 12/22/2003 12:00:00 AM
-TypeType: debug
-Priority: 114
-Load Level: 0.7077935
-
-ID: 21640
-Server ID: 31948
-Text: DS8LT9BERKWH2Q1XE3CV1UUO0
-Processing Date: 8/27/2002 12:00:00 AM
-TypeType: fatal
-Priority: 173
-Load Level: 0.3165976
-
-ID: 21643
-Server ID: 31946
-Text: 914DJZXNGEQ1EZDIXYGS5VS4ZG1K0BFPGEEVV4QYTV1
-Processing Date: 11/30/2002 12:00:00 AM
-TypeType: warning
-Priority: 83
-Load Level: 0.03564638
-
-ID: 21644
-Server ID: 31949
-Text: XH2Z89OI9OC7NWE8AVAVSX3IR8K3APXB4VD
-Processing Date: 12/11/2003 12:00:00 AM
-TypeType: fatal
-Priority: 73
-Load Level: 0.7224144
-
-ID: 21646
-Server ID: 31945
-Text: QBI5SPCQ2SHOE
-Processing Date: 8/22/2004 12:00:00 AM
-TypeType: debug
-Priority: 14
-Load Level: 0.7088135
-
-ID: 21647
-Server ID: 31947
-Text: PM8DAJPA99ZQGON2RSFVLQ3
-Processing Date: 12/22/2003 12:00:00 AM
-TypeType: error
-Priority: 157
-Load Level: 0.1881903
-
-ID: 21648
-Server ID: 31948
-Text: 8YSDO5
-Processing Date: 12/15/2003 12:00:00 AM
-TypeType: fatal
-Priority: 100
-Load Level: 0.9455583
-
 Saving data to .xml file;
 Saving data to .bin file;
 
@@ -249,185 +245,43 @@ Messages:
 
 Loading data from .xml file, print:
 Servers:
-ID: 31950
-Description: KM25JBT
-IP: 239.102.33.228
-ReloadDate: 10/13/2018 12:00:00 AM
+ID: 39334
+Description: OC7LUXMR9
+IP: 106.180.142.142
+ReloadDate: 3/3/2010 12:00:00 AM
 
-ID: 31951
-Description: QI57356HTINU6ZXMR6K
-IP: 123.181.87.32
-ReloadDate: 8/22/2004 12:00:00 AM
+ID: 39335
+Description: 8CTQDX
+IP: 193.92.75.173
+ReloadDate: 9/17/2016 12:00:00 AM
 
-ID: 31952
-Description: DYMVE49KWNE7GAEHJ6
-IP: 174.240.221.136
-ReloadDate: 6/9/2014 12:00:00 AM
-
-ID: 31953
-Description: FQIIK2HQH653JLJK
-IP: 130.156.174.143
-ReloadDate: 12/22/2003 12:00:00 AM
-
-ID: 31954
-Description: PW10TE
-IP: 59.83.122.148
-ReloadDate: 10/3/2014 12:00:00 AM
-
-ID: 31955
-Description: WD85YMQN
-IP: 116.139.173.225
-ReloadDate: 12/9/2007 12:00:00 AM
+ID: 39336
+Description: ARAV714LIU
+IP: 84.118.42.135
+ReloadDate: 1/10/2003 12:00:00 AM
 
 Messages:
-ID: 21649
-Server ID: 31953
-Text: 2DKYFA2MK8INUF03849R8BSZJPG6B
-Processing Date: 12/22/2003 12:00:00 AM
-TypeType: debug
-Priority: 114
-Load Level: 0.7077935
-
-ID: 21650
-Server ID: 31954
-Text: DS8LT9BERKWH2Q1XE3CV1UUO0
-Processing Date: 8/27/2002 12:00:00 AM
-TypeType: fatal
-Priority: 173
-Load Level: 0.3165976
-
-ID: 21651
-Server ID: 31952
-Text: 914DJZXNGEQ1EZDIXYGS5VS4ZG1K0BFPGEEVV4QYTV1
-Processing Date: 11/30/2002 12:00:00 AM
-TypeType: warning
-Priority: 83
-Load Level: 0.03564638
-
-ID: 21652
-Server ID: 31955
-Text: XH2Z89OI9OC7NWE8AVAVSX3IR8K3APXB4VD
-Processing Date: 12/11/2003 12:00:00 AM
-TypeType: fatal
-Priority: 73
-Load Level: 0.7224144
-
-ID: 21653
-Server ID: 31951
-Text: QBI5SPCQ2SHOE
-Processing Date: 8/22/2004 12:00:00 AM
-TypeType: debug
-Priority: 14
-Load Level: 0.7088135
-
-ID: 21654
-Server ID: 31953
-Text: PM8DAJPA99ZQGON2RSFVLQ3
-Processing Date: 12/22/2003 12:00:00 AM
-TypeType: error
-Priority: 157
-Load Level: 0.1881903
-
-ID: 21655
-Server ID: 31954
-Text: 8YSDO5
-Processing Date: 12/15/2003 12:00:00 AM
-TypeType: fatal
-Priority: 100
-Load Level: 0.9455583
-
 Clearing all data, print:
 Servers:
 Messages:
 
 Loading data from .bin file, print:
 Servers:
-ID: 31956
-Description: WD85YMQN
-IP: 116.139.173.225
+ID: 39337
+Description: ARAV714LIU
+IP: 84.118.42.135
 ReloadDate: 
 
-ID: 31957
-Description: PW10TE
-IP: 59.83.122.148
+ID: 39338
+Description: 8CTQDX
+IP: 193.92.75.173
 ReloadDate: 
 
-ID: 31958
-Description: FQIIK2HQH653JLJK
-IP: 130.156.174.143
-ReloadDate: 
-
-ID: 31959
-Description: DYMVE49KWNE7GAEHJ6
-IP: 174.240.221.136
-ReloadDate: 
-
-ID: 31960
-Description: QI57356HTINU6ZXMR6K
-IP: 123.181.87.32
-ReloadDate: 
-
-ID: 31961
-Description: KM25JBT
-IP: 239.102.33.228
+ID: 39339
+Description: OC7LUXMR9
+IP: 106.180.142.142
 ReloadDate: 
 
 Messages:
-ID: 21656
-Server ID: 31957
-Text: 8YSDO5
-Processing Date: 12/15/2003 12:00:00 AM
-TypeType: fatal
-Priority: 100
-Load Level: 0.9455583
-
-ID: 21657
-Server ID: 31958
-Text: PM8DAJPA99ZQGON2RSFVLQ3
-Processing Date: 12/22/2003 12:00:00 AM
-TypeType: error
-Priority: 157
-Load Level: 0.1881903
-
-ID: 21658
-Server ID: 31960
-Text: QBI5SPCQ2SHOE
-Processing Date: 8/22/2004 12:00:00 AM
-TypeType: debug
-Priority: 14
-Load Level: 0.7088135
-
-ID: 21659
-Server ID: 31956
-Text: XH2Z89OI9OC7NWE8AVAVSX3IR8K3APXB4VD
-Processing Date: 12/11/2003 12:00:00 AM
-TypeType: fatal
-Priority: 73
-Load Level: 0.7224144
-
-ID: 21660
-Server ID: 31959
-Text: 914DJZXNGEQ1EZDIXYGS5VS4ZG1K0BFPGEEVV4QYTV1
-Processing Date: 11/30/2002 12:00:00 AM
-TypeType: warning
-Priority: 83
-Load Level: 0.03564638
-
-ID: 21661
-Server ID: 31957
-Text: DS8LT9BERKWH2Q1XE3CV1UUO0
-Processing Date: 8/27/2002 12:00:00 AM
-TypeType: fatal
-Priority: 173
-Load Level: 0.3165976
-
-ID: 21662
-Server ID: 31958
-Text: 2DKYFA2MK8INUF03849R8BSZJPG6B
-Processing Date: 12/22/2003 12:00:00 AM
-TypeType: debug
-Priority: 114
-Load Level: 0.7077935
-
 
 Demo finished;
