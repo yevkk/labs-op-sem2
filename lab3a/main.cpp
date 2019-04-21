@@ -2,8 +2,11 @@
 #include <cmath>
 #include <random>
 #include <ctime>
+#include <chrono>
+#include <functional>
 
-const int N = 100;
+const int NUM = 100;
+const long NUM1 = 40000;
 const double MAX = 50;
 
 struct Point {
@@ -23,7 +26,7 @@ double rand_num(double min, double max) {
     return dist(gen);
 }
 
-void add_element(Point *points, int &size) {
+void add_element(Point *points, int size) {
     points[size] = {rand_num(-MAX, MAX), rand_num(-MAX, MAX), rand_num(-MAX, MAX)};
 }
 
@@ -123,13 +126,56 @@ void split_for_sort(Point *src, Point *dst, int first, int size, bool print) {
 }
 
 void merge_sort(Point *points, int &size, bool print = false) { //top-down implementation;
-    Point new_array[N];
+    Point new_array[NUM1];
     copy_array(points, new_array, size);
     split_for_sort(new_array, points, 0, size, print);
 }
 
+template<typename Func>
+auto time_ms(const Func &func) {
+    using namespace std::chrono;
+    const auto begin = system_clock::now();
+
+    func();
+
+    const auto end = system_clock::now();
+
+    return duration_cast<milliseconds>(end - begin).count();
+}
+
+void benchmark(int size) {
+    Point points[NUM1], *pt;
+    int time;
+
+    std::cout << "\nBenchmark (" << size << " elements):\n";
+
+    std::cout << "-Bubble Sort: ";
+    for (int i = 0; i < size; i++) {
+        add_element(points, i);
+    }
+    pt = &points[0];
+    time = time_ms([&pt, &size]() { bubble_sort(pt, size); });
+    std::cout << time << " ms;\n";
+
+    std::cout << "-Quick Sort: ";
+    for (int i = 0; i < size; i++) {
+        add_element(points, i);
+    }
+    pt = &points[0];
+    time = time_ms([&pt, &size]() { quick_sort(pt, 0, size); });
+    std::cout << time << " ms;\n";
+
+    std::cout << "-Merge Sort: ";
+    for (int i = 0; i < size; i++) {
+        add_element(points, i);
+    }
+    pt = &points[0];
+    time = time_ms([&pt, &size]() { merge_sort(pt, size); });
+    std::cout << time << " ms;\n";
+}
+
 int main() {
-    Point points[N];
+    Point points[NUM];
     int size = 5, command;
 
     for (int i = 0; i < size; i++) {
@@ -155,7 +201,7 @@ int main() {
             case 1: {
                 size = -1;
                 while ((size < 0) || (size > 100)) {
-                    std::cout << "Enter new size (1-100): ";
+                    std::cout << "Enter new size (1-" << NUM << "): ";
                     std::cin >> size;
                 }
                 for (int i = 0; i < size; i++) {
@@ -177,6 +223,10 @@ int main() {
             case 4: {
                 print_array(points, size);
                 merge_sort(points, size, true);
+                break;
+            }
+            case 5: {
+                benchmark(NUM1);
                 break;
             }
             default: {
