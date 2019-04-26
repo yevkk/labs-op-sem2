@@ -38,48 +38,59 @@ namespace MessageLogWebApplication.Models
             return messageList;
         }
 
-        //-------------------------------------
-
-        private void MergeSortedParts(ref List<Message> src, ref List<Message> dst, int first, int middle, int size)
+        private List<Message> Merge(List<Message> messageList, int left, int mid, int right)
         {
-            int i = first, j = middle;
+            List<Message> result = new List<Message>();
+            int p1 = 0, p2 = 0;
+            Message m = new Message();
 
-            for (int k = first; k < size; k++)
+            while ((left + p1 < mid) && (mid + p2 < right))
             {
-                if ((i < middle) && ((j >= size) || (src[i].Priority < src[j].Priority)))
+                if (messageList[left + p1].Priority < messageList[mid + p2].Priority)
                 {
-                    dst[k] = src[i];
-                    i++;
+                    m = messageList[left + p1];
+                    result.Add(m);
+                    p1++;
                 }
                 else
                 {
-                    dst[k] = src[j];
-                    j++;
+                    m = messageList[mid + p2];
+                    result.Add(m);
+                    p2++;
                 }
-
             }
+
+            while (left + p1 < mid)
+            {
+                m = messageList[left + p1];
+                result.Add(m);
+                p1++;
+            }
+
+            while (mid + p2 < right)
+            {
+                m = messageList[mid + p2];
+                result.Add(m);
+                p2++;
+            }
+
+            for (int i = 0; i < p1 + p2; i++)
+                messageList[left + i] = result[i];
+
+            return messageList;
         }
 
-        private void SplitForSort(ref List<Message> src, ref List<Message> dst, int first, int size)
-        {
-            if (size - first < 2) return;
-
-            int middle = (first + size) / 2;
-
-            SplitForSort(ref dst, ref src, first, middle);
-            SplitForSort(ref dst, ref src, middle, size);
-
-            MergeSortedParts(ref src, ref dst, first, middle, size);
-        }
-
-        public List<Message> MergeSort(IQueryable<Message> messages) //top-down implementation;
+        public List<Message> MergeSort(IQueryable<Message> messages)
         {
             List<Message> messageList = messages.ToList();
-            List<Message> newList = messageList;
-            SplitForSort(ref newList, ref messageList, 0, messages.Count());
-            return newList;
-        }
+            int n = messageList.Count();
 
+            for (int i = 1; i < n; i *= 2)
+                for (int j = 0; j <= n - i; j += 2 * i)
+                    messageList = Merge(messageList, j, j + i, Math.Min(j + 2 * i, n));
+
+            return messageList;
+        }
 
     }
 }
