@@ -87,9 +87,9 @@ namespace MessageLogWebApplication.Models
                 ViewData["BenchmarkSize"] = results[2];
             }
             else {
-                ViewData["BenchmarkN"] = "";
-                ViewData["BenchmarkTime"] = "";
-                ViewData["BenchmarkSize"] = "";
+                ViewData["BenchmarkN"] = "---";
+                ViewData["BenchmarkTime"] = "---";
+                ViewData["BenchmarkSize"] = "---";
             }
             return View("Benchmark");
         }

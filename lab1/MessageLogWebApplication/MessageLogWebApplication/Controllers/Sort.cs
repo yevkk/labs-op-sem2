@@ -20,45 +20,6 @@ namespace MessageLogWebApplication.Models
             messages[j] = m;
         }
 
-        public List<Message> QuickSort(IQueryable<Message> messages) // lomuto, rightmost pivot
-        {
-            List<Message> messageList = new List<Message>();
-
-            foreach (var m in messages)
-                messageList.Add(m);
-
-            QuickSortRec(ref messageList, 0, (messageList.Count() - 1));
-            return messageList;
-        }
-
-        private int QSPartition(ref List<Message> messages, int first, int last)
-        {
-            int pivot = (int)messages[last].Priority;
-            int i = first;
-
-            for (int j = first; j <= last - 1; j++)
-            {
-                if (messages[j].Priority <= pivot)
-                {
-                    SwapInList(ref messages, i, j);
-                    i++;
-                }
-            }
-            SwapInList(ref messages, i, last);
-
-            return i;
-        }
-
-        private void QuickSortRec(ref List<Message> messages, int first, int last)
-        {
-            if (first < last)
-            {
-                int p = QSPartition(ref messages, first, last);
-                QuickSortRec(ref messages, first, p);
-                QuickSortRec(ref messages, p + 1, last);
-            }
-        }
-
         public List<Message> BubbleSort(IQueryable<Message> messages)
         {
             List<Message> messageList = new List<Message>();
@@ -77,6 +38,47 @@ namespace MessageLogWebApplication.Models
             return messageList;
         }
 
+        //-------------------------------------
+
+        private void MergeSortedParts(ref List<Message> src, ref List<Message> dst, int first, int middle, int size)
+        {
+            int i = first, j = middle;
+
+            for (int k = first; k < size; k++)
+            {
+                if ((i < middle) && ((j >= size) || (src[i].Priority < src[j].Priority)))
+                {
+                    dst[k] = src[i];
+                    i++;
+                }
+                else
+                {
+                    dst[k] = src[j];
+                    j++;
+                }
+
+            }
+        }
+
+        private void SplitForSort(ref List<Message> src, ref List<Message> dst, int first, int size)
+        {
+            if (size - first < 2) return;
+
+            int middle = (first + size) / 2;
+
+            SplitForSort(ref dst, ref src, first, middle);
+            SplitForSort(ref dst, ref src, middle, size);
+
+            MergeSortedParts(ref src, ref dst, first, middle, size);
+        }
+
+        public List<Message> MergeSort(IQueryable<Message> messages) //top-down implementation;
+        {
+            List<Message> messageList = messages.ToList();
+            List<Message> newList = messageList;
+            SplitForSort(ref newList, ref messageList, 0, messages.Count());
+            return newList;
+        }
 
 
     }

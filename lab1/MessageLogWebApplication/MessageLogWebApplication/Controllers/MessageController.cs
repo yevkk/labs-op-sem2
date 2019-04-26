@@ -26,9 +26,9 @@ namespace MessageLogWebApplication.Models
         public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType)
         {
             IQueryable<Message> messages = func.SearchMessages(searchString, searchDate, minPriority, maxPriority, searchType);
-            
 
-            return View(sort.BubbleSort(messages));
+
+            return View(sort.MergeSort(messages));
         }
         
         [HttpPost]
