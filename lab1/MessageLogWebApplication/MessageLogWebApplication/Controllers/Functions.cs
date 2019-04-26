@@ -396,6 +396,8 @@ namespace MessageLogWebApplication.Models
 
             ClearServers(_context.Server);
 
+            XmlLoad("wwwroot/xml/temp.xml");
+
             return results;
         }
 

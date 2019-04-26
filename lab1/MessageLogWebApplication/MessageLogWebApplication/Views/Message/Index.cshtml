@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <h2>Messages</h2>
 <p>
     <a asp-action="Create">Create New</a>
@@ -10,22 +11,36 @@
 <p>
     <a asp-action="CreateRandom">Create Random</a> (At least one server should exist)
 </p>
+
 <form asp-controller="Message" asp-action="Index" method="get">
-    Text:<input type="text" name="SearchString">
-    Date (from):<input type="datetime-local" name="SearchDate">
-    Min Priority:<input type="number" name="MinPriority">
-    Max Priority:<input type="number" name="MaxPriority">
-    Type:<select name="SearchType">
-        <option value=""></option>
-        <option value="debug">debug</option>
-        <option value="info">info</option>
-        <option value="warning">warning</option>
-        <option value="error">error</option>
-        <option value="fatal">fatal</option>
-    </select>
+    <button class="collapsible" type="button">Search options</button>
+    <div class="content">
+        <b>
+            Text:<input type="text" name="SearchString"><br /><br />
+            Date (from):<input type="datetime-local" name="SearchDate"><br /><br />
+            Min Priority:<input type="number" name="MinPriority"><br /><br />
+            Max Priority:<input type="number" name="MaxPriority"><br /><br />
+            Type:<select name="SearchType">
+                <option value=""></option>
+                <option value="debug">debug</option>
+                <option value="info">info</option>
+                <option value="warning">warning</option>
+                <option value="error">error</option>
+                <option value="fatal">fatal</option>
+            </select>
+        </b>
+    </div>
+
+    <button class="collapsible" type="button">Sort options</button>
+    <div class="content">
+        <b>
+            1234
+        </b>
+    </div>
     <br /><br />
     <input type="submit" value="Search" />
 </form>
+
 <table class="table">
     <thead>
         <tr>
@@ -81,3 +96,20 @@
         }
     </tbody>
 </table>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script>

@@ -11,6 +11,7 @@ namespace MessageLogWebApplication.Models
         private readonly MessageLogWebApplicationContext _context;
         public static Functions func;
         public static Demo demo;
+        
 
         public HomeController(MessageLogWebApplicationContext context)
         {
@@ -30,11 +31,6 @@ namespace MessageLogWebApplication.Models
         }
                
         public IActionResult Demo()
-        {
-            return View();
-        }
-
-        public IActionResult Benchmark()
         {
             return View();
         }
@@ -82,11 +78,19 @@ namespace MessageLogWebApplication.Models
             return RedirectToAction(nameof(Tools));
         }
 
-        public IActionResult BenchmarkResult() {
-            List<string> results = func.Benchmark(10);
-            ViewData["BenchmarkN"] = results[0];
-            ViewData["BenchmarkTime"] = results[1];
-            ViewData["BenchmarkSize"] = results[2];
+        public IActionResult BenchmarkResult(int sec) {
+            if (sec != 0)
+            {
+                List<string> results = func.Benchmark(sec);
+                ViewData["BenchmarkN"] = results[0];
+                ViewData["BenchmarkTime"] = results[1];
+                ViewData["BenchmarkSize"] = results[2];
+            }
+            else {
+                ViewData["BenchmarkN"] = "";
+                ViewData["BenchmarkTime"] = "";
+                ViewData["BenchmarkSize"] = "";
+            }
             return View("Benchmark");
         }
 

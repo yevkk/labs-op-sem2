@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +11,14 @@ namespace MessageLogWebApplication.Models
     {
         private readonly MessageLogWebApplicationContext _context;
         private readonly Functions func;
+        public static Sort sort;
 
 
         public MessageController(MessageLogWebApplicationContext context)
         {
             _context = context;
             func = new Functions(context);
+            sort = new Sort(context);
         }
 
 
@@ -25,8 +26,9 @@ namespace MessageLogWebApplication.Models
         public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType)
         {
             IQueryable<Message> messages = func.SearchMessages(searchString, searchDate, minPriority, maxPriority, searchType);
+            
 
-            return View(await messages.ToListAsync());
+            return View(sort.BubbleSort(messages));
         }
         
         [HttpPost]
