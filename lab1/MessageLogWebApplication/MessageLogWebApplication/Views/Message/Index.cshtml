@@ -15,12 +15,13 @@
 <form asp-controller="Message" asp-action="Index" method="get">
     <button class="collapsible" type="button">Search options</button>
     <div class="content">
+        <br />
         <b>
-            Text:<input type="text" name="SearchString"><br /><br />
-            Date (from):<input type="datetime-local" name="SearchDate"><br /><br />
-            Min Priority:<input type="number" name="MinPriority"><br /><br />
-            Max Priority:<input type="number" name="MaxPriority"><br /><br />
-            Type:<select name="SearchType">
+            Text: <input type="text" name="SearchString"><br /><br />
+            Date (from): <input type="datetime-local" name="SearchDate"><br /><br />
+            Min Priority: <input type="number" name="MinPriority"><br /><br />
+            Max Priority: <input type="number" name="MaxPriority"><br /><br />
+            Type: <select name="SearchType">
                 <option value=""></option>
                 <option value="debug">debug</option>
                 <option value="info">info</option>
@@ -30,15 +31,31 @@
             </select>
         </b>
     </div>
-
+    <br />
     <button class="collapsible" type="button">Sort options</button>
     <div class="content">
+        <br />
         <b>
-            1234
+            <input type="radio" id="RSChoise" name="SortType" value="RS">
+            <label for="RSChoise">Radix sort by </label>
+            <br />
+            <input type="radio" id="CSChoise" name="SortType" value="CS">
+            <label for="CSChoise">Counting sort by </label>
+            <br />
+            <input type="radio" id="MSChoise" name="SortType" value="MS">
+            <label for="MSChoise">Merge sort</label>
+             by:&nbsp;<select name="QSMode" id="qsModeSelect">
+                <option value="serverId">server id</option>
+                <option value="text">text</option>
+                <option value="processingDate">processing date</option>
+                <option value="type">type</option>
+                <option value="priority">priority</option>
+                <option value="loadLevel">load level</option>
+            </select>
         </b>
     </div>
     <br /><br />
-    <input type="submit" value="Search" />
+    <input type="submit" value="Search and sort" />
 </form>
 
 <table class="table">

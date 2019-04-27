@@ -13,12 +13,18 @@
     <a asp-action="CreateRandom">Create Random</a>
 </p>
 <form asp-controller="Server" asp-action="Index" method="get">
-    Text: <input type="text" name="SearchString">
-    <br />Includes messages:&nbsp;
-    From (Date): <input type="datetime-local" name="FirstDate">
-    To (Date): <input type="datetime-local" name="SecondDate">
-    Min Load: <input type="number" name="MinLoad">  
-    <br /><br />
+    <button class="collapsible" type="button">Search options</button>
+    <div class="content">
+        <br />
+        <b>
+            Text: <input type="text" name="SearchString"><br /><br />
+            Includes messages:<br /><br />
+            &nbsp;&nbsp;&nbsp;From (Date): <input type="datetime-local" name="FirstDate">&nbsp;
+            to (Date): <input type="datetime-local" name="SecondDate"><br /><br />
+            &nbsp;&nbsp;&nbsp;Min Load: <input type="number" name="MinLoad">
+        </b>
+    </div>
+    <br />
     <input type="submit" value="Search" />
 </form>
 <table class="table">
@@ -63,3 +69,20 @@
 }
     </tbody>
 </table>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 
 namespace MessageLogWebApplication.Models
 {
@@ -23,9 +24,6 @@ namespace MessageLogWebApplication.Models
         public List<Message> BubbleSort(IQueryable<Message> messages)
         {
             List<Message> messageList = new List<Message>();
-
-            //foreach (var m in messages)
-            //    messageList.Add(m);
             messageList = messages.ToList();
             int n = messageList.Count();
 
@@ -38,7 +36,39 @@ namespace MessageLogWebApplication.Models
             return messageList;
         }
 
-        private List<Message> Merge(List<Message> messageList, int left, int mid, int right)
+        private bool MergeFlag(List<Message> messageList, int i1, int i2, string mode)
+        {
+            switch (mode)
+            {
+                case "serverId":
+                    {
+                        return (messageList[i1].ServerId < messageList[i2].ServerId);
+                    }
+                case "text":
+                    {
+                        return (string.Compare(messageList[i1].Text, messageList[i2].Text) < 0) ? true : false;
+                    }
+                case "processingDate":
+                    {
+                        return (messageList[i1].ProcessingDate < messageList[i2].ProcessingDate);
+                    }
+                case "type":
+                    {
+                        return (string.Compare(messageList[i1].Type, messageList[i2].Type) < 0) ? true : false;
+                    }
+                case "priority":
+                    {
+                        return (messageList[i1].Priority < messageList[i2].Priority);
+                    }
+                case "loadLevel":
+                    {
+                        return (messageList[i1].LoadLevel < messageList[i2].LoadLevel);
+                    }
+            }
+            return true;
+        }
+
+        private List<Message> Merge(List<Message> messageList, int left, int mid, int right, string mode)
         {
             List<Message> result = new List<Message>();
             int p1 = 0, p2 = 0;
@@ -46,7 +76,7 @@ namespace MessageLogWebApplication.Models
 
             while ((left + p1 < mid) && (mid + p2 < right))
             {
-                if (messageList[left + p1].Priority < messageList[mid + p2].Priority)
+                if (MergeFlag(messageList, left + p1, mid + p2, mode))
                 {
                     m = messageList[left + p1];
                     result.Add(m);
@@ -80,16 +110,21 @@ namespace MessageLogWebApplication.Models
             return messageList;
         }
 
-        public List<Message> MergeSort(IQueryable<Message> messages)
+        public List<Message> MergeSort(IQueryable<Message> messages, string mode)
         {
             List<Message> messageList = messages.ToList();
             int n = messageList.Count();
 
             for (int i = 1; i < n; i *= 2)
                 for (int j = 0; j <= n - i; j += 2 * i)
-                    messageList = Merge(messageList, j, j + i, Math.Min(j + 2 * i, n));
+                    messageList = Merge(messageList, j, j + i, Math.Min(j + 2 * i, n), mode);
 
             return messageList;
+        }
+
+        public IQueryable<Message> SortGG(IQueryable<Message> messages, string queryString)
+        {
+            return messages.OrderBy(queryString);
         }
 
     }

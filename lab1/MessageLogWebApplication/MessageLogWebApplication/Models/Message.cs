@@ -22,6 +22,5 @@ namespace MessageLogWebApplication.Models
         public float? LoadLevel { get; set; }
 
         public Server Server { get; set; }
-        
     }
 }
