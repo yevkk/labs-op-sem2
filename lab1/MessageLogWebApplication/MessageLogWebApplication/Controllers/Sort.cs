@@ -122,6 +122,57 @@ namespace MessageLogWebApplication.Models
             return messageList;
         }
 
+        public List<Message> CountingSort(IQueryable<Message> messages) //sort by 'type' property;
+        {
+            List<Message> messageList = messages.ToList();
+            List<Message> newList = new List<Message>();
+            List<int>[] arr = new List<int>[5];
+
+            for (int i = 0; i < 5; i++)
+            {
+                arr[i] = new List<int>();
+            }
+
+            int j = 0;
+            for (int i = 0; i < messageList.Count(); i++)
+            {
+                j = 0;
+                while (true)
+                {
+                    if (arr[j].Count() == 0)
+                    {
+                        arr[j].Add(i);
+                        break;
+                    }
+                    else if (messageList[arr[j][0]].Type == messageList[i].Type)
+                    {
+                        arr[j].Add(i);
+                        break;
+                    }
+                    else
+                    {
+                        j++;
+                    }
+                }
+
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                foreach (int k in arr[i])
+                {
+                    newList.Add(messageList[k]);
+                }
+            }
+            //Message msg = new Message
+            //{
+            //    Priority = arr[0].Count(),
+            //    Type = messageList[0].Type
+            //};
+            //newList.Add(msg);
+            return newList;
+        }
+
         public IQueryable<Message> SortGG(IQueryable<Message> messages, string queryString)
         {
             return messages.OrderBy(queryString);

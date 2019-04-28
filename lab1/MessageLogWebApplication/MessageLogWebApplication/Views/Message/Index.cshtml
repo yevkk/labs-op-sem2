@@ -12,7 +12,7 @@
     <a asp-action="CreateRandom">Create Random</a> (At least one server should exist)
 </p>
 
-<form asp-controller="Message" asp-action="Index" method="get">
+<form asp-controller="Message" asp-action="Index" method="get" name="mainForm">
     <button class="collapsible" type="button">Search options</button>
     <div class="content">
         <br />
@@ -40,11 +40,11 @@
             <label for="RSChoise">Radix sort by </label>
             <br />
             <input type="radio" id="CSChoise" name="SortType" value="CS">
-            <label for="CSChoise">Counting sort by </label>
+            <label for="CSChoise">Counting sort by type</label>
             <br />
-            <input type="radio" id="MSChoise" name="SortType" value="MS">
+            <input type="radio" id="MSChoise" name="SortType" value="MS" onchange="FFF">
             <label for="MSChoise">Merge sort</label>
-             by:&nbsp;<select name="QSMode" id="qsModeSelect">
+            by:&nbsp;<select name="QSMode" id="qsModeSelect" disabled>
                 <option value="serverId">server id</option>
                 <option value="text">text</option>
                 <option value="processingDate">processing date</option>
@@ -129,4 +129,13 @@
             }
         });
     }
+
+    var rad = document.mainForm.SortType;
+    for (var i = 0; i < rad.length; i++) {
+        rad[i].addEventListener('change', function () {
+            if (document.getElementById("MSChoise").checked) document.getElementById("qsModeSelect").disabled = false
+            else document.getElementById("qsModeSelect").disabled = true;
+        });
+    }
+
 </script>

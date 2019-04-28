@@ -26,13 +26,20 @@ namespace MessageLogWebApplication.Models
         public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType, string SortType, string QSMode)
         {
             IQueryable<Message> messages = func.SearchMessages(searchString, searchDate, minPriority, maxPriority, searchType);
-            if (SortType == "MS")
-                return View(sort.MergeSort(messages, QSMode));
-            else
+            switch (SortType)
             {
-                // а тут будет формирование этой самой строки, и вообще код еще сырой, просто тестит, что так вообще можно
-                return View(sort.SortGG(messages, "Type"));
+                case "MS":
+                    {
+                        return View(sort.MergeSort(messages, QSMode));
+                    }
+                case "CS":
+                    {
+                        return View(sort.CountingSort(messages));
+                    }
             }
+
+            return View(sort.SortGG(messages, "serverId"));
+            
         }
 
         [HttpPost]
