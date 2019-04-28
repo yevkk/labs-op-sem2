@@ -25,12 +25,14 @@ namespace MessageLogWebApplication.Models
 
         // GET: Message
         public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType, string SortType, string QSMode,
-            string LSProp1, string LSProp2, string LSProp3, string LSProp4, string LSProp5, string LSProp6,
-            string LSOrd1, string LSOrd2, string LSOrd3, string LSOrd4, string LSOrd5, string LSOrd6)
+            string LSProp1, string LSProp2, string LSProp3, string LSProp4, string LSProp5, string LSProp6, string[] LSOrd)
         {
             ViewBag.Types = new SelectList(func.TypeList.AsEnumerable());
             ViewBag.Properties = new SelectList(func.PropertyList.AsEnumerable());
             IQueryable<Message> messages = func.SearchMessages(searchString, searchDate, minPriority, maxPriority, searchType);
+            List<string> LSProp = new List<string>() {
+                LSProp1, LSProp2, LSProp3, LSProp4, LSProp5, LSProp6,
+            };
             switch (SortType)
             {
                 case "MS":
@@ -48,38 +50,14 @@ namespace MessageLogWebApplication.Models
                 case "LS":
                     {
                         string queryString = "";
-                        while (true) {
-                            if (LSProp1 == "---") break;
-                            else {
-                                queryString += LSProp1 + " " + LSOrd1;
-                            }
-                            if (LSProp2 == "---") break;
+                        for (int i = 0; i < 6; i++) {
+                            if (LSProp[i] == "---") break;
                             else
                             {
-                                queryString += ", " + LSProp2 + " " + LSOrd2;
+                                if (i != 0) queryString += ", ";
+                                queryString += LSProp[i] + " " + LSOrd[i];
                             }
-                            if (LSProp3 == "---") break;
-                            else
-                            {
-                                queryString += ", " + LSProp3 + " " + LSOrd3;
-                            }
-                            if (LSProp4 == "---") break;
-                            else
-                            {
-                                queryString += ", " + LSProp4 + " " + LSOrd4;
-                            }
-                            if (LSProp5 == "---") break;
-                            else
-                            {
-                                queryString += ", " + LSProp5 + " " + LSOrd5;
-                            }
-                            if (LSProp6 == "---") break;
-                            else
-                            {
-                                queryString += ", " + LSProp6 + " " + LSOrd6;
-                            }
-                            break;
-                        }
+                        }                          
                         if (queryString == "") break;
                         return View(sort.LinqSort(messages, queryString));
                     }
