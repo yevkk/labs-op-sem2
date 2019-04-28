@@ -49,15 +49,26 @@ namespace MessageLogWebApplication.Models
             return start.AddDays(random.Next(range));
         }
 
+        public List<string> PropertyList = new List<string>()
+        {
+            "---",
+            "ServerId",
+            "Text",
+            "ProcessingDate",
+            "Type",
+            "Priority",
+            "LoadLevel"
+        };
+
         public List<string> TypeList = new List<string>()
-            {
-                " ",
-                "debug     ",
-                "info      ",
-                "warning   ",
-                "error     ",
-                "fatal     "
-            };
+        {
+            " ",
+            "debug     ",
+            "info      ",
+            "warning   ",
+            "error     ",
+            "fatal     "
+         };
 
         public Server GenerateRandomServer()
         {
@@ -81,7 +92,7 @@ namespace MessageLogWebApplication.Models
                 {
                     ServerId = ServerIdList[random.Next(ServerIdList.Count)],
                     Text = RandomString(random.Next(5, 50)),
-                    Type = TypeList[1 + random.Next(TypeList.Count-1)],
+                    Type = TypeList[1 + random.Next(TypeList.Count - 1)],
                     Priority = random.Next(200),
                     LoadLevel = (float)random.NextDouble()
                 };

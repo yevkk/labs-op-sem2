@@ -21,12 +21,15 @@ namespace MessageLogWebApplication.Models
             sort = new Sort(context);
         }
 
-        
+
 
         // GET: Message
-        public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType, string SortType, string QSMode)
+        public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType, string SortType, string QSMode,
+            string LSProp1, string LSProp2, string LSProp3, string LSProp4, string LSProp5, string LSProp6,
+            string LSOrd1, string LSOrd2, string LSOrd3, string LSOrd4, string LSOrd5, string LSOrd6)
         {
             ViewBag.Types = new SelectList(func.TypeList.AsEnumerable());
+            ViewBag.Properties = new SelectList(func.PropertyList.AsEnumerable());
             IQueryable<Message> messages = func.SearchMessages(searchString, searchDate, minPriority, maxPriority, searchType);
             switch (SortType)
             {
@@ -38,16 +41,52 @@ namespace MessageLogWebApplication.Models
                     {
                         return View(sort.CountingSort(messages));
                     }
+                case "RS":
+                    {
+                        return View(sort.RadixSort(messages));
+                    }
+                case "LS":
+                    {
+                        string queryString = "";
+                        while (true) {
+                            if (LSProp1 == "---") break;
+                            else {
+                                queryString += LSProp1 + " " + LSOrd1;
+                            }
+                            if (LSProp2 == "---") break;
+                            else
+                            {
+                                queryString += ", " + LSProp2 + " " + LSOrd2;
+                            }
+                            if (LSProp3 == "---") break;
+                            else
+                            {
+                                queryString += ", " + LSProp3 + " " + LSOrd3;
+                            }
+                            if (LSProp4 == "---") break;
+                            else
+                            {
+                                queryString += ", " + LSProp4 + " " + LSOrd4;
+                            }
+                            if (LSProp5 == "---") break;
+                            else
+                            {
+                                queryString += ", " + LSProp5 + " " + LSOrd5;
+                            }
+                            if (LSProp6 == "---") break;
+                            else
+                            {
+                                queryString += ", " + LSProp6 + " " + LSOrd6;
+                            }
+                            break;
+                        }
+                        if (queryString == "") break;
+                        return View(sort.LinqSort(messages, queryString));
+                    }
             }
 
-            return View(sort.SortGG(messages, "serverId"));
-            
-        }
+            return View(messages);
 
-        [HttpPost]
-        public string Index(string searchString, bool notUsed)
-        {
-            return "From [HttpPost]Index: filter on " + searchString;
         }
 
         // GET: Message/Details/5

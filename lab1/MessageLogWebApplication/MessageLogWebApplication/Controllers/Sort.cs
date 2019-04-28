@@ -16,6 +16,8 @@ namespace MessageLogWebApplication.Models
             func = new Functions(context);
         }
 
+        //---------- BUBBLE SORT ----------
+
         private void SwapInList(ref List<Message> messages, int i, int j)
         {
             Message m = messages[i];
@@ -38,31 +40,33 @@ namespace MessageLogWebApplication.Models
             return messageList;
         }
 
+        //---------- MERGE SORT ----------
+
         private bool MergeFlag(List<Message> messageList, int i1, int i2, string mode)
         {
             switch (mode)
             {
-                case "serverId":
+                case "ServerId":
                     {
                         return (messageList[i1].ServerId < messageList[i2].ServerId);
                     }
-                case "text":
+                case "Text":
                     {
                         return (string.Compare(messageList[i1].Text, messageList[i2].Text) < 0) ? true : false;
                     }
-                case "processingDate":
+                case "ProcessingDate":
                     {
                         return (messageList[i1].ProcessingDate < messageList[i2].ProcessingDate);
                     }
-                case "type":
+                case "Type":
                     {
                         return (string.Compare(messageList[i1].Type, messageList[i2].Type) < 0) ? true : false;
                     }
-                case "priority":
+                case "Priority":
                     {
                         return (messageList[i1].Priority < messageList[i2].Priority);
                     }
-                case "loadLevel":
+                case "LoadLevel":
                     {
                         return (messageList[i1].LoadLevel < messageList[i2].LoadLevel);
                     }
@@ -124,6 +128,8 @@ namespace MessageLogWebApplication.Models
             return messageList;
         }
 
+        //---------- COUNTING SORT ----------
+
         public List<Message> CountingSort(IQueryable<Message> messages) //sort by 'type' property;
         {
             List<Message> messageList = messages.ToList();
@@ -167,13 +173,52 @@ namespace MessageLogWebApplication.Models
                     newList.Add(messageList[k]);
                 }
             }
-           
+
             return newList;
         }
 
-        public IQueryable<Message> SortGG(IQueryable<Message> messages, string queryString)
+        //---------- RADIX SORT ----------
+
+        private void CopyList(List<Message> dst, List<Message> src)
         {
-            return messages.OrderBy(queryString);
+            for (int i = 0; i < src.Count(); i++)
+                dst[i] = src[i];
+        }
+
+        public List<Message> RadixSort(IQueryable<Message> messages)
+        {
+            List<Message> messageList = messages.ToList();
+
+            List<Message> newList = new List<Message>();
+            List<int>[] digits = new List<int>[10];
+            for (int i = 0; i < 10; i++)
+                digits[i] = new List<int>();
+
+            for (int j = 0; j < 3; j++)
+            {
+                for (int i = 0; i < messageList.Count(); i++)
+                {
+                    digits[(int)(messageList[i].Priority / (int)Math.Pow(10, j)) % 10].Add(i);
+                }
+                foreach (var l in digits)
+                {
+                    foreach (var k in l)
+                    {
+                        newList.Add(messageList[k]);
+                    }
+                    l.Clear();
+                }
+                CopyList(messageList, newList);
+                newList.Clear();
+            }
+
+            return messageList;
+        }
+
+        //---------- LINQ SORT ----------
+        public IQueryable<Message> LinqSort(IQueryable<Message> messages, string queryString)
+        {
+           return messages.OrderBy(queryString);
         }
 
     }
