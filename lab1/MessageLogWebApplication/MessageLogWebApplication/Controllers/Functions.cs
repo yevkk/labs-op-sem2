@@ -11,10 +11,12 @@ namespace MessageLogWebApplication.Models
     public class Functions
     {
         private readonly MessageLogWebApplicationContext _context;
+        private readonly Sort sort;
 
         public Functions(MessageLogWebApplicationContext context)
         {
             _context = context;
+            sort = new Sort(context);
         }
 
         public void ClearMessages(IQueryable<Message> messages)
@@ -381,7 +383,7 @@ namespace MessageLogWebApplication.Models
             return sw.ElapsedMilliseconds;
         }
 
-        public List<string> Benchmark(int sec) // 0 - time ms; 1 - N; 3 - data size; 
+        public List<string> Benchmark(int sec) // 0 - time ms; 1 - N; 2 - data size; 
         {
             XmlCreate("wwwroot/xml/temp.xml");
             ClearServers(_context.Server);
@@ -416,6 +418,35 @@ namespace MessageLogWebApplication.Models
             return results;
         }
 
+        public List<string> SortBenchmark(int num)
+        {
+            List<string> results = new List<string>();
+            List<Message> messageList = new List<Message>();
+            List<Message> newList = new List<Message>();
+            for (int i = 0; i < num; i++)
+                messageList.Add(GenerateRandomMessage());
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
+            newList = sort.MergeSort(messageList.AsQueryable(), "Type");
+            sw.Stop();
+            results.Add("Merge sort: " + sw.ElapsedMilliseconds);
+            sw.Reset();
+
+            sw.Start();
+            newList = sort.CountingSort(messageList.AsQueryable());
+            sw.Stop();
+            results.Add("Counting sort: " + sw.ElapsedMilliseconds);
+            sw.Reset();
+
+            sw.Start();
+            newList = sort.LinqSort(messageList.AsQueryable(), "Type").ToList();
+            sw.Stop();
+            results.Add("Linq sort: " + sw.ElapsedMilliseconds);
+            sw.Reset();         
+
+            return results;
+        }
 
 
 

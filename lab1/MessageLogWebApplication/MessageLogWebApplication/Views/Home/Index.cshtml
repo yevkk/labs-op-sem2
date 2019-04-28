@@ -2,56 +2,56 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="cardholder">
-                <div class="card">
-                    <a asp-controller="Message" asp-action="Index"><img src="~/svg/messages.svg" /></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="cardholder">
-                <div class="card">
-                    <a asp-controller="Server" asp-action="Index"><img src="~/svg/servers.svg" /></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="cardholder">
-                <div class="card">
-                    <a asp-controller="Home" asp-action="Tools"><img src="~/svg/tools.svg" /></a>
-                </div>
-            </div>
+<section id="parentbox">
+    <div class="cardholder" id="box-1">
+        <div class="card">
+            <a asp-controller="Message" asp-action="Index"><img src="~/svg/messages.svg" /></a>
         </div>
     </div>
-</div>
+
+    <div class="cardholder" id="box-2">
+        <div class="card">
+            <a asp-controller="Server" asp-action="Index"><img src="~/svg/servers.svg" /></a>
+        </div>
+    </div>
+
+    <div class="cardholder" id="box-3">
+        <div class="card">
+            <a asp-controller="Home" asp-action="Tools"><img src="~/svg/tools.svg" /></a>
+        </div>
+    </div>
+</section>
 <style>
+    #parentbox {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #box-1 #box-2 #box-3 {
+        flex: 1;
+    }
+
     img {
         height: 300px;
-        transition: all 1s ease;
+        transition: all 0.7s ease;
     }
 
     .cardholder {
         margin-top: 50px;
         margin-bottom: 50px;
-        margin-left: 70px;
-        margin-right: 50px;
-        perspective: 600px;
+        perspective: 500px;
     }
 
     .card {
         width: 300px;
-        height: 300px;
-        background-color: transparent;
-        transform: rotateY(30deg);
-        transition: all 1s ease;
+        transform: rotateY(20deg);
+        transition: all 0.7s ease;
     }
 
         .card:hover {
             transform: rotateY(0deg);
+            transform: scale(1.2, 1.2);
         }
 </style>

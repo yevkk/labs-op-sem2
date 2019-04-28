@@ -80,18 +80,23 @@ namespace MessageLogWebApplication.Models
 
         public IActionResult BenchmarkResult(int sec) {
             if (sec != 0)
+                ViewBag.Benchmark = func.Benchmark(sec);
+            else
             {
-                List<string> results = func.Benchmark(sec);
-                ViewData["BenchmarkN"] = results[0];
-                ViewData["BenchmarkTime"] = results[1];
-                ViewData["BenchmarkSize"] = results[2];
-            }
-            else {
-                ViewData["BenchmarkN"] = "---";
-                ViewData["BenchmarkTime"] = "---";
-                ViewData["BenchmarkSize"] = "---";
+                ViewBag.Benchmark = new List<string>() { "---", "---", "---" };
             }
             return View("Benchmark");
+        }
+
+        public IActionResult SortBenchmarkResult(int num)
+        {
+            if (num != 0)
+                ViewBag.Benchmark = func.SortBenchmark(num);
+            else
+            {
+                ViewBag.Benchmark = new List<string>() { "---", "---", "---" };
+            }
+            return View("SortBenchmark");
         }
 
         public IActionResult DemoResult()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -37,15 +38,18 @@ namespace MessageLogWebApplication.Models
             {
                 case "MS":
                     {
-                        return View(sort.MergeSort(messages, QSMode));
+                        messages = sort.MergeSort(messages, QSMode).AsQueryable();
+                        break;
                     }
                 case "CS":
                     {
-                        return View(sort.CountingSort(messages));
+                        messages = sort.CountingSort(messages).AsQueryable();
+                        break;
                     }
                 case "RS":
                     {
-                        return View(sort.RadixSort(messages));
+                        messages = sort.RadixSort(messages).AsQueryable();
+                        break;
                     }
                 case "LS":
                     {
@@ -59,10 +63,11 @@ namespace MessageLogWebApplication.Models
                             }
                         }                          
                         if (queryString == "") break;
-                        return View(sort.LinqSort(messages, queryString));
+                        messages = sort.LinqSort(messages, queryString).AsQueryable();
+                        break;
                     }
             }
-
+            
             return View(messages);
 
         }

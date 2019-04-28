@@ -8,12 +8,12 @@ namespace MessageLogWebApplication.Models
     public class Sort
     {
         private readonly MessageLogWebApplicationContext _context;
-        private readonly Functions func;
+       // private readonly Functions func;
 
         public Sort(MessageLogWebApplicationContext context)
         {
             _context = context;
-            func = new Functions(context);
+            //func = new Functions(context);
         }
 
         //---------- BUBBLE SORT ----------
@@ -130,6 +130,16 @@ namespace MessageLogWebApplication.Models
 
         //---------- COUNTING SORT ----------
 
+        public List<string> TypeList = new List<string>()
+        {
+            " ",
+            "debug     ",
+            "info      ",
+            "warning   ",
+            "error     ",
+            "fatal     "
+         };
+
         public List<Message> CountingSort(IQueryable<Message> messages) //sort by 'type' property;
         {
             List<Message> messageList = messages.ToList();
@@ -144,23 +154,23 @@ namespace MessageLogWebApplication.Models
             int j = 0;
             for (int i = 0; i < messageList.Count(); i++)
             {
-                if (messageList[i].Type == func.TypeList[1])
+                if (messageList[i].Type == TypeList[1])
                 {
                     arr[0].Add(i);
                 }
-                else if (messageList[i].Type == func.TypeList[2])
+                else if (messageList[i].Type == TypeList[2])
                 {
                     arr[1].Add(i);
                 }
-                else if (messageList[i].Type == func.TypeList[3])
+                else if (messageList[i].Type == TypeList[3])
                 {
                     arr[2].Add(i);
                 }
-                else if (messageList[i].Type == func.TypeList[4])
+                else if (messageList[i].Type == TypeList[4])
                 {
                     arr[3].Add(i);
                 }
-                else if (messageList[i].Type == func.TypeList[5])
+                else if (messageList[i].Type == TypeList[5])
                 {
                     arr[4].Add(i);
                 }
@@ -218,7 +228,7 @@ namespace MessageLogWebApplication.Models
         //---------- LINQ SORT ----------
         public IQueryable<Message> LinqSort(IQueryable<Message> messages, string queryString)
         {
-           return messages.OrderBy(queryString);
+            return messages.OrderBy(queryString);
         }
 
     }
