@@ -1,3 +1,57 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="cardholder">
+                <div class="card">
+                    <a asp-controller="Message" asp-action="Index"><img src="~/svg/messages.svg" /></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="cardholder">
+                <div class="card">
+                    <a asp-controller="Server" asp-action="Index"><img src="~/svg/servers.svg" /></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="cardholder">
+                <div class="card">
+                    <a asp-controller="Home" asp-action="Tools"><img src="~/svg/tools.svg" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    img {
+        height: 300px;
+        transition: all 1s ease;
+    }
+
+    .cardholder {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: 70px;
+        margin-right: 50px;
+        perspective: 600px;
+    }
+
+    .card {
+        width: 300px;
+        height: 300px;
+        background-color: transparent;
+        transform: rotateY(30deg);
+        transition: all 1s ease;
+    }
+
+        .card:hover {
+            transform: rotateY(0deg);
+        }
+</style>

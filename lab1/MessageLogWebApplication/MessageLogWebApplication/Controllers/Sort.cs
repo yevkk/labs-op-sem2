@@ -8,10 +8,12 @@ namespace MessageLogWebApplication.Models
     public class Sort
     {
         private readonly MessageLogWebApplicationContext _context;
+        private readonly Functions func;
 
         public Sort(MessageLogWebApplicationContext context)
         {
             _context = context;
+            func = new Functions(context);
         }
 
         private void SwapInList(ref List<Message> messages, int i, int j)
@@ -136,25 +138,26 @@ namespace MessageLogWebApplication.Models
             int j = 0;
             for (int i = 0; i < messageList.Count(); i++)
             {
-                j = 0;
-                while (true)
+                if (messageList[i].Type == func.TypeList[1])
                 {
-                    if (arr[j].Count() == 0)
-                    {
-                        arr[j].Add(i);
-                        break;
-                    }
-                    else if (messageList[arr[j][0]].Type == messageList[i].Type)
-                    {
-                        arr[j].Add(i);
-                        break;
-                    }
-                    else
-                    {
-                        j++;
-                    }
+                    arr[0].Add(i);
                 }
-
+                else if (messageList[i].Type == func.TypeList[2])
+                {
+                    arr[1].Add(i);
+                }
+                else if (messageList[i].Type == func.TypeList[3])
+                {
+                    arr[2].Add(i);
+                }
+                else if (messageList[i].Type == func.TypeList[4])
+                {
+                    arr[3].Add(i);
+                }
+                else if (messageList[i].Type == func.TypeList[5])
+                {
+                    arr[4].Add(i);
+                }
             }
 
             for (int i = 0; i < 5; i++)
@@ -164,12 +167,7 @@ namespace MessageLogWebApplication.Models
                     newList.Add(messageList[k]);
                 }
             }
-            //Message msg = new Message
-            //{
-            //    Priority = arr[0].Count(),
-            //    Type = messageList[0].Type
-            //};
-            //newList.Add(msg);
+           
             return newList;
         }
 

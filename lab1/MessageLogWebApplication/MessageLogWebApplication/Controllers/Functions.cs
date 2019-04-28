@@ -17,7 +17,8 @@ namespace MessageLogWebApplication.Models
             _context = context;
         }
 
-        public void ClearMessages(IQueryable<Message> messages) {
+        public void ClearMessages(IQueryable<Message> messages)
+        {
             foreach (var message in messages)
                 _context.Message.Remove(message);
             _context.SaveChanges();
@@ -25,7 +26,8 @@ namespace MessageLogWebApplication.Models
 
         public void ClearServers(IQueryable<Server> servres) // with _context.Server argument method is equal to clearing all data, because messages cannot exist without servers;
         {
-            foreach (var server in servres) {
+            foreach (var server in servres)
+            {
                 foreach (var message in _context.Message)
                     if (message.ServerId == server.Id) _context.Message.Remove(message);
                 _context.Server.Remove(server);
@@ -47,13 +49,14 @@ namespace MessageLogWebApplication.Models
             return start.AddDays(random.Next(range));
         }
 
-        List<string> TypeList = new List<string>()
+        public List<string> TypeList = new List<string>()
             {
-                "debug",
-                "info",
-                "warning",
-                "error",
-                "fatal"
+                " ",
+                "debug     ",
+                "info      ",
+                "warning   ",
+                "error     ",
+                "fatal     "
             };
 
         public Server GenerateRandomServer()
@@ -78,7 +81,7 @@ namespace MessageLogWebApplication.Models
                 {
                     ServerId = ServerIdList[random.Next(ServerIdList.Count)],
                     Text = RandomString(random.Next(5, 50)),
-                    Type = TypeList[random.Next(TypeList.Count)],
+                    Type = TypeList[1 + random.Next(TypeList.Count-1)],
                     Priority = random.Next(200),
                     LoadLevel = (float)random.NextDouble()
                 };
@@ -329,7 +332,7 @@ namespace MessageLogWebApplication.Models
                     };
                     message.ServerId = message.Server.Id;
                     if (m.ProcessingDate != null) message.ProcessingDate = m.ProcessingDate;
-                    
+
 
                     _context.Add(message);
                 }
@@ -340,7 +343,8 @@ namespace MessageLogWebApplication.Models
             _context.SaveChanges();
         }
 
-        public long Time(int n = 100) {
+        public long Time(int n = 100)
+        {
             ClearServers(_context.Server);
             Stopwatch sw = new Stopwatch();
             sw.Start();

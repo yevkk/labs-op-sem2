@@ -64,7 +64,7 @@ namespace MessageLogWebApplication
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Message}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

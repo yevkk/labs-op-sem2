@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,6 @@ namespace MessageLogWebApplication.Models
         private readonly Functions func;
         public static Sort sort;
 
-
         public MessageController(MessageLogWebApplicationContext context)
         {
             _context = context;
@@ -21,10 +21,12 @@ namespace MessageLogWebApplication.Models
             sort = new Sort(context);
         }
 
+        
 
         // GET: Message
         public async Task<IActionResult> Index(string searchString, DateTime? searchDate, int? minPriority, int? maxPriority, string searchType, string SortType, string QSMode)
         {
+            ViewBag.Types = new SelectList(func.TypeList.AsEnumerable());
             IQueryable<Message> messages = func.SearchMessages(searchString, searchDate, minPriority, maxPriority, searchType);
             switch (SortType)
             {
@@ -70,6 +72,7 @@ namespace MessageLogWebApplication.Models
         // GET: Message/Create
         public IActionResult Create()
         {
+            ViewBag.Types = new SelectList(func.TypeList.AsEnumerable());
             ViewData["ServerId"] = new SelectList(_context.Set<Server>(), "Id", "Description");
             return View();
         }
@@ -87,6 +90,7 @@ namespace MessageLogWebApplication.Models
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Types = new SelectList(func.TypeList.AsEnumerable());
             ViewData["ServerId"] = new SelectList(_context.Set<Server>(), "Id", "Id", message.ServerId);
             return View(message);
         }
@@ -104,6 +108,7 @@ namespace MessageLogWebApplication.Models
             {
                 return NotFound();
             }
+            ViewBag.Types = new SelectList(func.TypeList.AsEnumerable());
             ViewData["ServerId"] = new SelectList(_context.Set<Server>(), "Id", "Description", message.ServerId);
             return View(message);
         }
@@ -140,6 +145,7 @@ namespace MessageLogWebApplication.Models
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Types = new SelectList(func.TypeList.AsEnumerable());
             ViewData["ServerId"] = new SelectList(_context.Set<Server>(), "Id", "Id", message.ServerId);
             return View(message);
         }

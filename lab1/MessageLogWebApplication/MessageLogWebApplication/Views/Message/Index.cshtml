@@ -21,14 +21,7 @@
             Date (from): <input type="datetime-local" name="SearchDate"><br /><br />
             Min Priority: <input type="number" name="MinPriority"><br /><br />
             Max Priority: <input type="number" name="MaxPriority"><br /><br />
-            Type: <select name="SearchType">
-                <option value=""></option>
-                <option value="debug">debug</option>
-                <option value="info">info</option>
-                <option value="warning">warning</option>
-                <option value="error">error</option>
-                <option value="fatal">fatal</option>
-            </select>
+            Type: <select name="SearchType" asp-items="ViewBag.Types"></select>
         </b>
     </div>
     <br />
@@ -42,7 +35,7 @@
             <input type="radio" id="CSChoise" name="SortType" value="CS">
             <label for="CSChoise">Counting sort by type</label>
             <br />
-            <input type="radio" id="MSChoise" name="SortType" value="MS" onchange="FFF">
+            <input type="radio" id="MSChoise" name="SortType" value="MS">
             <label for="MSChoise">Merge sort</label>
             by:&nbsp;<select name="QSMode" id="qsModeSelect" disabled>
                 <option value="serverId">server id</option>
