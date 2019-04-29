@@ -32,6 +32,80 @@ void print_array(int *arr, int &size) {
 }
 //---------- BINARY TREE SORT ----------
 
+struct Node {
+    int val;
+    int amount = 0;
+    Node *left = nullptr,
+            *right = nullptr;
+
+    Node(int Val) {
+        val = Val;
+        amount = 1;
+    }
+};
+//bt - binary tree;
+
+void reset_node(Node *&node){
+    delete node;
+    node = nullptr;
+}
+
+void add_node_to_bt(Node *&root, int val) {
+    if (root == nullptr)
+        root = new Node(val);
+    else {
+        if (root->val == val) {
+            root->amount++;
+            return;
+        }
+        if (root->val < val) {
+            add_node_to_bt(root->right, val);
+            return;
+        }
+        if (root->val > val) {
+            add_node_to_bt(root->left, val);
+            return;
+        }
+    }
+}
+
+void print_tree(Node * p, int level)
+{
+    if(p)
+    {
+        print_tree(p->left,level + 1);
+        for(int i = 0;i< level;i++) std::cout<<"   ";
+        std::cout << p->val << std::endl;
+        print_tree(p->right,level + 1);
+    }
+}
+
+
+void bt_to_array(Node* root, int *dst, int &index){
+    if (root == nullptr) return;
+    bt_to_array(root->left, dst, index);
+    for (int j = 1; j <= root->amount; j++){
+        dst[index] = root->val;
+        index++;
+    }
+    bt_to_array(root->right, dst, index);
+
+
+}
+
+void bt_sort(int *arr, int size) {
+    Node *root = nullptr;
+    int k = 0;
+    for (int i = 0; i < size; i++)
+        add_node_to_bt(root, arr[i]);
+    print_tree(root, 0);
+    bt_to_array(root, arr, k);
+    print_array(arr, size);
+
+}
+
+
+
 //---------- BUCKET SORT ----------
 //---------- BENCHMARK ----------
 
@@ -66,7 +140,7 @@ void benchmark(int size) {
 
 int main() {
     int arr[NUM];
-    int size = 5, command;
+    int size = 0, command;
 
     for (int i = 0; i < size; i++) {
         set_element(arr, size);
@@ -101,16 +175,18 @@ int main() {
             }
             case 2: {
                 print_array(arr, size);
-                bt_sort(arr, size);
+                if (size != 0) bt_sort(arr, size);
                 break;
             }
             case 3: {
                 print_array(arr, size);
-                break;
+                if (size != 0);
+                    break;
             }
             case 4: {
                 print_array(arr, size);
-                break;
+                if (size != 0);
+                    break;
             }
             case 5: {
                 benchmark(NUM1);
