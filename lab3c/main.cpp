@@ -4,9 +4,10 @@
 #include <ctime>
 #include <chrono>
 #include <functional>
+#include <algorithm>
 
 const int NUM = 100;   //max number of elements in array;
-const int NUM1 = 1000; //number of elements in array for benchmark;
+const int NUM1 = 500000; //number of elements in array for benchmark;
 const int MAX = 100;   //max value;
 
 //---------- TOOLS ----------
@@ -30,6 +31,14 @@ void print_array(int *arr, int &size) {
         std::cout << arr[i] << " ";
     std::cout << std::endl;
 }
+
+template<typename T>
+void copy_array(T *src, T *dst, int size){
+    for (int i = 0; i < size; i++) {
+        dst[i] = src[i];
+        ;
+    }
+}
 //---------- BINARY TREE SORT ----------
 
 struct Node {
@@ -44,11 +53,6 @@ struct Node {
     }
 };
 //bt - binary tree;
-
-void reset_node(Node *&node) {
-    delete node;
-    node = nullptr;
-}
 
 void add_node_to_bt(Node *&root, int val) {
     if (root == nullptr)
@@ -119,12 +123,11 @@ void bt_sort(int *arr, int size, bool print) {
         std::cout << "\nSorted ";
         print_array(arr, size);
     }
-
 }
-
-
-
 //---------- BUCKET SORT ----------
+
+
+
 //---------- BENCHMARK ----------
 
 template<typename Func>
@@ -145,14 +148,16 @@ void benchmark(int size) {
 
     std::cout << "\nBenchmark (" << size << " elements):\n";
 
-//    std::cout << "-@@@ Sort: ";
-//    for (int i = 0; i < size; i++) {
-//        set_element(points, i);
-//    }
-//    pt = &points[0];
-//    time = time_ms([&pt, &size]() { @@@_sort(pt, size); });
-//    std::cout << time << " ms;\n";
-//
+    std::cout << "-std::sort(): ";
+    for (int i = 0; i < size; i++) set_element(arr, i);
+    time = time_ms([&arr, size]() { std::sort(arr, arr + size); });
+    std::cout << time << " ms;\n";
+
+    std::cout << "-Binary Tree Sort: ";
+    for (int i = 0; i < size; i++) set_element(arr, i);
+    time = time_ms([&arr, &size]() { bt_sort(arr, size, false); });
+    std::cout << time << " ms;\n";
+
 }
 
 
