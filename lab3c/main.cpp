@@ -45,7 +45,7 @@ struct Node {
 };
 //bt - binary tree;
 
-void reset_node(Node *&node){
+void reset_node(Node *&node) {
     delete node;
     node = nullptr;
 }
@@ -69,22 +69,32 @@ void add_node_to_bt(Node *&root, int val) {
     }
 }
 
-void print_tree(Node * p, int level)
-{
-    if(p)
-    {
-        print_tree(p->left,level + 1);
-        for(int i = 0;i< level;i++) std::cout<<"   ";
-        std::cout << p->val << std::endl;
-        print_tree(p->right,level + 1);
+void print_tree(Node *node) {
+    if (node != nullptr) {
+        std::cout << node->val << " x" << node->amount;
+
+        std::cout << " left:";
+        if (node->left != nullptr)
+            std::cout << node->left->val;
+        else std::cout << "NAN";
+
+        std::cout << " right:";
+        if (node->right != nullptr)
+            std::cout << node->right->val;
+        else std::cout << "NAN";
+
+        std::cout << std::endl;
+
+        print_tree(node->left);
+        print_tree(node->right);
     }
 }
 
 
-void bt_to_array(Node* root, int *dst, int &index){
+void bt_to_array(Node *root, int *dst, int &index) {
     if (root == nullptr) return;
     bt_to_array(root->left, dst, index);
-    for (int j = 1; j <= root->amount; j++){
+    for (int j = 1; j <= root->amount; j++) {
         dst[index] = root->val;
         index++;
     }
@@ -93,14 +103,22 @@ void bt_to_array(Node* root, int *dst, int &index){
 
 }
 
-void bt_sort(int *arr, int size) {
+void bt_sort(int *arr, int size, bool print) {
     Node *root = nullptr;
     int k = 0;
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i + 1 < size; i++) {
         add_node_to_bt(root, arr[i]);
-    print_tree(root, 0);
+        if (print) {
+            std::cout << i << ")\n";
+            print_tree(root);
+        }
+    }
     bt_to_array(root, arr, k);
-    print_array(arr, size);
+
+    if (print) {
+        std::cout << "\nSorted ";
+        print_array(arr, size);
+    }
 
 }
 
@@ -158,7 +176,7 @@ int main() {
         std::cout << "\nEnter command number: ";
         std::cin >> command;
 
-        if (command == 6) break;
+        if (command == 5) break;
 
         switch (command) {
             case 1: {
@@ -175,20 +193,15 @@ int main() {
             }
             case 2: {
                 print_array(arr, size);
-                if (size != 0) bt_sort(arr, size);
+                if (size != 0) bt_sort(arr, size, true);
                 break;
             }
             case 3: {
                 print_array(arr, size);
                 if (size != 0);
-                    break;
+                break;
             }
             case 4: {
-                print_array(arr, size);
-                if (size != 0);
-                    break;
-            }
-            case 5: {
                 benchmark(NUM1);
                 break;
             }
