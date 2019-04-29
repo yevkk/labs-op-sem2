@@ -22,7 +22,7 @@ int rand_num(int min, int max) {
 }
 
 void set_element(int *arr, int pos) {
-    arr[pos] = rand_num(0, MAX);
+    arr[pos] = rand_num(-MAX, MAX);
 }
 
 void print_array(int *arr, int &size) {
@@ -32,13 +32,6 @@ void print_array(int *arr, int &size) {
     std::cout << std::endl;
 }
 
-template<typename T>
-void copy_array(T *src, T *dst, int size){
-    for (int i = 0; i < size; i++) {
-        dst[i] = src[i];
-        ;
-    }
-}
 //---------- BINARY TREE SORT ----------
 
 struct Node {
@@ -110,10 +103,10 @@ void bt_to_array(Node *root, int *dst, int &index) {
 void bt_sort(int *arr, int size, bool print) {
     Node *root = nullptr;
     int k = 0;
-    for (int i = 0; i + 1 < size; i++) {
+    for (int i = 0; i < size; i++) {
         add_node_to_bt(root, arr[i]);
         if (print) {
-            std::cout << i << ")\n";
+            std::cout << i+1 << ")\n";
             print_tree(root);
         }
     }
