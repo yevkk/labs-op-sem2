@@ -247,12 +247,20 @@ void benchmark(int size) {
     time = time_ms([&arr, &size]() { bt_sort(arr, size, false); });
     std::cout << time << " ms;\n";
 
+    int partition_size = 10;
+    size = size / 10;
+    std::cout << "-Bucket Sort(partiton size: " << partition_size << ", " << size << " elements): ";
+    for (int i = 0; i < size; i++) set_element(arr, i);
+    time = time_ms([&arr, &size, partition_size]() { bucket_sort(arr, size, partition_size); });
+    std::cout << time << " ms;\n";
+
 }
 
 
 int main() {
     int arr[NUM];
     int size = 0, command;
+    int partition_size;
 
     for (int i = 0; i < size; i++) {
         set_element(arr, size);
@@ -292,7 +300,12 @@ int main() {
             }
             case 3: {
                 print_array(arr, size);
-                if (size != 0) bucket_sort(arr, size, 10, true);
+                partition_size = -1;
+                while ((partition_size <= 0) || (partition_size > NUM)) {
+                    std::cout << "Enter partition size (1-20): ";
+                    std::cin >> partition_size;
+                }
+                if (size != 0) bucket_sort(arr, size, partition_size, true);
                 break;
             }
             case 4: {
