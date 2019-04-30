@@ -22,7 +22,7 @@ int rand_num(int min, int max) {
 }
 
 void set_element(int *arr, int pos) {
-    arr[pos] = rand_num(-MAX, MAX);
+    arr[pos] = rand_num(0, MAX);
 }
 
 void print_array(int *arr, int &size) {
@@ -34,39 +34,39 @@ void print_array(int *arr, int &size) {
 
 //---------- BINARY TREE SORT ----------
 
-struct Node {
+struct BinNode {
     int val;
     int amount = 0;
-    Node *left = nullptr,
+    BinNode *left = nullptr,
             *right = nullptr;
 
-    Node(int Val) {
+    BinNode(int Val) {
         val = Val;
         amount = 1;
     }
 };
 //bt - binary tree;
 
-void add_node_to_bt(Node *&root, int val) {
+void add_to_bt(BinNode *&root, int val) {
     if (root == nullptr)
-        root = new Node(val);
+        root = new BinNode(val);
     else {
         if (root->val == val) {
             root->amount++;
             return;
         }
         if (root->val < val) {
-            add_node_to_bt(root->right, val);
+            add_to_bt(root->right, val);
             return;
         }
         if (root->val > val) {
-            add_node_to_bt(root->left, val);
+            add_to_bt(root->left, val);
             return;
         }
     }
 }
 
-void print_tree(Node *node) {
+void print_tree(BinNode *node) {
     if (node != nullptr) {
         std::cout << node->val << " x" << node->amount;
 
@@ -88,7 +88,7 @@ void print_tree(Node *node) {
 }
 
 
-void bt_to_array(Node *root, int *dst, int &index) {
+void bt_to_array(BinNode *root, int *dst, int &index) {
     if (root == nullptr) return;
     bt_to_array(root->left, dst, index);
     for (int j = 1; j <= root->amount; j++) {
@@ -101,12 +101,12 @@ void bt_to_array(Node *root, int *dst, int &index) {
 }
 
 void bt_sort(int *arr, int size, bool print) {
-    Node *root = nullptr;
+    BinNode *root = nullptr;
     int k = 0;
     for (int i = 0; i < size; i++) {
-        add_node_to_bt(root, arr[i]);
+        add_to_bt(root, arr[i]);
         if (print) {
-            std::cout << i+1 << ")\n";
+            std::cout << i + 1 << ")\n";
             print_tree(root);
         }
     }
@@ -119,6 +119,102 @@ void bt_sort(int *arr, int size, bool print) {
 }
 //---------- BUCKET SORT ----------
 
+struct ListNode {
+    int val;
+    ListNode *next = nullptr;
+
+    ListNode(int Val, ListNode *Next) {
+        val = Val;
+        next = Next;
+    }
+};
+
+struct SubList {
+    double max;
+    SubList *next = nullptr;
+    ListNode *first = nullptr;
+
+    SubList(double Max, SubList *Next) {
+        next = Next;
+        max = Max;
+    };
+};
+
+void print_sublist(SubList *sublist) {
+    ListNode *n_pt = sublist->first;
+    if (sublist->first == nullptr) return;
+    while (n_pt != nullptr) {
+        std::cout << n_pt->val << " ";
+        n_pt = n_pt->next;
+    }
+    std::cout << std::endl;
+}
+
+void print_list(SubList *list) {
+    SubList *sub_pt = list;
+    while (sub_pt != nullptr) {
+        print_sublist(sub_pt);
+        sub_pt = sub_pt->next;
+    }
+}
+
+void add_to_list(SubList *list, int val) {
+    SubList *sub_pt = list;
+    ListNode *n_pt;
+
+    while (val > sub_pt->max) {
+        sub_pt = sub_pt->next;
+    }
+
+    if (sub_pt->first == nullptr) {
+        sub_pt->first = new ListNode(val, nullptr);
+    } else {
+        if (sub_pt->first->val > val) {
+            n_pt = new ListNode(val, sub_pt->first);
+            sub_pt->first = n_pt;
+        } else {
+            n_pt = sub_pt->first;
+            while (n_pt->next != nullptr) {
+                if (n_pt->next->val > val) break;
+                n_pt = n_pt->next;
+            }
+            n_pt->next = new ListNode(val, n_pt->next);
+        }
+    }
+}
+
+void list_to_arr(SubList *list, int *arr) {
+    SubList *sub_pt = list;
+    ListNode *n_pt;
+    int i = 0;
+
+    while (sub_pt != nullptr) {
+        n_pt = sub_pt->first;
+        while (n_pt != nullptr) {
+            arr[i] = n_pt->val;
+            i++;
+            n_pt = n_pt->next;
+        }
+        sub_pt = sub_pt->next;
+    }
+}
+
+void bucket_sort(int *arr, int size, int partition_size, bool print = false) {
+    SubList *sub_pt = nullptr;
+    int step = 1;
+    for (int i = partition_size; i > 0; i--)
+        sub_pt = new SubList(((double) MAX * i / partition_size), sub_pt);
+    for (int i = 0; i < size; i++) {
+        add_to_list(sub_pt, arr[i]);
+        if (print) {
+            std::cout << std::endl << step++ << ")" << std::endl;
+            print_list(sub_pt);
+        }
+    }
+    list_to_arr(sub_pt, arr);
+    if (print) print_array(arr, size);
+
+}
 
 
 //---------- BENCHMARK ----------
@@ -196,7 +292,7 @@ int main() {
             }
             case 3: {
                 print_array(arr, size);
-                if (size != 0);
+                if (size != 0) bucket_sort(arr, size, 10, true);
                 break;
             }
             case 4: {
