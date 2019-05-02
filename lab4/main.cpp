@@ -23,7 +23,7 @@ int rand_int(int min, int max) {
     return dist(gen);
 }
 
-//---------- Unit 0 (task 1) ----------
+//---------- UNIT 0 (task 1) ----------
 const int MAX_CH = 10; //max number of children;
 
 struct TreeNode {
@@ -38,8 +38,7 @@ struct TreeNode {
     }
 };
 
-
-//---------- Block 1 (task 4) ----------
+//---------- UNIT 1 (task 4) ----------
 const int MAX_VAL = 100;
 
 void add_node_to_tree(TreeNode *&root, int val, double p) {
@@ -56,10 +55,23 @@ void add_node_to_tree(TreeNode *&root, int val, double p) {
     }
 }
 
+//---------- UNIT 2 (task 8) ----------
+void print_tree(TreeNode* root, int level = 0)
+{
+    if(root != nullptr){
+        for(int i = 0; i < level; i++)
+            std::cout << "\t";
+        std::cout << "|" << root->data << std::endl;
+        for(auto ch: root->children)
+            print_tree(ch, level+1);
+    }
+}
+
 int main() {
     TreeNode *root = nullptr;
     for (int i = 0; i < 25; i++) {
-        add_node_to_tree(root, rand_int(0, MAX_VAL), rand_double(0, 1));
+        add_node_to_tree(root, rand_int(-MAX_VAL, MAX_VAL), rand_double(0, 1));
     }
+    print_tree(root);
     return 0;
 }
