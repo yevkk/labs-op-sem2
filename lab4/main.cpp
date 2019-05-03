@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include <ctime>
+#include <string>
 
 //---------- TOOLS ----------
 
@@ -52,7 +53,7 @@ struct BinTreeNode {
 };
 
 //---------- UNIT 1 (task 4) ----------
-const int MAX_VAL = 3;
+const int MAX_VAL = 100;
 
 void add_node_to_tree(TreeNode *&root, int val, double p) {
     double p1 = rand_double(0, 1);
@@ -69,13 +70,14 @@ void add_node_to_tree(TreeNode *&root, int val, double p) {
 }
 
 //---------- UNIT 2 (task 8) ----------
-const int SPACES = 4;
+const std::string SPACES = "    ";
 
 void print_tree(TreeNode *root, int level = 0) {
     if (root != nullptr) {
-        for (int i = 0; i < SPACES * level; i++)
-            std::cout << " ";
-        std::cout << "|" << root->data << std::endl;
+        std::cout << '|';
+        for (int i = 0; i < level; i++)
+            std::cout << SPACES << '|';
+        std::cout << root->data << std::endl;
         for (auto ch: root->children)
             print_tree(ch, level + 1);
     }
@@ -84,9 +86,10 @@ void print_tree(TreeNode *root, int level = 0) {
 //--- for units 4-6 ---
 void print_tree(BinTreeNode *root, int level = 0) {
     if (root != nullptr) {
-        for (int i = 0; i < SPACES * level; i++)
-            std::cout << " ";
-        std::cout << "|" << root->data << std::endl;
+        std::cout << '|';
+        for (int i = 0; i < level; i++)
+            std::cout << SPACES << '|';
+        std::cout << root->data << std::endl;
         print_tree(root->left, level + 1);
         print_tree(root->right, level + 1);
     }
@@ -95,7 +98,7 @@ void print_tree(BinTreeNode *root, int level = 0) {
 //---------- UNIT 3 (task 15) ----------
 void delete_children(TreeNode *&node) {
     if (node != nullptr) {
-        for (auto& ch: node->children) {
+        for (auto &ch: node->children) {
             delete_children(ch);
             ch = nullptr;
         }
@@ -112,10 +115,10 @@ void delete_nodes_from_tree(TreeNode *&root, int val) {
             for (auto &ch:root->children) {
                 delete_nodes_from_tree(ch, val);
             }
-            for (int i = 0; i < root->deg-1; i++){
+            for (int i = 0; i < root->deg - 1; i++) {
                 if (root->children[i] == nullptr) {
-                    root->children[i] = root->children[root->deg-1];
-                    root->children[root->deg-1] = nullptr;
+                    root->children[i] = root->children[root->deg - 1];
+                    root->children[root->deg - 1] = nullptr;
                     root->deg--;
                 }
             }
@@ -125,17 +128,26 @@ void delete_nodes_from_tree(TreeNode *&root, int val) {
 }
 
 //---------- UNIT 4 (task 15) ----------
+void add_node_to_bt(BinTreeNode *&root, int val) {
+    if (root == nullptr)
+        root = new BinTreeNode(val);
+    else {
+        if (root->data < val) {
+            add_node_to_bt(root->right, val);
+            return;
+        }
+        if (root->data > val) {
+            add_node_to_bt(root->left, val);
+            return;
+        }
+    }
+}
 
 int main() {
-    TreeNode *root = nullptr;
+    BinTreeNode *root = nullptr;
     for (int i = 0; i < 25; i++) {
-        add_node_to_tree(root, rand_int(-MAX_VAL, MAX_VAL), rand_double(0, 1));
+        add_node_to_bt(root, rand_int(-MAX_VAL, MAX_VAL));
     }
-    print_tree(root);
-    int c;
-    std::cin >> c;
-    TreeNode* k = root;
-    delete_nodes_from_tree(root, c);;
     print_tree(root);
     return 0;
 }
