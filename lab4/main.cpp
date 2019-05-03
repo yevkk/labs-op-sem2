@@ -70,13 +70,11 @@ void add_node_to_tree(TreeNode *&root, int val, double p) {
 }
 
 //---------- UNIT 2 (task 8) ----------
-const std::string SPACES = "    ";
-
 void print_tree(TreeNode *root, int level = 0) {
     if (root != nullptr) {
         std::cout << '|';
         for (int i = 0; i < level; i++)
-            std::cout << SPACES << '|';
+            std::cout << "    " << '|';
         std::cout << root->data << std::endl;
         for (auto ch: root->children)
             print_tree(ch, level + 1);
@@ -88,7 +86,7 @@ void print_tree(BinTreeNode *root, int level = 0) {
     if (root != nullptr) {
         std::cout << '|';
         for (int i = 0; i < level; i++)
-            std::cout << SPACES << '|';
+            std::cout << "    " << '|';
         std::cout << root->data << std::endl;
         print_tree(root->left, level + 1);
         print_tree(root->right, level + 1);
