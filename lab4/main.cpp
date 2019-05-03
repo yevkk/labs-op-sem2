@@ -38,6 +38,19 @@ struct TreeNode {
     }
 };
 
+//--- for units 4-6 ---
+struct BinTreeNode {
+    int data;
+    BinTreeNode *left;
+    BinTreeNode *right;
+
+    explicit BinTreeNode(int Data) {
+        data = Data;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
 //---------- UNIT 1 (task 4) ----------
 const int MAX_VAL = 3;
 
@@ -56,13 +69,26 @@ void add_node_to_tree(TreeNode *&root, int val, double p) {
 }
 
 //---------- UNIT 2 (task 8) ----------
+const int SPACES = 4;
+
 void print_tree(TreeNode *root, int level = 0) {
     if (root != nullptr) {
-        for (int i = 0; i < 4 * level; i++)
+        for (int i = 0; i < SPACES * level; i++)
             std::cout << " ";
         std::cout << "|" << root->data << std::endl;
         for (auto ch: root->children)
             print_tree(ch, level + 1);
+    }
+}
+
+//--- for units 4-6 ---
+void print_tree(BinTreeNode *root, int level = 0) {
+    if (root != nullptr) {
+        for (int i = 0; i < SPACES * level; i++)
+            std::cout << " ";
+        std::cout << "|" << root->data << std::endl;
+        print_tree(root->left, level + 1);
+        print_tree(root->right, level + 1);
     }
 }
 
@@ -97,6 +123,8 @@ void delete_nodes_from_tree(TreeNode *&root, int val) {
     }
 
 }
+
+//---------- UNIT 4 (task 15) ----------
 
 int main() {
     TreeNode *root = nullptr;
