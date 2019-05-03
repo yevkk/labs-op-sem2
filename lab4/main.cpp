@@ -39,7 +39,7 @@ struct TreeNode {
 };
 
 //---------- UNIT 1 (task 4) ----------
-const int MAX_VAL = 5;
+const int MAX_VAL = 3;
 
 void add_node_to_tree(TreeNode *&root, int val, double p) {
     double p1 = rand_double(0, 1);
@@ -86,7 +86,7 @@ void delete_nodes_from_tree(TreeNode *&root, int val) {
             for (auto &ch:root->children) {
                 delete_nodes_from_tree(ch, val);
             }
-            for (int i = 0; i < root->deg; i++){
+            for (int i = 0; i < root->deg-1; i++){
                 if (root->children[i] == nullptr) {
                     root->children[i] = root->children[root->deg-1];
                     root->children[root->deg-1] = nullptr;
