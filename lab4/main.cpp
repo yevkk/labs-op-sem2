@@ -94,7 +94,7 @@ void print_tree(BinTreeNode *root, int level = 0) {
             std::cout << '\t' << '|';
         std::cout << root->data;
         if (root->threadedLeft || root->threadedRight) {
-            std::cout << "  threaded:";
+            std::cout << "  threads:";
             if (root->threadedLeft)
                 if (root->left != nullptr) {
                     std::cout << " l: " << root->left->data;
@@ -176,7 +176,6 @@ void bt_to_threaded(BinTreeNode *&root) {
     std::cout << std::endl;
     create_sym_traversal(root, sym_traversal);
     for (int i = 0; i < sym_traversal.size(); i++) {
-        std::cout << i << "  " << sym_traversal[i]->data << "\n";
         if (sym_traversal[i]->left == nullptr) {
             sym_traversal[i]->threadedLeft = true;
             if (i != 0)sym_traversal[i]->left = sym_traversal[i - 1];
@@ -186,17 +185,29 @@ void bt_to_threaded(BinTreeNode *&root) {
             if (i != sym_traversal.size() - 1)sym_traversal[i]->right = sym_traversal[i + 1];
         }
     }
+}
 
+void bt_to_threaded_reverse(BinTreeNode *&root) {
+    if (root != nullptr) {
+        if (root->threadedLeft) root->left = nullptr;
+        if (root->threadedRight) root->right = nullptr;
+        root->threadedLeft = root->threadedRight = false;
+        bt_to_threaded_reverse(root->left);
+        bt_to_threaded_reverse(root->right);
+    }
 }
 
 int main() {
     BinTreeNode *root = nullptr;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 40; i++) {
         add_node_to_bt(root, rand_int(0, MAX_VAL));
     }
     print_tree(root);
-    bt_to_threaded(root);
     std::cout << std::endl << std::endl;
+    bt_to_threaded(root);
+    print_tree(root);
+    std::cout << std::endl << std::endl;
+    bt_to_threaded_reverse(root);
     print_tree(root);
     return 0;
 }
