@@ -3,7 +3,7 @@
 #include <random>
 #include <ctime>
 #include <string>
-#include <list>
+#include <vector>
 
 //---------- TOOLS ----------
 
@@ -96,9 +96,17 @@ void print_tree(BinTreeNode *root, int level = 0) {
         if (root->threadedLeft || root->threadedRight) {
             std::cout << "  threaded:";
             if (root->threadedLeft)
-                std::cout << " l: " << root->left->data;
+                if (root->left != nullptr) {
+                    std::cout << " l: " << root->left->data;
+                } else {
+                    std::cout << " l: -";
+                }
             if (root->threadedRight)
-                std::cout << " r: " << root->right->data;
+                if (root->right != nullptr) {
+                    std::cout << " r: " << root->right->data;
+                } else {
+                    std::cout << " r: -";
+                }
         }
         std::cout << std::endl;
         if (!root->threadedLeft) print_tree(root->left, level + 1);
@@ -155,13 +163,40 @@ void add_node_to_bt(BinTreeNode *&root, int val) {
 }
 
 //---------- UNIT 5 (task 20) ----------
-//Threaded
+void create_sym_traversal(BinTreeNode *node, std::vector<BinTreeNode *> &res) {
+    if (node != nullptr) {
+        create_sym_traversal(node->left, res);
+        res.push_back(node);
+        create_sym_traversal(node->right, res);
+    }
+};
+
+void bt_to_threaded(BinTreeNode *&root) {
+    std::vector<BinTreeNode *> sym_traversal;
+    std::cout << std::endl;
+    create_sym_traversal(root, sym_traversal);
+    for (int i = 0; i < sym_traversal.size(); i++) {
+        std::cout << i << "  " << sym_traversal[i]->data << "\n";
+        if (sym_traversal[i]->left == nullptr) {
+            sym_traversal[i]->threadedLeft = true;
+            if (i != 0)sym_traversal[i]->left = sym_traversal[i - 1];
+        }
+        if (sym_traversal[i]->right == nullptr) {
+            sym_traversal[i]->threadedRight = true;
+            if (i != sym_traversal.size() - 1)sym_traversal[i]->right = sym_traversal[i + 1];
+        }
+    }
+
+}
 
 int main() {
     BinTreeNode *root = nullptr;
-    for (int i = 0; i < 25; i++) {
-        add_node_to_bt(root, rand_int(-MAX_VAL, MAX_VAL));
+    for (int i = 0; i < 10; i++) {
+        add_node_to_bt(root, rand_int(0, MAX_VAL));
     }
+    print_tree(root);
+    bt_to_threaded(root);
+    std::cout << std::endl << std::endl;
     print_tree(root);
     return 0;
 }
