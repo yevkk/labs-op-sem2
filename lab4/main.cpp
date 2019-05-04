@@ -3,6 +3,7 @@
 #include <random>
 #include <ctime>
 #include <string>
+#include <list>
 
 //---------- TOOLS ----------
 
@@ -42,13 +43,15 @@ struct TreeNode {
 //--- for units 4-6 ---
 struct BinTreeNode {
     int data;
-    BinTreeNode *left;
-    BinTreeNode *right;
+    BinTreeNode *left, *right;
+    bool threadedLeft, threadedRight;
 
     explicit BinTreeNode(int Data) {
         data = Data;
         left = nullptr;
         right = nullptr;
+        threadedLeft = false;
+        threadedRight = false;
     }
 };
 
@@ -71,10 +74,11 @@ void add_node_to_tree(TreeNode *&root, int val, double p) {
 
 //---------- UNIT 2 (task 8) ----------
 void print_tree(TreeNode *root, int level = 0) {
+    if (!level) std::cout << "Tree:" << std::endl;
     if (root != nullptr) {
         std::cout << '|';
         for (int i = 0; i < level; i++)
-            std::cout << "    " << '|';
+            std::cout << '\t' << '|';
         std::cout << root->data << std::endl;
         for (auto ch: root->children)
             print_tree(ch, level + 1);
@@ -83,13 +87,22 @@ void print_tree(TreeNode *root, int level = 0) {
 
 //--- for units 4-6 ---
 void print_tree(BinTreeNode *root, int level = 0) {
+    if (!level) std::cout << "Binary tree:" << std::endl;
     if (root != nullptr) {
         std::cout << '|';
         for (int i = 0; i < level; i++)
-            std::cout << "    " << '|';
-        std::cout << root->data << std::endl;
-        print_tree(root->left, level + 1);
-        print_tree(root->right, level + 1);
+            std::cout << '\t' << '|';
+        std::cout << root->data;
+        if (root->threadedLeft || root->threadedRight) {
+            std::cout << "  threaded:";
+            if (root->threadedLeft)
+                std::cout << " l: " << root->left->data;
+            if (root->threadedRight)
+                std::cout << " r: " << root->right->data;
+        }
+        std::cout << std::endl;
+        if (!root->threadedLeft) print_tree(root->left, level + 1);
+        if (!root->threadedRight) print_tree(root->right, level + 1);
     }
 }
 
@@ -140,6 +153,9 @@ void add_node_to_bt(BinTreeNode *&root, int val) {
         }
     }
 }
+
+//---------- UNIT 5 (task 20) ----------
+//Threaded
 
 int main() {
     BinTreeNode *root = nullptr;
