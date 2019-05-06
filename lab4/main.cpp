@@ -197,17 +197,39 @@ void bt_to_threaded_reverse(BinTreeNode *&root) {
     }
 }
 
-int main() {
-    BinTreeNode *root = nullptr;
-    for (int i = 0; i < 40; i++) {
-        add_node_to_bt(root, rand_int(0, MAX_VAL));
+//---------- UNIT 6 (task 23) ----------
+const std::string EXPR_END = "//";
+
+struct Variable {
+    std::string name;
+    double val;
+};
+
+std::vector<std::string> read_expression() {
+    std::vector<std::string> res;
+    std::string str = " ";
+    while (str != EXPR_END) {
+        std::cin >> str;
+        res.push_back(str);
     }
-    print_tree(root);
-    std::cout << std::endl << std::endl;
-    bt_to_threaded(root);
-    print_tree(root);
-    std::cout << std::endl << std::endl;
-    bt_to_threaded_reverse(root);
-    print_tree(root);
+    return  res;
+}
+
+
+int main() {
+//    BinTreeNode *root = nullptr;
+//    for (int i = 0; i < 30; i++) {
+//        add_node_to_bt(root, rand_int(0, MAX_VAL));
+//    }
+//    print_tree(root);
+//    std::cout << std::endl << std::endl;
+//    bt_to_threaded(root);
+//    print_tree(root);
+//    std::cout << std::endl << std::endl;
+//    bt_to_threaded_reverse(root);
+//    print_tree(root);
+    std::vector<std::string> expr = read_expression();
+    std::string str = expr.back();
+    ;
     return 0;
 }
