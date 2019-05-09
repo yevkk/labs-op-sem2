@@ -2,269 +2,174 @@ Demo:
 
 3 servers added;
 
-12 messages added;
+11 messages added;
 
 Servers:
-ID: 18420
-Description: 7SUEI1CR9WHQ2712CVC
-IP: 73.184.111.98
-ReloadDate: 10/19/2005 12:00:00 AM
+ID: 22288
+Description: YM2SD0ZURPNNMZX7K
+IP: 189.67.185.145
+ReloadDate: 1/24/2013 12:00:00 AM
 
-ID: 18421
-Description: K99FEKZ
-IP: 47.163.164.197
-ReloadDate: 6/13/2002 12:00:00 AM
+ID: 22289
+Description: WA1ZBOU5YUVSQ8
+IP: 49.99.145.189
+ReloadDate: 7/1/2017 12:00:00 AM
 
-ID: 18422
-Description: 50NKNZV8O3MPPHDJ
-IP: 39.70.160.44
-ReloadDate: 5/12/2009 12:00:00 AM
+ID: 22290
+Description: LEFU39YXPNN
+IP: 225.123.146.191
+ReloadDate: 6/7/2002 12:00:00 AM
 
 Messages:
-ID: 18576
-Server ID: 18420
-Text: ELDZ4DW9IY48KU90A9GIT0IHKIESD
-Processing Date: 7/6/2005 12:00:00 AM
-TypeType: error
-Priority: 107
-Load Level: 0.8377995
+ID: 22777
+Server ID: 22289
+Text: F8OGR634L
+Processing Date: 12/18/2004 12:00:00 AM
+TypeType: fatal     
+Priority: 54
+Load Level: 0.2311747
 
-ID: 18577
-Server ID: 18421
-Text: W4LYG5O1EI5UVGH
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 35
-Load Level: 0.1280639
+ID: 22778
+Server ID: 22289
+Text: YAOIHHF0LJD3RGIAHN
+Processing Date: 10/3/2005 12:00:00 AM
+TypeType: warning   
+Priority: 187
+Load Level: 0.7857328
 
-ID: 18578
-Server ID: 18421
-Text: LDLGMSG4BZGCXL5QC53L0
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 171
-Load Level: 0.6637303
-
-ID: 18579
-Server ID: 18421
-Text: K5KU149
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: error
-Priority: 32
-Load Level: 0.5585592
-
-ID: 18580
-Server ID: 18421
-Text: ODBE17Y2W087FCWWRI5L1DI
-Processing Date: 3/7/2002 12:00:00 AM
-TypeType: warning
-Priority: 11
-Load Level: 0.9149034
-
-ID: 18581
-Server ID: 18422
-Text: RP7CC5GPZFT33M7GJD3KMWEF83KESV2
-Processing Date: 11/22/2000 12:00:00 AM
-TypeType: warning
-Priority: 104
-Load Level: 0.9479013
-
-ID: 18582
-Server ID: 18421
-Text: VA46S7KST2LQF6LHX4LQUL5
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 63
-Load Level: 0.7123563
-
-ID: 18583
-Server ID: 18420
-Text: E1OORQQGJVYQDM60RZJZV
-Processing Date: 10/19/2005 12:00:00 AM
-TypeType: warning
-Priority: 53
-Load Level: 0.9829826
-
-ID: 18584
-Server ID: 18420
-Text: 7TFS2AH7HY5CEASSJ9M3WX7RCYXLH08WNSQIT2U7H
-Processing Date: 10/19/2005 12:00:00 AM
-TypeType: error
-Priority: 164
-Load Level: 0.03898399
-
-ID: 18585
-Server ID: 18421
-Text: Z4HREJ
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: fatal
-Priority: 132
-Load Level: 0.453343
-
-ID: 18586
-Server ID: 18421
-Text: JHGZXLKF1UENOOXLN2Y
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 68
-Load Level: 0.9348455
-
-ID: 18587
-Server ID: 18422
-Text: TH9M1216UAWKWHSFFM69ND5OW8D
-Processing Date: 1/1/2000 12:00:00 AM
-TypeType: fatal
-Priority: 111
-Load Level: 0.1321416
-
-ID: 18588
-Server ID: 18421
-Text: BQSBXOP14XGY7SLUSOSOYEQLVZ2Y5MPA
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: fatal
+ID: 22779
+Server ID: 22289
+Text: STSB2
+Processing Date: 10/26/2002 12:00:00 AM
+TypeType: info      
 Priority: 137
-Load Level: 0.5734041
+Load Level: 0.04295443
+
+ID: 22780
+Server ID: 22290
+Text: UK6H5A
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: info      
+Priority: 19
+Load Level: 0.9026578
+
+ID: 22781
+Server ID: 22288
+Text: XC6B43XSOWO0XYD88VBY
+Processing Date: 1/24/2013 12:00:00 AM
+TypeType: warning   
+Priority: 29
+Load Level: 0.6841741
+
+ID: 22782
+Server ID: 22288
+Text: T7UHRVPG595L
+Processing Date: 8/16/2008 12:00:00 AM
+TypeType: fatal     
+Priority: 42
+Load Level: 0.4906773
+
+ID: 22783
+Server ID: 22289
+Text: 6FUG6JFLMO4SNG0ZK08GE2KQ3ECW13GCS04GVMAKCGIBMMV
+Processing Date: 7/1/2017 12:00:00 AM
+TypeType: error     
+Priority: 117
+Load Level: 0.1319312
+
+ID: 22784
+Server ID: 22290
+Text: Q3D4DN2HSUTH1AXMUD70XE8UJDR
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: warning   
+Priority: 77
+Load Level: 0.04876721
+
+ID: 22785
+Server ID: 22290
+Text: UB70LR9HDTWZ3UL8LAAAB3L5
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: warning   
+Priority: 118
+Load Level: 0.004216533
+
+ID: 22786
+Server ID: 22288
+Text: Q7W1H80WJW7SUVM4PSFUBAV5O0ZCGZRD7KDYCCNMI
+Processing Date: 7/19/2001 12:00:00 AM
+TypeType: error     
+Priority: 154
+Load Level: 0.4056524
+
+ID: 22787
+Server ID: 22289
+Text: 0SYFR0Z1PM0NQJXP
+Processing Date: 2/26/2011 12:00:00 AM
+TypeType: warning   
+Priority: 28
+Load Level: 0.8294287
+
+ID: 22788
+Server ID: 22288
+Text: X2NE2LMIG25R9TSU9NHSXMLZ7DU
+Processing Date: 11/6/2004 12:00:00 AM
+TypeType: info      
+Priority: 48
+Load Level: 0.2648025
 
 
-Search messages by name "9E":
+Search messages by name "89":
 Messages:
 
-Search messages by priority range: (from 92 to 100):
+Search messages by priority range: (from 40 to 47):
+Messages:
+1) 22782
+
+Search messages by date: (after 7/24/2017 12:00:00 AM):
 Messages:
 
-Search messages by date: (after 8/27/2008 12:00:00 AM):
-Messages:
-
-Search servers by name "IT":
+Search servers by name "2M":
 Servers:
 
-Search servers by messages with date range (from 11/27/2005 12:00:00 AM to 5/16/2008 12:00:00 AM) and Load level higher than 0.7220919:
+Search servers by messages with date range (from 2/16/2007 12:00:00 AM to 5/7/2018 12:00:00 AM) and Load level higher than 0.4148996:
 Servers:
+1) 22288
+2) 22289
 
 Deleting servers found earlier by messages;
 
 Deleting messages found earlier by date;
 
 Servers:
-ID: 18420
-Description: 7SUEI1CR9WHQ2712CVC
-IP: 73.184.111.98
-ReloadDate: 10/19/2005 12:00:00 AM
-
-ID: 18421
-Description: K99FEKZ
-IP: 47.163.164.197
-ReloadDate: 6/13/2002 12:00:00 AM
-
-ID: 18422
-Description: 50NKNZV8O3MPPHDJ
-IP: 39.70.160.44
-ReloadDate: 5/12/2009 12:00:00 AM
+ID: 22290
+Description: LEFU39YXPNN
+IP: 225.123.146.191
+ReloadDate: 6/7/2002 12:00:00 AM
 
 Messages:
-ID: 18576
-Server ID: 18420
-Text: ELDZ4DW9IY48KU90A9GIT0IHKIESD
-Processing Date: 7/6/2005 12:00:00 AM
-TypeType: error
-Priority: 107
-Load Level: 0.8377995
+ID: 22780
+Server ID: 22290
+Text: UK6H5A
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: info      
+Priority: 19
+Load Level: 0.9026578
 
-ID: 18577
-Server ID: 18421
-Text: W4LYG5O1EI5UVGH
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 35
-Load Level: 0.1280639
+ID: 22784
+Server ID: 22290
+Text: Q3D4DN2HSUTH1AXMUD70XE8UJDR
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: warning   
+Priority: 77
+Load Level: 0.04876721
 
-ID: 18578
-Server ID: 18421
-Text: LDLGMSG4BZGCXL5QC53L0
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 171
-Load Level: 0.6637303
-
-ID: 18579
-Server ID: 18421
-Text: K5KU149
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: error
-Priority: 32
-Load Level: 0.5585592
-
-ID: 18580
-Server ID: 18421
-Text: ODBE17Y2W087FCWWRI5L1DI
-Processing Date: 3/7/2002 12:00:00 AM
-TypeType: warning
-Priority: 11
-Load Level: 0.9149034
-
-ID: 18581
-Server ID: 18422
-Text: RP7CC5GPZFT33M7GJD3KMWEF83KESV2
-Processing Date: 11/22/2000 12:00:00 AM
-TypeType: warning
-Priority: 104
-Load Level: 0.9479013
-
-ID: 18582
-Server ID: 18421
-Text: VA46S7KST2LQF6LHX4LQUL5
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 63
-Load Level: 0.7123563
-
-ID: 18583
-Server ID: 18420
-Text: E1OORQQGJVYQDM60RZJZV
-Processing Date: 10/19/2005 12:00:00 AM
-TypeType: warning
-Priority: 53
-Load Level: 0.9829826
-
-ID: 18584
-Server ID: 18420
-Text: 7TFS2AH7HY5CEASSJ9M3WX7RCYXLH08WNSQIT2U7H
-Processing Date: 10/19/2005 12:00:00 AM
-TypeType: error
-Priority: 164
-Load Level: 0.03898399
-
-ID: 18585
-Server ID: 18421
-Text: Z4HREJ
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: fatal
-Priority: 132
-Load Level: 0.453343
-
-ID: 18586
-Server ID: 18421
-Text: JHGZXLKF1UENOOXLN2Y
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 68
-Load Level: 0.9348455
-
-ID: 18587
-Server ID: 18422
-Text: TH9M1216UAWKWHSFFM69ND5OW8D
-Processing Date: 1/1/2000 12:00:00 AM
-TypeType: fatal
-Priority: 111
-Load Level: 0.1321416
-
-ID: 18588
-Server ID: 18421
-Text: BQSBXOP14XGY7SLUSOSOYEQLVZ2Y5MPA
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: fatal
-Priority: 137
-Load Level: 0.5734041
+ID: 22785
+Server ID: 22290
+Text: UB70LR9HDTWZ3UL8LAAAB3L5
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: warning   
+Priority: 118
+Load Level: 0.004216533
 
 Saving data to .xml file;
 Saving data to .bin file;
@@ -275,125 +180,35 @@ Messages:
 
 Loading data from .xml file, print:
 Servers:
-ID: 18423
-Description: 7SUEI1CR9WHQ2712CVC
-IP: 73.184.111.98
-ReloadDate: 10/19/2005 12:00:00 AM
-
-ID: 18424
-Description: K99FEKZ
-IP: 47.163.164.197
-ReloadDate: 6/13/2002 12:00:00 AM
-
-ID: 18425
-Description: 50NKNZV8O3MPPHDJ
-IP: 39.70.160.44
-ReloadDate: 5/12/2009 12:00:00 AM
+ID: 22291
+Description: LEFU39YXPNN
+IP: 225.123.146.191
+ReloadDate: 6/7/2002 12:00:00 AM
 
 Messages:
-ID: 18589
-Server ID: 18423
-Text: ELDZ4DW9IY48KU90A9GIT0IHKIESD
-Processing Date: 7/6/2005 12:00:00 AM
-TypeType: error
-Priority: 107
-Load Level: 0.8377995
+ID: 22789
+Server ID: 22291
+Text: UK6H5A
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: info      
+Priority: 19
+Load Level: 0.9026578
 
-ID: 18590
-Server ID: 18424
-Text: W4LYG5O1EI5UVGH
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 35
-Load Level: 0.1280639
+ID: 22790
+Server ID: 22291
+Text: Q3D4DN2HSUTH1AXMUD70XE8UJDR
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: warning   
+Priority: 77
+Load Level: 0.04876721
 
-ID: 18591
-Server ID: 18424
-Text: LDLGMSG4BZGCXL5QC53L0
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 171
-Load Level: 0.6637303
-
-ID: 18592
-Server ID: 18424
-Text: K5KU149
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: error
-Priority: 32
-Load Level: 0.5585592
-
-ID: 18593
-Server ID: 18424
-Text: ODBE17Y2W087FCWWRI5L1DI
-Processing Date: 3/7/2002 12:00:00 AM
-TypeType: warning
-Priority: 11
-Load Level: 0.9149034
-
-ID: 18594
-Server ID: 18425
-Text: RP7CC5GPZFT33M7GJD3KMWEF83KESV2
-Processing Date: 11/22/2000 12:00:00 AM
-TypeType: warning
-Priority: 104
-Load Level: 0.9479013
-
-ID: 18595
-Server ID: 18424
-Text: VA46S7KST2LQF6LHX4LQUL5
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 63
-Load Level: 0.7123563
-
-ID: 18596
-Server ID: 18423
-Text: E1OORQQGJVYQDM60RZJZV
-Processing Date: 10/19/2005 12:00:00 AM
-TypeType: warning
-Priority: 53
-Load Level: 0.9829826
-
-ID: 18597
-Server ID: 18423
-Text: 7TFS2AH7HY5CEASSJ9M3WX7RCYXLH08WNSQIT2U7H
-Processing Date: 10/19/2005 12:00:00 AM
-TypeType: error
-Priority: 164
-Load Level: 0.03898399
-
-ID: 18598
-Server ID: 18424
-Text: Z4HREJ
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: fatal
-Priority: 132
-Load Level: 0.453343
-
-ID: 18599
-Server ID: 18424
-Text: JHGZXLKF1UENOOXLN2Y
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 68
-Load Level: 0.9348455
-
-ID: 18600
-Server ID: 18425
-Text: TH9M1216UAWKWHSFFM69ND5OW8D
-Processing Date: 1/1/2000 12:00:00 AM
-TypeType: fatal
-Priority: 111
-Load Level: 0.1321416
-
-ID: 18601
-Server ID: 18424
-Text: BQSBXOP14XGY7SLUSOSOYEQLVZ2Y5MPA
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: fatal
-Priority: 137
-Load Level: 0.5734041
+ID: 22791
+Server ID: 22291
+Text: UB70LR9HDTWZ3UL8LAAAB3L5
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: warning   
+Priority: 118
+Load Level: 0.004216533
 
 Clearing all data, print:
 Servers:
@@ -401,125 +216,35 @@ Messages:
 
 Loading data from .bin file, print:
 Servers:
-ID: 18426
-Description: 50NKNZV8O3MPPHDJ
-IP: 39.70.160.44
-ReloadDate: 
-
-ID: 18427
-Description: K99FEKZ
-IP: 47.163.164.197
-ReloadDate: 
-
-ID: 18428
-Description: 7SUEI1CR9WHQ2712CVC
-IP: 73.184.111.98
+ID: 22292
+Description: LEFU39YXPNN
+IP: 225.123.146.191
 ReloadDate: 
 
 Messages:
-ID: 18602
-Server ID: 18427
-Text: BQSBXOP14XGY7SLUSOSOYEQLVZ2Y5MPA
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: fatal
-Priority: 137
-Load Level: 0.5734041
+ID: 22792
+Server ID: 22292
+Text: UB70LR9HDTWZ3UL8LAAAB3L5
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: warning   
+Priority: 118
+Load Level: 0.004216533
 
-ID: 18603
-Server ID: 18426
-Text: TH9M1216UAWKWHSFFM69ND5OW8D
-Processing Date: 1/1/2000 12:00:00 AM
-TypeType: fatal
-Priority: 111
-Load Level: 0.1321416
+ID: 22793
+Server ID: 22292
+Text: Q3D4DN2HSUTH1AXMUD70XE8UJDR
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: warning   
+Priority: 77
+Load Level: 0.04876721
 
-ID: 18604
-Server ID: 18427
-Text: JHGZXLKF1UENOOXLN2Y
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 68
-Load Level: 0.9348455
-
-ID: 18605
-Server ID: 18427
-Text: Z4HREJ
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: fatal
-Priority: 132
-Load Level: 0.453343
-
-ID: 18606
-Server ID: 18428
-Text: 7TFS2AH7HY5CEASSJ9M3WX7RCYXLH08WNSQIT2U7H
-Processing Date: 10/19/2005 12:00:00 AM
-TypeType: error
-Priority: 164
-Load Level: 0.03898399
-
-ID: 18607
-Server ID: 18428
-Text: E1OORQQGJVYQDM60RZJZV
-Processing Date: 10/19/2005 12:00:00 AM
-TypeType: warning
-Priority: 53
-Load Level: 0.9829826
-
-ID: 18608
-Server ID: 18427
-Text: VA46S7KST2LQF6LHX4LQUL5
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 63
-Load Level: 0.7123563
-
-ID: 18609
-Server ID: 18426
-Text: RP7CC5GPZFT33M7GJD3KMWEF83KESV2
-Processing Date: 11/22/2000 12:00:00 AM
-TypeType: warning
-Priority: 104
-Load Level: 0.9479013
-
-ID: 18610
-Server ID: 18427
-Text: ODBE17Y2W087FCWWRI5L1DI
-Processing Date: 3/7/2002 12:00:00 AM
-TypeType: warning
-Priority: 11
-Load Level: 0.9149034
-
-ID: 18611
-Server ID: 18427
-Text: K5KU149
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: error
-Priority: 32
-Load Level: 0.5585592
-
-ID: 18612
-Server ID: 18427
-Text: LDLGMSG4BZGCXL5QC53L0
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 171
-Load Level: 0.6637303
-
-ID: 18613
-Server ID: 18427
-Text: W4LYG5O1EI5UVGH
-Processing Date: 6/13/2002 12:00:00 AM
-TypeType: info
-Priority: 35
-Load Level: 0.1280639
-
-ID: 18614
-Server ID: 18428
-Text: ELDZ4DW9IY48KU90A9GIT0IHKIESD
-Processing Date: 7/6/2005 12:00:00 AM
-TypeType: error
-Priority: 107
-Load Level: 0.8377995
+ID: 22794
+Server ID: 22292
+Text: UK6H5A
+Processing Date: 6/7/2002 12:00:00 AM
+TypeType: info      
+Priority: 19
+Load Level: 0.9026578
 
 
 Demo finished;
