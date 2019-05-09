@@ -40,7 +40,7 @@ struct TreeNode {
     }
 };
 
-//--- for units 4-6 ---
+//--- for units 4-5 ---
 struct BinTreeNode {
     int data;
     BinTreeNode *left, *right;
@@ -54,6 +54,18 @@ struct BinTreeNode {
         threadedRight = false;
     }
 };
+
+//--- for unit 6 ---
+struct ExprTreeNode {
+    std::string data;
+    ExprTreeNode *left, *right;
+
+    explicit ExprTreeNode(std::string Data) {
+        data = Data;
+        left = right = nullptr;
+    }
+};
+
 
 //---------- UNIT 1 (task 4) ----------
 const int MAX_VAL = 100;
@@ -85,7 +97,7 @@ void print_tree(TreeNode *root, int level = 0) {
     }
 }
 
-//--- for units 4-6 ---
+//--- for units 4-5 ---
 void print_tree(BinTreeNode *root, int level = 0) {
     if (!level) std::cout << "Binary tree:" << std::endl;
     if (root != nullptr) {
@@ -111,6 +123,19 @@ void print_tree(BinTreeNode *root, int level = 0) {
         std::cout << std::endl;
         if (!root->threadedLeft) print_tree(root->left, level + 1);
         if (!root->threadedRight) print_tree(root->right, level + 1);
+    }
+}
+
+//--- for unit 6 ---
+void print_tree(ExprTreeNode *root, int level = 0) {
+    if (!level) std::cout << "Expression tree:" << std::endl;
+    if (root != nullptr) {
+        std::cout << '|';
+        for (int i = 0; i < level; i++)
+            std::cout << '\t' << '|';
+        std::cout << root->data << std::endl;
+        print_tree(root->left, level + 1);
+        print_tree(root->right, level + 1);
     }
 }
 
@@ -200,16 +225,6 @@ void bt_to_threaded_reverse(BinTreeNode *&root) {
 //---------- UNIT 6 (task 23) ----------
 const std::string EXPR_END = "//";
 
-struct ExprTreeNode {
-    std::string data;
-    ExprTreeNode *left, *right;
-
-    explicit ExprTreeNode(std::string Data) {
-        data = Data;
-        left = right = nullptr;
-    }
-};
-
 struct Variable {
     std::string name;
     double val;
@@ -245,7 +260,7 @@ bool is_unary_operation(std::string &str) {
 std::vector<std::string> read_expression() {
     std::vector<std::string> res;
     std::string str = " ";
-    std::cout << "Enter expression (prefix notation, enter // mark the end of expression):" << std::endl;
+    std::cout << "Enter expression (prefix notation, enter // to mark the end of expression):" << std::endl;
     while (str != EXPR_END) {
         std::cin >> str;
         res.push_back(str);
@@ -253,7 +268,7 @@ std::vector<std::string> read_expression() {
     return res;
 }
 
-void add_node_to_expr(ExprTreeNode *&node, std::vector<std::string> &expr, int index = 0) {
+void add_node_to_expr(ExprTreeNode *&node, std::vector<std::string> &expr, int &index, bool &error) {
     if (index < expr.size()) {
         if (is_double(expr[index])) {
             node = new ExprTreeNode(expr[index]);
@@ -261,17 +276,28 @@ void add_node_to_expr(ExprTreeNode *&node, std::vector<std::string> &expr, int i
         }
         if (is_unary_operation(expr[index])) {
             node = new ExprTreeNode(expr[index]);
-            add_node_to_expr(node->left, expr, index + 1);
+            add_node_to_expr(node->left, expr, ++index, error);
             return;
         }
         if (is_binary_operation(expr[index])) {
             node = new ExprTreeNode(expr[index]);
-            add_node_to_expr(node->left, expr, index + 1);
-            add_node_to_expr(node->right, expr, index + 2);
+            add_node_to_expr(node->left, expr, ++index, error);
+            add_node_to_expr(node->right, expr, ++index, error);
             return;
         }
     }
+    error = true;
 }
+
+
+void create_expression_tree(ExprTreeNode *&root, std::vector<std::string> &src) {
+    int index = 0;
+    bool error = 0;
+    add_node_to_expr(root, src, index, error);
+    if (error || (index != src.size() - 2)) std::cout << "EXPRESSION ERROR FOUND (check input)" << std::endl;
+    std::cout << index << "   " << src.size() << std::endl << std::endl << std::endl;
+}
+
 
 int main() {
 //    BinTreeNode *root = nullptr;
@@ -288,8 +314,9 @@ int main() {
 //    std::vector<std::string> expr = read_expression();
 //    std::string str = expr.back();
 //    ;
-    ExprTreeNode* root = nullptr;
+    ExprTreeNode *root = nullptr;
     std::vector<std::string> expr = read_expression();
-    add_node_to_expr(root, expr);
+    create_expression_tree(root, expr);
+    print_tree(root);
     return 0;
 }
