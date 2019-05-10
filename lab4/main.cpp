@@ -236,6 +236,8 @@ struct Variable {
     std::string name;
     double val;
 };
+std::vector<Variable> variables;
+
 
 //defining type of string;
 bool is_double(std::string &str) {
@@ -254,6 +256,15 @@ bool is_double(std::string &str) {
             continue;
         }
         if ((str[i] < '0') || (str[i] > '9')) return false;
+    }
+    return true;
+}
+
+bool is_variable(std::string &str) {
+    for (int i = 0; i < str.size(); i++) {
+        if (((str[i] >= 'a') && (str[i] <= 'z')) || ((str[i] >= 'A') && (str[i] <= 'Z'))) continue;
+        if (((str[i] >= '0') && (str[i] <= '9')) && (i != 0)) continue;
+        return false;
     }
     return true;
 }
@@ -290,13 +301,15 @@ void add_node_to_expression_tree(ExprTreeNode *&node, std::vector<std::string> &
         if (is_double(expr[index])) {
             node = new ExprTreeNode(expr[index]);
             return;
-        }
-        if (is_unary_operation(expr[index])) {
+        } else if (is_variable(expr[index])) {
+            variables.push_back({expr[index], 0});
+            node = new ExprTreeNode(expr[index]);
+            return;
+        } else if (is_unary_operation(expr[index])) {
             node = new ExprTreeNode(expr[index]);
             add_node_to_expression_tree(node->left, expr, ++index, error);
             return;
-        }
-        if (is_binary_operation(expr[index])) {
+        } else if (is_binary_operation(expr[index])) {
             node = new ExprTreeNode(expr[index]);
             add_node_to_expression_tree(node->left, expr, ++index, error);
             add_node_to_expression_tree(node->right, expr, ++index, error);
