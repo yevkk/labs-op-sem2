@@ -4,6 +4,7 @@
 #include <ctime>
 #include <string>
 #include <vector>
+#include <cmath>
 
 //---------- TOOLS ----------
 double rand_double(double min, double max) {
@@ -277,7 +278,7 @@ bool is_binary_operation(std::string &str) {
 }
 
 bool is_unary_operation(std::string &str) {
-    std::string unaryOperations[] = {"sin", "cos", "tg", "ln"};
+    std::string unaryOperations[] = {"sin", "cos", "tan", "ln"};
     for (auto &s:unaryOperations)
         if (str == s) return true;
     return false;
@@ -301,10 +302,6 @@ void add_node_to_expression_tree(ExprTreeNode *&node, std::vector<std::string> &
         if (is_double(expr[index])) {
             node = new ExprTreeNode(expr[index]);
             return;
-        } else if (is_variable(expr[index])) {
-            variables.push_back({expr[index], 0});
-            node = new ExprTreeNode(expr[index]);
-            return;
         } else if (is_unary_operation(expr[index])) {
             node = new ExprTreeNode(expr[index]);
             add_node_to_expression_tree(node->left, expr, ++index, error);
@@ -315,16 +312,21 @@ void add_node_to_expression_tree(ExprTreeNode *&node, std::vector<std::string> &
             add_node_to_expression_tree(node->right, expr, ++index, error);
             if ((node->data == "/") && (node->right->data == "0")) error = true;
             return;
+        } else if (is_variable(expr[index])) {
+            variables.push_back({expr[index], 0});
+            node = new ExprTreeNode(expr[index]);
+            return;
         }
     }
     error = true;
 }
 
-void create_expression_tree(ExprTreeNode *&root, std::vector<std::string> &src) {
+bool create_expression_tree(ExprTreeNode *&root, std::vector<std::string> &src) { //returns false if error found;
     int index = 0;
     bool error = false;
     add_node_to_expression_tree(root, src, index, error);
     if (error || (index != src.size() - 2)) std::cout << ERROR_MSG << std::endl;
+    return !error;
 }
 
 //simplifying expression tree;
@@ -410,11 +412,71 @@ void simplify_expression_tree_node(ExprTreeNode *&node, bool &error) {
     }
 }
 
-void simplify_expression_tree(ExprTreeNode *&root) {
+bool simplify_expression_tree(ExprTreeNode *&root) { //returns false if error found;
     bool error = false;
     simplify_expression_tree_node(root, error);
     if (error) std::cout << ERROR_MSG << std::endl;
+    return !error;
 }
+
+//calculation of constants
+void calculate_constants_tree_node(ExprTreeNode *&node, bool &error) {
+    using std::strtod;
+    if (node != nullptr) {
+        calculate_constants_tree_node(node->left, error);
+        calculate_constants_tree_node(node->right, error);
+
+        if (is_binary_operation(node->data)) {
+            if (is_double(node->left->data) && is_double(node->right->data)) {
+                if (node->data == "+") {
+                    node->data = std::to_string(
+                            strtod(node->left->data.c_str(), nullptr) + strtod(node->right->data.c_str(), nullptr));
+                    node->reset_children();
+                } else if (node->data == "-") {
+                    node->data = std::to_string(
+                            strtod(node->left->data.c_str(), nullptr) - strtod(node->right->data.c_str(), nullptr));
+                    node->reset_children();
+                } else if (node->data == "*") {
+                    node->data = std::to_string(
+                            strtod(node->left->data.c_str(), nullptr) * strtod(node->right->data.c_str(), nullptr));
+                    node->reset_children();
+                } else if (node->data == "/") {
+                    node->data = std::to_string(
+                            strtod(node->left->data.c_str(), nullptr) / strtod(node->right->data.c_str(), nullptr));
+                    node->reset_children();
+                } else if (node->data == "^") {
+                    node->data = std::to_string(
+                            pow(strtod(node->left->data.c_str(), nullptr), strtod(node->right->data.c_str(), nullptr)));
+                    node->reset_children();
+                }
+            }
+        } else if (is_unary_operation(node->data)) {
+            if (is_double(node->left->data)) {
+                if (node->data == "sin") {
+                    node->data = std::to_string(sin(strtod(node->left->data.c_str(), nullptr)));
+                    node->reset_children();
+                } else if (node->data == "cos") {
+                    node->data = std::to_string(cos(strtod(node->left->data.c_str(), nullptr)));
+                    node->reset_children();
+                } else if (node->data == "tan") {
+                    node->data = std::to_string(tan(strtod(node->left->data.c_str(), nullptr)));
+                    node->reset_children();
+                } else if (node->data == "ln") {
+                    node->data = std::to_string(log(strtod(node->left->data.c_str(), nullptr)));
+                    node->reset_children();
+                }
+            }
+        }
+    }
+}
+
+bool calculate_constants_expression_tree(ExprTreeNode *&root) { //returns false if error found;
+    bool error = false;
+    simplify_expression_tree_node(root, error); //for catching expression errors;
+    if (!error) calculate_constants_tree_node(root, error);
+    return !error;
+}
+
 
 int main() {
 //    BinTreeNode *root = nullptr;
@@ -436,6 +498,8 @@ int main() {
     create_expression_tree(root, expr);
     print_tree(root);
     simplify_expression_tree(root);
+    print_tree(root);
+    calculate_constants_expression_tree(root);
     print_tree(root);
     return 0;
 }
