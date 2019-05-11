@@ -60,9 +60,10 @@ struct ExprTreeNode {
     std::string data;
     ExprTreeNode *left, *right;
 
-    explicit ExprTreeNode(std::string &Data) {
+    explicit ExprTreeNode(std::string Data, ExprTreeNode *Left, ExprTreeNode *Right) {
         data = Data;
-        left = right = nullptr;
+        left = Left;
+        right = Right;
     }
 
     void reset_children() {
@@ -113,18 +114,20 @@ void print_tree(BinTreeNode *root, int level = 0) {
         std::cout << root->data;
         if (root->threadedLeft || root->threadedRight) {
             std::cout << "  threads:";
-            if (root->threadedLeft)
+            if (root->threadedLeft) {
                 if (root->left != nullptr) {
                     std::cout << " l: " << root->left->data;
                 } else {
                     std::cout << " l: -";
                 }
-            if (root->threadedRight)
+            }
+            if (root->threadedRight) {
                 if (root->right != nullptr) {
                     std::cout << " r: " << root->right->data;
                 } else {
                     std::cout << " r: -";
                 }
+            }
         }
         std::cout << std::endl;
         if (!root->threadedLeft) print_tree(root->left, level + 1);
@@ -282,8 +285,26 @@ bool is_unary_operation(std::string &str) {
     return false;
 }
 
+//tools
 void print_error() {
     std::cout << "EXPRESSION ERROR FOUND (check input and variables)" << std::endl;
+}
+
+ExprTreeNode *copy_expression_tree_node(ExprTreeNode *&node) {
+    if (node != nullptr) {
+        auto new_node = new ExprTreeNode(node->data, copy_expression_tree_node(node->left),
+                                         copy_expression_tree_node(node->right));
+        return new_node;
+    }
+    return nullptr;
+}
+
+void delete_expression_tree_node(ExprTreeNode *&node) {
+    if (node != nullptr) {
+        delete_expression_tree_node(node->left);
+        delete_expression_tree_node(node->right);
+        delete node;
+    }
 }
 
 //reading of expression;
@@ -299,36 +320,37 @@ std::vector<std::string> read_expression() {
 }
 
 //transforming expression to expression tree;
-void add_node_to_expression_tree(ExprTreeNode *&node, std::vector<std::string> &expr, int &index, bool &error) {
+ExprTreeNode *add_node_to_expression_tree(std::vector<std::string> &expr, int &index) {
     if (index < expr.size() - 1) {
         if (is_double(expr[index])) {
-            node = new ExprTreeNode(expr[index]);
-            return;
+            return new ExprTreeNode(expr[index], nullptr, nullptr);
         } else if (is_unary_operation(expr[index])) {
-            node = new ExprTreeNode(expr[index]);
-            add_node_to_expression_tree(node->left, expr, ++index, error);
-            return;
+            return new ExprTreeNode(expr[index], add_node_to_expression_tree(expr, ++index), nullptr);
         } else if (is_binary_operation(expr[index])) {
-            node = new ExprTreeNode(expr[index]);
-            add_node_to_expression_tree(node->left, expr, ++index, error);
-            add_node_to_expression_tree(node->right, expr, ++index, error);
-            if ((node->data == "/") && (node->right->data == "0")) error = true;
-            return;
+            return new ExprTreeNode(expr[index], add_node_to_expression_tree(expr, ++index),
+                                    add_node_to_expression_tree(expr, ++index));
         } else if (is_variable(expr[index])) {
-            variables.push_back({expr[index], 0});
-            node = new ExprTreeNode(expr[index]);
-            return;
+            bool flag = true;
+            for (auto &v : variables)
+                if (v.name == expr[index]) {
+                    flag = false;
+                    break;
+                }
+            if (flag) variables.push_back({expr[index], NAN});
+            return new ExprTreeNode(expr[index], nullptr, nullptr);
         }
     }
-    error = true;
+    return nullptr;
 }
 
 bool create_expression_tree(ExprTreeNode *&root, std::vector<std::string> &src) { //returns false if error found;
     int index = 0;
-    bool error = false;
-    add_node_to_expression_tree(root, src, index, error);
-    if (error || (index != src.size() - 2)) print_error();
-    return !error;
+    root = add_node_to_expression_tree(src, index);
+    if ((index != src.size() - 2)) {
+        print_error();
+        return false;
+    }
+    return true;
 }
 
 //simplifying expression tree;
@@ -486,23 +508,6 @@ bool calculate_constants_expression_tree(ExprTreeNode *&root) { //returns false 
 }
 
 //calculation expression result
-ExprTreeNode *copy_expression_tree_node(ExprTreeNode *&node) {
-    if (node != nullptr) {
-        auto new_node = new ExprTreeNode(node->data);
-        new_node->left = copy_expression_tree_node(node->left);
-        new_node->right = copy_expression_tree_node(node->right);
-        return new_node;
-    }
-    return nullptr;
-}
-void delete_expression_tree_node(ExprTreeNode *&node) {
-    if (node != nullptr) {
-        delete_expression_tree_node(node->left);
-        delete_expression_tree_node(node->right);
-        delete node;
-    }
-}
-
 void variable_value_substitution(ExprTreeNode *&node) {
     if (node != nullptr) {
         variable_value_substitution(node->left);
@@ -523,9 +528,38 @@ double expression_tree_result(ExprTreeNode *root) {
         std::cin >> v.val;
     }
     variable_value_substitution(new_root);
-    double result = (calculate_constants_expression_tree(new_root)) ? std::strtod(new_root->data.c_str(), nullptr) : NAN;;
+    double result = (calculate_constants_expression_tree(new_root)) ? std::strtod(new_root->data.c_str(), nullptr)
+                                                                    : NAN;;
     delete_expression_tree_node(new_root);
-    return  result;
+    return result;
+}
+
+
+//derivation
+ExprTreeNode *expression_tree_derivation(ExprTreeNode *node, std::string var) {
+    if (node->data == var)
+        return new ExprTreeNode("1", nullptr, nullptr);
+    else if (node->data == "+")
+        return new ExprTreeNode("+", expression_tree_derivation(node->left, var),
+                                expression_tree_derivation(node->right, var));
+    else if (node->data == "-")
+        return new ExprTreeNode("-", expression_tree_derivation(node->left, var),
+                                expression_tree_derivation(node->right, var));
+    else if (node->data == "*")
+        return new ExprTreeNode("+", new ExprTreeNode("*", expression_tree_derivation(node->left, var),
+                                                      copy_expression_tree_node(node->right)),
+                                new ExprTreeNode("*", copy_expression_tree_node(node->left),
+                                                 expression_tree_derivation(node->right, var)));
+    else if (node->data == "/")
+        return new ExprTreeNode("/", new ExprTreeNode("-",
+                                                      new ExprTreeNode("*", expression_tree_derivation(node->left, var),
+                                                                       copy_expression_tree_node(node->right)),
+                                                      new ExprTreeNode("*", copy_expression_tree_node(node->left),
+                                                                       expression_tree_derivation(node->right, var))),
+                                new ExprTreeNode("^", copy_expression_tree_node(node->right),
+                                                 new ExprTreeNode("2", nullptr, nullptr)));
+    else return new ExprTreeNode("0", nullptr, nullptr);
+
 }
 
 int main() {
@@ -535,14 +569,17 @@ int main() {
     print_tree(root);
     simplify_expression_tree(root);
     print_tree(root);
-    calculate_constants_expression_tree(root);
+    root = expression_tree_derivation(root, "a");
+    simplify_expression_tree(root);
     print_tree(root);
-    std::cout << expression_tree_result(root);
-    print_tree(root);
-    std::cout << expression_tree_result(root);
-    print_tree(root);
-    std::cout << expression_tree_result(root);
-    print_tree(root);
+//    calculate_constants_expression_tree(root);
+//    print_tree(root);
+//    std::cout << expression_tree_result(root);
+//    print_tree(root);
+//    std::cout << expression_tree_result(root);
+//    print_tree(root);
+//    std::cout << expression_tree_result(root);
+//    print_tree(root);
     std::cout << expression_tree_result(root);
     return 0;
 }
