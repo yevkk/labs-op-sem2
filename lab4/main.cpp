@@ -401,7 +401,7 @@ void simplify_expression_tree_node(ExprTreeNode *&node, bool &error) {
                 node->reset_children();
             }
         } else if (node->data == "ln") {
-            if ((node->left->data[0] == '-') || (node->left->data == "0")) {
+            if (node->left->data == "0") {
                 error = true;
                 return;
             } else if (node->left->data[0] == '1') {
@@ -462,7 +462,12 @@ void calculate_constants_tree_node(ExprTreeNode *&node, bool &error) {
                     node->data = std::to_string(tan(strtod(node->left->data.c_str(), nullptr)));
                     node->reset_children();
                 } else if (node->data == "ln") {
-                    node->data = std::to_string(log(strtod(node->left->data.c_str(), nullptr)));
+                    double d = strtod(node->left->data.c_str(), nullptr);
+                    if (d > 0) node->data = std::to_string(log(d));
+                    else {
+                        error = true;
+                        return;
+                    }
                     node->reset_children();
                 }
             }
@@ -474,6 +479,7 @@ bool calculate_constants_expression_tree(ExprTreeNode *&root) { //returns false 
     bool error = false;
     simplify_expression_tree_node(root, error); //for catching expression errors;
     if (!error) calculate_constants_tree_node(root, error);
+    if (error) std::cout << ERROR_MSG << std::endl;
     return !error;
 }
 
