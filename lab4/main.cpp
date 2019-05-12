@@ -315,15 +315,15 @@ std::vector<std::string> read_expr() {
 }
 
 //transforming expression to expression tree;
-ExprTreeNode *add_node_to_expr_tree(std::vector<std::string> &expr, int &index) {
+ExprTreeNode *add_node_to_expr_tree(std::vector<std::string> &expr, int &index, bool &error) {
     if (index < expr.size() - 1) {
         if (is_double(expr[index])) {
             return new ExprTreeNode(expr[index], nullptr, nullptr);
         } else if (is_unary_operation(expr[index])) {
-            return new ExprTreeNode(expr[index], add_node_to_expr_tree(expr, ++index), nullptr);
+            return new ExprTreeNode(expr[index], add_node_to_expr_tree(expr, ++index, error), nullptr);
         } else if (is_binary_operation(expr[index])) {
-            return new ExprTreeNode(expr[index], add_node_to_expr_tree(expr, ++index),
-                                    add_node_to_expr_tree(expr, ++index));
+            return new ExprTreeNode(expr[index], add_node_to_expr_tree(expr, ++index, error),
+                                    add_node_to_expr_tree(expr, ++index, error));
         } else if (is_variable(expr[index])) {
             bool flag = true;
             for (auto &v : variables)
@@ -334,14 +334,16 @@ ExprTreeNode *add_node_to_expr_tree(std::vector<std::string> &expr, int &index) 
             if (flag) variables.push_back({expr[index], NAN});
             return new ExprTreeNode(expr[index], nullptr, nullptr);
         }
+        error = true;
     }
     return nullptr;
 }
 
 bool create_expr_tree(ExprTreeNode *&root, std::vector<std::string> &src) { //returns false if error found;
     int index = 0;
-    root = add_node_to_expr_tree(src, index);
-    if ((index != src.size() - 2)) {
+    bool error = false;
+    root = add_node_to_expr_tree(src, index, error);
+    if ((index != src.size() - 2)||error) {
         print_error();
         return false;
     }
@@ -420,7 +422,7 @@ void simplify_expr_tree_node(ExprTreeNode *&node, bool &error) {
                 node = node->left;
             }
         } else if (node->data == "ln") {
-            if (std::strtod(node->left->data.c_str(), nullptr) <= 0) {
+            if ((is_double(node->left->data))&&(std::strtod(node->left->data.c_str(), nullptr)) <= 0) {
                 error = true;
                 return;
             } else if (node->left->data == "1") {
@@ -529,7 +531,6 @@ double expr_tree_result(ExprTreeNode *root) {
     return result;
 }
 
-
 //derivation
 ExprTreeNode *expr_tree_derivation(ExprTreeNode *node, std::string var) {
     if (node->data == var)
@@ -568,6 +569,25 @@ ExprTreeNode *expr_tree_derivation(ExprTreeNode *node, std::string var) {
                                                  new ExprTreeNode("sin", copy_expr_tree_node(node->left),
                                                                   nullptr),
                                                  new ExprTreeNode("-1", nullptr, nullptr)
+                                ),
+                                expr_tree_derivation(node->left, var)
+        );
+    else if (node->data == "ln")
+        return new ExprTreeNode("*",
+                                new ExprTreeNode("/", new ExprTreeNode("1", nullptr, nullptr),
+                                                 copy_expr_tree_node(node->left)),
+                                expr_tree_derivation(node->left, var)
+        );
+    else if (node->data == "tan")
+        return new ExprTreeNode("*",
+                                new ExprTreeNode("/",
+                                                 new ExprTreeNode("1", nullptr, nullptr),
+                                                 new ExprTreeNode("^",
+                                                                  new ExprTreeNode("cos",
+                                                                                   copy_expr_tree_node(node->left),
+                                                                                   nullptr),
+                                                                  new ExprTreeNode("2", nullptr, nullptr)
+                                                 )
                                 ),
                                 expr_tree_derivation(node->left, var)
         );
