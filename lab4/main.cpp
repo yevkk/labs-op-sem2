@@ -343,7 +343,7 @@ bool create_expr_tree(ExprTreeNode *&root, std::vector<std::string> &src) { //re
     int index = 0;
     bool error = false;
     root = add_node_to_expr_tree(src, index, error);
-    if ((index != src.size() - 2)||error) {
+    if ((index != src.size() - 2) || error) {
         print_error();
         return false;
     }
@@ -422,7 +422,7 @@ void simplify_expr_tree_node(ExprTreeNode *&node, bool &error) {
                 node = node->left;
             }
         } else if (node->data == "ln") {
-            if ((is_double(node->left->data))&&(std::strtod(node->left->data.c_str(), nullptr)) <= 0) {
+            if ((is_double(node->left->data)) && (std::strtod(node->left->data.c_str(), nullptr)) <= 0) {
                 error = true;
                 return;
             } else if (node->left->data == "1") {
@@ -590,6 +590,28 @@ ExprTreeNode *expr_tree_derivation(ExprTreeNode *node, std::string var) {
                                                  )
                                 ),
                                 expr_tree_derivation(node->left, var)
+        );
+    else if (node->data == "^")
+        return new ExprTreeNode("*",
+                                new ExprTreeNode("+",
+                                                 new ExprTreeNode("*",
+                                                                  new ExprTreeNode("ln",
+                                                                                   copy_expr_tree_node(node->left),
+                                                                                   nullptr),
+                                                                  expr_tree_derivation(node->right, var)
+                                                 ),
+                                                 new ExprTreeNode("/",
+                                                                  new ExprTreeNode("*",
+                                                                          expr_tree_derivation(node->left, var),
+                                                                          copy_expr_tree_node(node->right)
+                                                                  ),
+                                                                  copy_expr_tree_node(node->left)
+                                                 )
+                                ),
+                                new ExprTreeNode("^",
+                                                 copy_expr_tree_node(node->left),
+                                                 copy_expr_tree_node(node->right)
+                                )
         );
     else return new ExprTreeNode("0", nullptr, nullptr);
 }
