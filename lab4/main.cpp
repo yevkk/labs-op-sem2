@@ -173,6 +173,16 @@ void delete_nodes_from_tree(TreeNode *&root, int val) {
 
 }
 
+//--- for units 4-5 ---
+void delete_bt(BinTreeNode *&root) {
+    if (root != nullptr) {
+        delete_bt(root->left);
+        delete_bt(root->right);
+        delete root;
+        root = nullptr;
+    }
+}
+
 //---------- UNIT 4 (task 15) ----------
 void add_node_to_bt(BinTreeNode *&root, int val) {
     if (root == nullptr)
@@ -232,7 +242,7 @@ struct Variable {
     double val;
 };
 std::vector<Variable> variables;
-
+std::vector<Variable> variables_demo;
 
 //defining type of string;
 bool is_double(std::string &str) {
@@ -505,28 +515,44 @@ bool calculate_constants_expr_tree(ExprTreeNode *&root) { //returns false if err
 }
 
 //calculation expression result
-void variable_value_substitution(ExprTreeNode *&node) {
+void variable_value_substitution(ExprTreeNode *&node, bool demo = false) {
     if (node != nullptr) {
-        variable_value_substitution(node->left);
-        variable_value_substitution(node->right);
-        for (auto &v:variables)
-            if (node->data == v.name) {
-                node->data = std::to_string(v.val);
-                return;
-            }
+        variable_value_substitution(node->left, demo);
+        variable_value_substitution(node->right, demo);
+        if (demo) {
+            for (auto &v:variables_demo)
+                if (node->data == v.name) {
+                    node->data = std::to_string(v.val);
+                    return;
+                }
+        } else {
+            for (auto &v:variables)
+                if (node->data == v.name) {
+                    node->data = std::to_string(v.val);
+                    return;
+                }
+        }
     }
 }
 
-double expr_tree_result(ExprTreeNode *root) {
+double expr_tree_result(ExprTreeNode *root, bool demo = false) {
     ExprTreeNode *new_root = copy_expr_tree_node(root);
-    if (variables.empty()) std::cout << "Enter values:" << std::endl;
-    for (auto &v:variables) {
-        std::cout << v.name << " = ";
-        std::cin >> v.val;
+    if (demo) {
+        for (auto &v:variables_demo){
+            v.val = rand_double(-10, 10);
+            std::cout << v.name << " = " << v.val << std::endl;
+        }
+    } else {
+        if (variables.empty()) std::cout << "Enter values:" << std::endl;
+        for (auto &v:variables) {
+            std::cout << v.name << " = ";
+            std::cin >> v.val;
+        }
     }
-    variable_value_substitution(new_root);
+    variable_value_substitution(new_root, demo);
+    print_tree(new_root);
     double result = (calculate_constants_expr_tree(new_root)) ? std::strtod(new_root->data.c_str(), nullptr)
-                                                              : NAN;;
+                                                              : NAN;
     delete_expr_tree_node(new_root);
     return result;
 }
@@ -602,8 +628,9 @@ ExprTreeNode *expr_tree_derivation(ExprTreeNode *node, std::string var) {
                                                  ),
                                                  new ExprTreeNode("/",
                                                                   new ExprTreeNode("*",
-                                                                          expr_tree_derivation(node->left, var),
-                                                                          copy_expr_tree_node(node->right)
+                                                                                   expr_tree_derivation(node->left,
+                                                                                                        var),
+                                                                                   copy_expr_tree_node(node->right)
                                                                   ),
                                                                   copy_expr_tree_node(node->left)
                                                  )
@@ -616,25 +643,134 @@ ExprTreeNode *expr_tree_derivation(ExprTreeNode *node, std::string var) {
     else return new ExprTreeNode("0", nullptr, nullptr);
 }
 
-int main() {
+//---------- DEMO ----------
+void demo_tree() {
+    TreeNode *root = nullptr;
+    double p;
+    int val, num = rand_int(7, 15);
+    std::cout << "=============== TREE DEMO ===============" << std::endl << std::endl;
+
+    std::cout << "ADDING ELEMENTS" << std::endl;
+    for (int i = 0; i < num; i++) {
+        p = rand_double(0, 1);
+        val = rand_int(-10, 10);
+        std::cout << "Value = " << val << ", p = " << p << std::endl;
+        add_node_to_tree(root, val, p);
+        print_tree(root);
+        std::cout << std::endl;
+    }
+
+    num = rand_int(4, 8);
+    std::cout << "DELETING ELEMENTS" << std::endl;
+    for (int i = 0; i < num; i++) {
+        val = rand_int(-7, 7);
+        std::cout << "Value = " << val << std::endl;
+        delete_nodes_from_tree(root, val);
+        print_tree(root);
+        std::cout << std::endl;
+    }
+    std::cout << "=========================================" << std::endl << std::endl;
+}
+
+void demo_binary_tree() {
+    BinTreeNode *root = nullptr;
+    int val, num = rand_int(10, 20);
+    std::cout << "=============== BINARY TREE DEMO ===============" << std::endl << std::endl;
+
+    std::cout << "ADDING ELEMENTS" << std::endl;
+    for (int i = 0; i < num; i++) {
+        val = rand_int(-15, 15);
+        std::cout << "Value = " << val << std::endl;
+        add_node_to_bt(root, val);
+        print_tree(root);
+        std::cout << std::endl;
+    }
+
+    std::cout << "CONVERTING BINARY TREE TO THREADED" << std::endl;
+    bt_to_threaded(root);
+    print_tree(root);
+    std::cout << std::endl;
+
+    std::cout << "================================================" << std::endl;
+}
+
+void expression_generator(std::vector<std::string> &result, int step = 0) {
+    std::string var[] = {"a"};
+    std::string un_op[] = {"sin", "cos", "tan", "ln"};
+    std::string bin_op[] = {"+", "-", "*", "/", "^"};
+    if ((rand_double(0, 1) < 0.5) || (step <= 3)) {
+        if (rand_double(0, 1) < 0.5) {
+            result.push_back(un_op[rand_int(0, un_op->size() - 1)]);
+            expression_generator(result, ++step);
+        } else {
+            result.push_back(bin_op[rand_int(0, bin_op->size() - 1)]);
+            expression_generator(result, ++step);
+            expression_generator(result, ++step);
+        }
+    } else {
+        if (rand_double(0, 1) < 0.5) {
+            result.push_back(var[rand_int(0, var->size()-1)]);
+        } else {
+            result.push_back(std::to_string(rand_double(-10, 10)));
+        }
+    }
+}
+
+std::vector<std::string> random_expression() {
+    std::vector<std::string> result;
+    expression_generator(result);
+    result.emplace_back("//");
+    return result;
+}
+
+void demo_expression_tree() {
     ExprTreeNode *root = nullptr;
-    std::vector<std::string> expr = read_expr();
-    create_expr_tree(root, expr);
+    variables_demo.push_back({"a", 0});
+    std::vector<std::string> expression = random_expression();
+    std::cout << "=============== EXPRESSION TREE DEMO ===============" << std::endl << std::endl;
+    for (auto &s:expression)
+        std::cout << s << "  ";
+    std::cout << std::endl << std::endl;
+
+    create_expr_tree(root, expression);
     print_tree(root);
+
+    std::cout << "SIMPLIFYING" << std::endl;
     simplify_expr_tree(root);
     print_tree(root);
-    root = expr_tree_derivation(root, "a");
+    std::cout << std::endl;
+
+    std::cout << "CONSTANT CALCULATION" << std::endl;
+    calculate_constants_expr_tree(root);
     print_tree(root);
-    simplify_expr_tree(root);
+    std::cout << std::endl;
+
+    double res;
+    std::cout << "RESULTS CALCULATION" << std::endl;
+    for (int i = 1; i <= 2; i++) {
+        std::cout << "Example #" << i << std::endl;
+        res = expr_tree_result(root, true);
+        std::cout << std::endl << "Result: " << res << std::endl << std::endl;
+    }
+
+    std::cout << "DERIVATION BY " << variables_demo[0].name << std::endl;
+    root = expr_tree_derivation(root, variables_demo[0].name);
     print_tree(root);
-//    calculate_constants_expr_tree(root);
+    std::cout << std::endl;
+
+    std::cout << "================================================" << std::endl;
+}
+
+int main() {
+    //demo_tree();
+    //demo_binary_tree();
+//    std::vector<std::string> expr = random_expression();
+//    for (auto &c:expr)
+//        std::cout << c << "  ";
+//    ExprTreeNode *root;
+//    create_expr_tree(root, expr);
 //    print_tree(root);
-//    std::cout << expr_tree_result(root);
-//    print_tree(root);
-//    std::cout << expr_tree_result(root);
-//    print_tree(root);
-//    std::cout << expr_tree_result(root);
-//    print_tree(root);
-    std::cout << expr_tree_result(root);
+//    std::cout << std::endl << std::endl << std::endl;
+    demo_expression_tree();
     return 0;
 }
