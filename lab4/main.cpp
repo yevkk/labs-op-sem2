@@ -538,7 +538,7 @@ void variable_value_substitution(ExprTreeNode *&node, bool demo = false) {
 double expr_tree_result(ExprTreeNode *root, bool demo = false) {
     ExprTreeNode *new_root = copy_expr_tree_node(root);
     if (demo) {
-        for (auto &v:variables_demo){
+        for (auto &v:variables_demo) {
             v.val = rand_double(-10, 10);
             std::cout << v.name << " = " << v.val << std::endl;
         }
@@ -709,7 +709,7 @@ void expression_generator(std::vector<std::string> &result, int step = 0) {
         }
     } else {
         if (rand_double(0, 1) < 0.5) {
-            result.push_back(var[rand_int(0, var->size()-1)]);
+            result.push_back(var[rand_int(0, var->size() - 1)]);
         } else {
             result.push_back(std::to_string(rand_double(-10, 10)));
         }
@@ -758,19 +758,224 @@ void demo_expression_tree() {
     print_tree(root);
     std::cout << std::endl;
 
+    variables_demo.clear();
     std::cout << "================================================" << std::endl;
 }
 
+//---------- INTERACTIVE ----------
+void interactive_tree() {
+    static TreeNode *root = nullptr;
+    int command;
+    int val;
+    double p;
+    while (true) {
+        command = 0;
+        std::cout
+                << "\nEnter command:\n"
+                   "\t#1 - add node;\n"
+                   "\t#2 - delete nodes by value;\n"
+                   "\t#3 - print\n"
+                   "\t#4 - demo\n"
+                   "#5 - change type\n";
+        while ((command < 1) || (command > 5)) {
+            std::cout << "\n#";
+            std::cin >> command;
+        }
+        switch (command) {
+            case 1: {
+                std::cout << "value = ";
+                std::cin >> val;
+                std::cout << "p = ";
+                std::cin >> p;
+                add_node_to_tree(root, val, p);
+                break;
+            }
+            case 2: {
+                std::cout << "value = ";
+                std::cin >> val;
+                delete_nodes_from_tree(root, val);
+                break;
+            }
+            case 3: {
+                if (root != nullptr)
+                    print_tree(root);
+                else std::cout << "Tree is empty" << std::endl;
+                break;
+            }
+            case 4: {
+                demo_tree();
+                break;
+            }
+            case 5: {
+                delete_nodes_from_tree(root, root->data);
+                return;
+            }
+            default:;
+        }
+    }
+}
+
+void interactive_binary_tree() {
+    static BinTreeNode *root = nullptr;
+    int command;
+    int val;
+    bool threaded = false;
+    while (true) {
+        command = 0;
+        std::cout
+                << "\nEnter command:\n"
+                   "\t#1 - add node;\n"
+                   "\t#2 - transform tree to threaded;\n"
+                   "\t#3 - transform threaded to normal;\n"
+                   "\t#4 - print\n"
+                   "\t#5 - demo\n"
+                   "#6 - change type\n";
+        while ((command < 1) || (command > 6)) {
+            std::cout << "\n#";
+            std::cin >> command;
+        }
+        switch (command) {
+            case 1: {
+                std::cout << "value = ";
+                std::cin >> val;
+                add_node_to_bt(root, val);
+                break;
+            }
+            case 2: {
+                if (threaded) {
+                    std::cout << "Tree is already threaded";
+                } else {
+                    threaded = true;
+                    bt_to_threaded(root);
+                }
+                break;
+            }
+            case 3: {
+                if (!threaded) {
+                    std::cout << "Tree is already normal";
+                } else {
+                    threaded = false;
+                    bt_to_threaded_reverse(root);
+                }
+                break;
+            }
+            case 4: {
+                if (root != nullptr)
+                    print_tree(root);
+                else std::cout << "Tree is empty" << std::endl;
+                break;
+            }
+            case 5: {
+                demo_binary_tree();
+                break;
+            }
+            case 6: {
+                delete_bt(root);
+                return;
+            }
+            default:;
+        }
+    }
+}
+
+void interactive_expression_tree() {
+    static ExprTreeNode *root = nullptr;
+    std::vector<std::string> expression;
+    int command;
+    double res;
+    std::string var;
+    std::cout << "Enter expression (prefix notation, enter \"//\" to indicate end):\n";
+    expression = read_expr();
+    bool error = create_expr_tree(root, expression);
+
+    while (true) {
+        if (!error) {
+            //print_error();
+            return;
+        }
+        command = 0;
+        std::cout
+                << "\nEnter command:\n"
+                   "\t#1 - simplify expression;\n"
+                   "\t#2 - calculate constants;\n"
+                   "\t#3 - calculate result;\n"
+                   "\t#4 - derivation\n"
+                   "\t#5 - print\n"
+                   "\t#6 - demo\n"
+                   "#7 - change type\n";
+        while ((command < 1) || (command > 6)) {
+            std::cout << "\n#";
+            std::cin >> command;
+        }
+        switch (command) {
+            case 1: {
+                error = simplify_expr_tree(root);
+                if (error) std::cout << "Command completed successfully\n";
+                break;
+            }
+            case 2: {
+                error = calculate_constants_expr_tree(root);
+                if (error) std::cout << "Command completed successfully\n";
+                break;
+            }
+            case 3: {
+                res = expr_tree_result(root);
+                std::cout << "Result = " << res << std::endl;
+                if (error) std::cout << "Command completed successfully\n";
+                break;
+            }
+            case 4: {
+
+                std::cout << "by variable:";
+                std::cin >> var;
+                root = expr_tree_derivation(root, var);
+                if (error) std::cout << "Command completed successfully\n";
+                break;
+            }
+            case 5: {
+                print_tree(root);
+                break;
+            }
+            case 6: {
+                demo_expression_tree();
+                break;
+            }
+            case 7: {
+                variables.clear();
+                delete_expr_tree_node(root);
+                return;
+            }
+            default:;
+        }
+    }
+}
+
 int main() {
-    //demo_tree();
-    //demo_binary_tree();
-//    std::vector<std::string> expr = random_expression();
-//    for (auto &c:expr)
-//        std::cout << c << "  ";
-//    ExprTreeNode *root;
-//    create_expr_tree(root, expr);
-//    print_tree(root);
-//    std::cout << std::endl << std::endl << std::endl;
-    demo_expression_tree();
-    return 0;
+    int command;
+    while (true) {
+        command = 0;
+        std::cout << "Enter type of tree:\n\t#1 - tree;\n\t#2 - binary tree;\n\t#3 - expression tree\n#4 - stop\n";
+        while ((command < 1) || (command > 4)) {
+            std::cout << "\n#";
+            std::cin >> command;
+        }
+        switch (command) {
+            case 1: {
+                interactive_tree();
+                break;
+            }
+            case 2: {
+                interactive_binary_tree();
+                break;
+            }
+            case 3: {
+                interactive_expression_tree();
+                break;
+            }
+            case 4: {
+                return 0;
+            }
+            default:;
+        }
+    }
 }
