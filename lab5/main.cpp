@@ -9,6 +9,7 @@
 
 const int MAX_WEIGHT = 99;
 const int MAX_DATA = 50;
+const int BITS_LONG = 32;
 
 //--------------- RANDOM ---------------
 
@@ -76,7 +77,7 @@ struct GraphAS {
         }
     }
 
-    void print_graph() {
+    void print() {
         std::cout << "Graph:" << std::endl;
 
         std::cout << "   ";
@@ -125,7 +126,7 @@ struct GraphAS {
 struct GraphNodeBV32 {
     int data;
     unsigned long adjacency_vector;
-    int weights[32];
+    int weights[BITS_LONG]{};
 
     explicit GraphNodeBV32(int Data) {
         data = Data;
@@ -169,7 +170,7 @@ struct GraphBV32 {
         }
     }
 
-    void print_graph() {
+    void print() {
         std::cout << "Graph:" << std::endl;
 
         std::cout << "   ";
@@ -212,24 +213,71 @@ struct GraphBV32 {
 };
 
 //--------------- RANDOM GRAPHS ---------------
-template<typename T>
-auto random_graph(int nodes_num, int edges_num, T d) {
-    T graph(rand_int(0, 1), rand_int(0, 1));
+GraphAS random_graph_as(int nodes_num, int edges_num) {
+    GraphAS graph(rand_int(0, 1), rand_int(0, 1));
 
     for (int i = 0; i < nodes_num; i++)
         graph.add_node(rand_int(1, MAX_DATA));
 
     for (int i = 0; i < edges_num; i++)
-        graph.add_edge(rand_int(1, graph.nodes.size() - 1), rand_int(1, graph.nodes.size() - 1),
+        graph.add_edge(rand_int(0, graph.nodes.size() - 1), rand_int(0, graph.nodes.size() - 1),
                        rand_int(1, MAX_WEIGHT));
 
     return graph;
 }
 
+GraphBV32 random_graph_bv32(int nodes_num, int edges_num) {
+    GraphBV32 graph(rand_int(0, 1), rand_int(0, 1));
+
+    for (int i = 0; i < nodes_num; i++)
+        graph.add_node(rand_int(1, MAX_DATA));
+
+    for (int i = 0; i < edges_num; i++)
+        graph.add_edge(rand_int(0, graph.nodes.size() - 1), rand_int(0, graph.nodes.size() - 1),
+                       rand_int(1, MAX_WEIGHT));
+
+    return graph;
+}
+
+//--------------- TRANSFORM GRAPH ---------------
+GraphAS transform_graph(GraphBV32 &graph) {
+    GraphAS result(graph.weighted, graph.directed);
+
+    for (int i = 0; i < graph.nodes.size(); i++) {
+        result.add_node(graph.nodes[i]->data);
+        for (int j = 0; j < graph.nodes.size(); j++) {
+            if (graph.nodes[i]->is_adjacent(j)) {
+                result.add_edge(i, j, graph.nodes[i]->weights[j]);
+            }
+        }
+    }
+    return result;
+}
+
+GraphBV32 transform_graph(GraphAS &graph) {
+    GraphBV32 result(graph.weighted, graph.directed);
+
+    for (int i = 0; i < graph.nodes.size(); i++) {
+        result.add_node(graph.nodes[i]->data);
+        for (auto &p:graph.nodes[i]->adjacent_nodes) {
+            result.add_edge(i, p.first, p.second);
+        }
+    }
+    return result;
+}
+
 int main() {
-    GraphBV32 graphz(true, false);
-    GraphBV32 graph2 = random_graph(7, 10, graphz);;
-    graph2.print_graph();
+    GraphAS graph1 = random_graph_as(7, 10);
+    graph1.print();
+    GraphBV32 graph2 = transform_graph(graph1);
+    graph2.print();
+    graph1 = random_graph_as(7, 10);
+    //graph1.print();
+    graph1 = transform_graph(graph2);
+    graph1.print();
+
+
 
     return 0;
 }
+
