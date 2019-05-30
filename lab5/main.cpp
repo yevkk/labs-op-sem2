@@ -267,6 +267,70 @@ struct GraphBV32 {
         return false;
     }
 
+    void print_dfs(int index = 0, bool start = true) {
+        static bool visited[BITS_LONG];
+        if (start) {
+            for (auto &e:visited)
+                e = false;
+
+            std::cout << "DFS:" << std::endl;
+
+            for (int i = 0; i < nodes.size(); i++) {
+                if (!visited[i]) {
+                    print_dfs(i, false);
+                    std::cout << std::endl;
+                }
+            }
+        } else {
+            std::cout << index + 1 << " ";
+            visited[index] = true;
+
+            for (int i = 0; i < nodes.size(); i++)
+                if (nodes[index]->is_adjacent(i))
+                    if (!visited[i]) print_dfs(i, false);
+        }
+    }
+
+    static bool weights_sort_cmp(std::pair<int, int> pair1, std::pair<int, int> pair2) {
+        return (pair1.second < pair2.second);
+    }
+
+    void print_dfs_by_weights(int index = 0, bool start = true) {
+        if (!weighted) {
+            print_dfs();
+            return;
+        }
+        static bool visited[BITS_LONG];
+        if (start) {
+            for (auto &e:visited)
+                e = false;
+
+            std::cout << "DFS (by weights):" << std::endl;
+
+            for (int i = 0; i < nodes.size(); i++) {
+                if (!visited[i]) {
+                    print_dfs_by_weights(i, false);
+                    std::cout << std::endl;
+                }
+            }
+        } else {
+            std::cout << index + 1 << " ";
+            visited[index] = true;
+
+            std::vector<std::pair<int, int>> vec;
+            for(int i = 0; i < nodes.size(); i++)
+                if (nodes[index]->is_adjacent(i))
+                    vec.emplace_back(i, nodes[index]->weights[i]);
+
+            if (!vec.empty()) {
+                std::sort(vec.begin(), vec.end(), weights_sort_cmp);
+
+                for (auto &e:vec)
+                    if (!visited[e.first]) print_dfs_by_weights(e.first, false);
+            }
+        }
+    }
+
     void print() {
         std::cout << "Graph:" << std::endl;
 
@@ -363,7 +427,7 @@ GraphBV32 transform_graph(GraphAS &graph) {
         }
     }
     return result;
-}
+} //MARKED TO BE CHECKED
 
 int main() {
     GraphAS graph1 = random_graph_as(7, 15);
@@ -372,12 +436,8 @@ int main() {
     GraphBV32 graph2 = transform_graph(graph1);
     graph2.print();
     std::cout << "Cycle: " << graph2.cycle_exist() << " " << graph2.cycle_exist() << std::endl;
-    graph1 = random_graph_as(7, 10);
-    //graph1.print();
-    graph1 = transform_graph(graph2);
-    graph1.print();
-    std::cout << "Cycle: " << graph1.cycle_exist() << " " << graph1.cycle_exist() << std::endl;
-    graph1.print_dfs_by_weights();
+
+    graph2.print_dfs_by_weights();
     std::cout << std::endl << std::endl;
 
 
