@@ -6,6 +6,7 @@
 #include <vector>
 #include <random>
 #include <queue>
+#include <algorithm>
 #include <ctime>
 
 const int MAX_WEIGHT = 99;
@@ -117,7 +118,41 @@ struct GraphAS {
         }
     }
 
+    static bool weights_sort_cmp(std::pair<int, int> pair1, std::pair<int, int> pair2) {
+        return (pair1.second < pair2.second);
+    }
 
+    void print_dfs_by_weights(int index = 0, bool start = true) {
+        if (!weighted) {
+            print_dfs();
+            return;
+        }
+        static std::vector<bool> visited;
+        if (start) {
+            for (auto &e:nodes)
+                visited.push_back(false);
+
+            std::cout << "DFS (by weights):" << std::endl;
+
+            for (int i = 0; i < nodes.size(); i++) {
+                if (!visited[i]) {
+                    print_dfs_by_weights(i, false);
+                    std::cout << std::endl;
+                }
+            }
+        } else {
+            std::cout << index + 1 << " ";
+            visited[index] = true;
+
+            auto vec = nodes[index]->adjacent_nodes;
+            if (!vec.empty()) {
+                std::sort(vec.begin(), vec.end(), weights_sort_cmp);
+
+                for (auto &e:vec)
+                    if (!visited[e.first]) print_dfs_by_weights(e.first, false);
+            }
+        }
+    }
 
     void print() {
         std::cout << "Graph:" << std::endl;
@@ -342,7 +377,7 @@ int main() {
     graph1 = transform_graph(graph2);
     graph1.print();
     std::cout << "Cycle: " << graph1.cycle_exist() << " " << graph1.cycle_exist() << std::endl;
-    graph1.print_dfs();
+    graph1.print_dfs_by_weights();
     std::cout << std::endl << std::endl;
 
 
