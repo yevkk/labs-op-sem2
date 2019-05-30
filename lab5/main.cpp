@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <queue>
 #include <ctime>
 
 const int MAX_WEIGHT = 99;
@@ -92,6 +93,31 @@ struct GraphAS {
         }
         return false;
     }
+
+    void print_dfs(int index = 0, bool start = true) {
+        static std::vector<bool> visited;
+        if (start) {
+            for (auto &e:nodes)
+                visited.push_back(false);
+
+            std::cout << "DFS:" << std::endl;
+
+            for (int i = 0; i < nodes.size(); i++) {
+                if (!visited[i]) {
+                    print_dfs(i, false);
+                    std::cout << std::endl;
+                }
+            }
+        } else {
+            std::cout << index + 1 << " ";
+            visited[index] = true;
+
+            for (auto &e:nodes[index]->adjacent_nodes)
+                if (!visited[e.first]) print_dfs(e.first, false);
+        }
+    }
+
+
 
     void print() {
         std::cout << "Graph:" << std::endl;
@@ -246,6 +272,8 @@ struct GraphBV32 {
 
 
     }
+
+
 };
 
 //--------------- RANDOM GRAPHS ---------------
@@ -314,9 +342,8 @@ int main() {
     graph1 = transform_graph(graph2);
     graph1.print();
     std::cout << "Cycle: " << graph1.cycle_exist() << " " << graph1.cycle_exist() << std::endl;
-
+    graph1.print_dfs();
     std::cout << std::endl << std::endl;
-
 
 
     return 0;
