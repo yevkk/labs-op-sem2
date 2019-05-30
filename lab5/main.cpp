@@ -77,6 +77,22 @@ struct GraphAS {
         }
     }
 
+    bool cycle_exist(int index = 0, bool start = true) {
+        static std::vector<bool> visited;
+        if (start) {
+            visited.clear();
+            for (auto &n:nodes) visited.emplace_back(false);
+        }
+
+        if (visited[index]) return true;
+        visited[index] = true;
+        for (auto &e:nodes[index]->adjacent_nodes) {
+            if (((e.first != index) && (directed)) || ((!directed) && (e.first > index)))
+                if (cycle_exist(e.first, false)) return true;
+        }
+        return false;
+    }
+
     void print() {
         std::cout << "Graph:" << std::endl;
 
@@ -168,6 +184,26 @@ struct GraphBV32 {
                 }
             }
         }
+    }
+
+    bool cycle_exist(int index = 0, bool start = true) {
+        static bool visited[BITS_LONG];
+        if (start) {
+            for (auto &e:visited) e = false;
+        }
+
+        if (visited[index]) return true;
+        visited[index] = true;
+        if (directed) {
+            for (int i = 0; i < BITS_LONG; i++)
+                if ((i != index) && (nodes[index]->is_adjacent(i)))
+                    if (cycle_exist(i, false)) return true;
+        } else {
+            for (int i = index + 1; i < BITS_LONG; i++)
+                if (nodes[index]->is_adjacent(i))
+                    if (cycle_exist(i, false)) return true;
+        }
+        return false;
     }
 
     void print() {
@@ -267,14 +303,19 @@ GraphBV32 transform_graph(GraphAS &graph) {
 }
 
 int main() {
-    GraphAS graph1 = random_graph_as(7, 10);
+    GraphAS graph1 = random_graph_as(7, 15);
     graph1.print();
+    std::cout << "Cycle: " << graph1.cycle_exist() << " " << graph1.cycle_exist() << std::endl;
     GraphBV32 graph2 = transform_graph(graph1);
     graph2.print();
+    std::cout << "Cycle: " << graph2.cycle_exist() << " " << graph2.cycle_exist() << std::endl;
     graph1 = random_graph_as(7, 10);
     //graph1.print();
     graph1 = transform_graph(graph2);
     graph1.print();
+    std::cout << "Cycle: " << graph1.cycle_exist() << " " << graph1.cycle_exist() << std::endl;
+
+    std::cout << std::endl << std::endl;
 
 
 
