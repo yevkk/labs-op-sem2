@@ -9,9 +9,10 @@
 #include <algorithm>
 #include <ctime>
 
-const int MAX_WEIGHT = 99;
+const int MAX_WEIGHT = 15;
 const int MAX_DATA = 50;
 const int BITS_LONG = 32;
+const long INF = LONG_MAX / 2 - 1;
 
 //--------------- RANDOM ---------------
 
@@ -66,7 +67,8 @@ struct GraphAS {
         nodes.push_back(new GraphNodeAS(data));
     }
 
-    void add_edge(int index1, int index2, int weight = 0) {
+    void add_edge(int index1, int index2, int weight = 1) {
+        if (!weighted) weight = 1;
         if ((index1 < nodes.size()) && (index2 < nodes.size())) {
             if (!nodes[index1]->is_adjacent(index2)) {
                 if (directed) {
@@ -154,6 +156,77 @@ struct GraphAS {
         }
     }
 
+    void floyd_algorithm(bool print = true) {
+        std::vector<std::vector<int>> dist;
+        std::vector<int> temp;
+
+        for (auto &e:nodes) {
+            temp.push_back(0);
+        }
+
+        for (auto &e:nodes) {
+            dist.push_back(temp);
+        }
+
+        for (int i = 0; i < nodes.size(); i++) {
+            for (auto &e:nodes[i]->adjacent_nodes) {
+                dist[i][e.first] = e.second;
+            }
+        }
+
+        for (int i = 0; i < nodes.size(); i++) {
+            for (int j = 0; j < nodes.size(); j++) {
+                if ((i != j) && (dist[i][j] == 0)) dist[i][j] = INF;
+                if (i == j) dist[i][j] = 0;
+            }
+        }
+
+        for (int k = 0; k < nodes.size(); k++) {
+            for (int i = 0; i < nodes.size(); i++) {
+                for (int j = 0; j < nodes.size(); j++) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j])
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+
+        if (print) {
+            std::cout << "Min distances:" << std::endl;
+
+            std::cout << "   ";
+            for (int i = 0; i < nodes.size(); i++) {
+                for (int j = 0; j < 3 - std::to_string(i + 1).size(); j++)
+                    std::cout << " ";
+                std::cout << i + 1;
+            }
+            std::cout << std::endl;
+
+            std::cout << "   ";
+            for (int i = 0; i < nodes.size(); i++) {
+                std::cout << "---";
+            }
+            std::cout << std::endl;
+
+            for (int i = 0; i < nodes.size(); i++) {
+                for (int j = 0; j < 2 - std::to_string(i + 1).size(); j++)
+                    std::cout << " ";
+                std::cout << i + 1 << "|";
+
+                for (int k = 0; k < nodes.size(); k++) {
+                    if (dist[i][k] == INF) {
+                        std::cout << "  -";
+                    } else {
+                        for (int j = 0; j < 3 - std::to_string(dist[i][k]).size(); j++)
+                            std::cout << " ";
+                        std::cout << dist[i][k];
+                    }
+                }
+                std::cout << std::endl;
+            }
+            std::cout << std::endl;
+        }
+    }
+
     void print() {
         std::cout << "Graph:" << std::endl;
 
@@ -225,6 +298,7 @@ struct GraphBV32 {
     GraphBV32(bool Weighted, bool Directed) {
         weighted = Weighted;
         directed = Directed;
+        nodes = {};
     }
 
     void add_node(int data) {
@@ -232,6 +306,7 @@ struct GraphBV32 {
     }
 
     void add_edge(unsigned int index1, unsigned int index2, int weight = 0) {
+        if (!weighted) weight = 1;
         if ((index1 < nodes.size()) && (index2 < nodes.size())) {
             if (!nodes[index1]->is_adjacent(index2)) {
                 if (directed) {
@@ -318,7 +393,7 @@ struct GraphBV32 {
             visited[index] = true;
 
             std::vector<std::pair<int, int>> vec;
-            for(int i = 0; i < nodes.size(); i++)
+            for (int i = 0; i < nodes.size(); i++)
                 if (nodes[index]->is_adjacent(i))
                     vec.emplace_back(i, nodes[index]->weights[i]);
 
@@ -328,6 +403,63 @@ struct GraphBV32 {
                 for (auto &e:vec)
                     if (!visited[e.first]) print_dfs_by_weights(e.first, false);
             }
+        }
+    }
+
+    void floyd_algorithm(bool print = true) {
+        int dist[BITS_LONG][BITS_LONG];
+
+        for (int i = 0; i < nodes.size(); i++) {
+            for (int j = 0; j < nodes.size(); j++) {
+                if (i == j) dist[i][j] = 0;
+                else if (nodes[i]->weights[j] == 0) dist[i][j] = INF;
+                else dist[i][j] = nodes[i]->weights[j];
+            }
+        }
+
+        for (int k = 0; k < nodes.size(); k++) {
+            for (int i = 0; i < nodes.size(); i++) {
+                for (int j = 0; j < nodes.size(); j++) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j])
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+
+        if (print) {
+            std::cout << "Min distances:" << std::endl;
+
+            std::cout << "   ";
+            for (int i = 0; i < nodes.size(); i++) {
+                for (int j = 0; j < 3 - std::to_string(i + 1).size(); j++)
+                    std::cout << " ";
+                std::cout << i + 1;
+            }
+            std::cout << std::endl;
+
+            std::cout << "   ";
+            for (int i = 0; i < nodes.size(); i++) {
+                std::cout << "---";
+            }
+            std::cout << std::endl;
+
+            for (int i = 0; i < nodes.size(); i++) {
+                for (int j = 0; j < 2 - std::to_string(i + 1).size(); j++)
+                    std::cout << " ";
+                std::cout << i + 1 << "|";
+
+                for (int k = 0; k < nodes.size(); k++) {
+                    if (dist[i][k] == INF) {
+                        std::cout << "  -";
+                    } else {
+                        for (int j = 0; j < 3 - std::to_string(dist[i][k]).size(); j++)
+                            std::cout << " ";
+                        std::cout << dist[i][k];
+                    }
+                }
+                std::cout << std::endl;
+            }
+            std::cout << std::endl;
         }
     }
 
@@ -430,7 +562,7 @@ GraphBV32 transform_graph(GraphAS &graph) {
 } //MARKED TO BE CHECKED
 
 int main() {
-    GraphAS graph1 = random_graph_as(7, 15);
+    GraphAS graph1 = random_graph_as(10, 10);
     graph1.print();
     std::cout << "Cycle: " << graph1.cycle_exist() << " " << graph1.cycle_exist() << std::endl;
     GraphBV32 graph2 = transform_graph(graph1);
@@ -439,6 +571,9 @@ int main() {
 
     graph2.print_dfs_by_weights();
     std::cout << std::endl << std::endl;
+
+    graph1.floyd_algorithm();
+    graph2.floyd_algorithm();
 
 
     return 0;
