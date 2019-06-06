@@ -91,7 +91,7 @@ struct GraphAS {
         if (visited[index]) return true;
         visited[index] = true;
         for (auto &e:nodes[index]->adjacent_nodes) {
-            if (((e.first != index) && (directed)) || ((!directed) && (e.first > index)))
+            if (e.first != index)
                 if (cycle_exist(e.first, false)) return true;
         }
         return false;
@@ -156,7 +156,7 @@ struct GraphAS {
         }
     }
 
-    void floyd_algorithm(bool print = true) {
+    void floyds_algorithm(bool print = true) {
         std::vector<std::vector<int>> dist;
         std::vector<int> temp;
 
@@ -227,8 +227,44 @@ struct GraphAS {
         }
     }
 
+    void tp_sort_visit(int index, std::vector<int> &marks, std::vector<int> &result) {
+        if (marks[index] == 2) return;
+        marks[index] = 1;
+        for (int i = 0; i < nodes[index]->adjacent_nodes.size(); i++)
+            if (nodes[index]->adjacent_nodes[i].first != index)
+                tp_sort_visit(nodes[index]->adjacent_nodes[i].first, marks, result);
+        marks[index] = 2;
+        result.push_back(index);
+    }
+
+    void topological_sort(bool print = true) {
+        if (print) std::cout << "Topological sort:" << std::endl;
+
+        if (directed && !cycle_exist()) {
+            std::vector<int> marks;
+            std::vector<int> result;
+            for (auto &e:nodes) marks.push_back(0);
+
+            for (int i = 0; i < nodes.size(); i++)
+                if (marks[i] == 0) tp_sort_visit(i, marks, result);
+
+            if (print) {
+                for (int k = result.size() - 1; k >= 0; k--)
+                    std::cout << result[k] + 1 << " ";
+                std::cout << std::endl;
+            }
+
+        } else {
+            if (print) {
+                std::cout << "Graph can't be sorted (is not directed or cycles exist);" << std::endl;
+            }
+        }
+    }
+
     void print() {
         std::cout << "Graph:" << std::endl;
+
+        std::cout << "directed: " << std::boolalpha << directed << std::endl;
 
         std::cout << "   ";
         for (int i = 0; i < nodes.size(); i++) {
@@ -330,15 +366,11 @@ struct GraphBV32 {
 
         if (visited[index]) return true;
         visited[index] = true;
-        if (directed) {
-            for (int i = 0; i < BITS_LONG; i++)
-                if ((i != index) && (nodes[index]->is_adjacent(i)))
-                    if (cycle_exist(i, false)) return true;
-        } else {
-            for (int i = index + 1; i < BITS_LONG; i++)
-                if (nodes[index]->is_adjacent(i))
-                    if (cycle_exist(i, false)) return true;
-        }
+
+        for (int i = 0; i < BITS_LONG; i++)
+            if ((i != index) && (nodes[index]->is_adjacent(i)))
+                if (cycle_exist(i, false)) return true;
+
         return false;
     }
 
@@ -406,7 +438,7 @@ struct GraphBV32 {
         }
     }
 
-    void floyd_algorithm(bool print = true) {
+    void floyds_algorithm(bool print = true) {
         int dist[BITS_LONG][BITS_LONG];
 
         for (int i = 0; i < nodes.size(); i++) {
@@ -463,8 +495,44 @@ struct GraphBV32 {
         }
     }
 
+    void tp_sort_visit(int index, int *marks, std::vector<int> &result) {
+        if (marks[index] == 2) return;
+        marks[index] = 1;
+        for (int i = 0; i < BITS_LONG; i++)
+            if ((nodes[index]->is_adjacent(i)) && (i != index))
+                tp_sort_visit(i, marks, result);
+        marks[index] = 2;
+        result.push_back(index);
+    }
+
+    void topological_sort(bool print = true) {
+        if (print) std::cout << "Topological sort:" << std::endl;
+
+        if (directed && !cycle_exist()) {
+            int marks[BITS_LONG];
+            std::vector<int> result;
+            for (auto &e:marks) e = 0;
+
+            for (int i = 0; i < nodes.size(); i++)
+                if (marks[i] == 0) tp_sort_visit(i, marks, result);
+
+            if (print) {
+                for (int k = result.size() - 1; k >= 0; k--)
+                    std::cout << result[k] + 1 << " ";
+                std::cout << std::endl;
+            }
+
+        } else {
+            if (print) {
+                std::cout << "Graph can't be sorted (is not directed or cycles exist);" << std::endl;
+            }
+        }
+    }
+
     void print() {
         std::cout << "Graph:" << std::endl;
+
+        std::cout << "directed: " << std::boolalpha << directed << std::endl;
 
         std::cout << "   ";
         for (int i = 0; i < nodes.size(); i++) {
@@ -559,22 +627,18 @@ GraphBV32 transform_graph(GraphAS &graph) {
         }
     }
     return result;
-} //MARKED TO BE CHECKED
+}
 
 int main() {
-    GraphAS graph1 = random_graph_as(10, 10);
-    graph1.print();
-    std::cout << "Cycle: " << graph1.cycle_exist() << " " << graph1.cycle_exist() << std::endl;
-    GraphBV32 graph2 = transform_graph(graph1);
-    graph2.print();
-    std::cout << "Cycle: " << graph2.cycle_exist() << " " << graph2.cycle_exist() << std::endl;
+    GraphBV32 graph1(false, true);
 
-    graph2.print_dfs_by_weights();
+    graph1 = random_graph_bv32(7, 7);
+    graph1.print();
+
     std::cout << std::endl << std::endl;
 
-    graph1.floyd_algorithm();
-    graph2.floyd_algorithm();
-
+    //graph1.floyds_algorithm();
+    graph1.topological_sort();
 
     return 0;
 }
