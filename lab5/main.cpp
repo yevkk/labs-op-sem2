@@ -63,6 +63,7 @@ struct GraphAS {
         directed = Directed;
     }
 
+    //-----
     void add_node(int data) {
         nodes.push_back(new GraphNodeAS(data));
     }
@@ -97,6 +98,7 @@ struct GraphAS {
         return false;
     }
 
+    //-----
     void print_dfs(int index = 0, bool start = true) {
         static std::vector<bool> visited;
         if (start) {
@@ -156,6 +158,7 @@ struct GraphAS {
         }
     }
 
+    //-----
     void floyds_algorithm(bool print = true) {
         std::vector<std::vector<int>> dist;
         std::vector<int> temp;
@@ -227,6 +230,7 @@ struct GraphAS {
         }
     }
 
+    //-----
     void tp_sort_visit(int index, std::vector<int> &marks, std::vector<int> &result) {
         if (marks[index] == 2) return;
         marks[index] = 1;
@@ -261,6 +265,39 @@ struct GraphAS {
         }
     }
 
+    //----- not finished
+    void spanning_tree_step(int index = 0, bool start = true) {
+        static std::vector<bool> visited;
+        if (start) {
+            for (auto &e:nodes)
+                visited.push_back(false);
+
+            for (int i = 0; i < nodes.size(); i++) {
+                if (!visited[i]) {
+                    spanning_tree_step(i, false);
+                }
+            }
+        } else {
+            std::cout << index + 1 << " ";
+            visited[index] = true;
+
+            for (int i = 0; i < nodes[index]->adjacent_nodes.size(); i++)
+                if ((nodes[index]->adjacent_nodes[i].first == index) ||
+                    (visited[nodes[index]->adjacent_nodes[i].first])) {
+                    nodes[index]->adjacent_nodes.erase(nodes[index]->adjacent_nodes.begin() + i);
+                } else {
+                    spanning_tree_step(nodes[index]->adjacent_nodes[i].first, false);
+                }
+        }
+    }
+
+    void spanning_tree(bool print = true) {
+        GraphAS graph = *this;
+        graph.spanning_tree_step();
+        graph.print();
+    }
+
+    //-----
     void print() {
         std::cout << "Graph:" << std::endl;
 
@@ -630,15 +667,16 @@ GraphBV32 transform_graph(GraphAS &graph) {
 }
 
 int main() {
-    GraphBV32 graph1(false, true);
+    GraphAS graph1(false, true);
 
-    graph1 = random_graph_bv32(7, 7);
+    graph1 = random_graph_as(5, 7);
     graph1.print();
 
     std::cout << std::endl << std::endl;
 
     //graph1.floyds_algorithm();
-    graph1.topological_sort();
+    //graph1.topological_sort();
+    graph1.spanning_tree();
 
     return 0;
 }
