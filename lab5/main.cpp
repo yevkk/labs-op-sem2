@@ -667,7 +667,7 @@ GraphBV32 transform_graph(GraphAS &graph) {
 }
 
 //--------------- DEMO MODE ---------------
-void graph_as_demo() {
+void demo_graph_as() {
     std::cout << "=============== ADJACENCY STRUCTURE DEMO ===============" << std::endl << std::endl;
     int nodes = -2, edges = -2;
 
@@ -680,7 +680,7 @@ void graph_as_demo() {
         std::cout << "nodes number = " << nodes << std::endl;
     }
 
-    while ((edges < -1) || (edges > nodes*nodes)) {
+    while ((edges < -1) || (edges > nodes * nodes)) {
         std::cout << "Input edges number (0 - nodes^2, -1 to set random):";
         std::cin >> edges;
     }
@@ -713,7 +713,7 @@ void graph_as_demo() {
     std::cout << "=========================================" << std::endl << std::endl;
 }
 
-void graph_bv32_demo() {
+void demo_graph_bv32() {
     std::cout << "=============== BINARY VECTOR 32 DEMO ===============" << std::endl << std::endl;
     int nodes = -2, edges = -2;
 
@@ -726,7 +726,7 @@ void graph_bv32_demo() {
         std::cout << "nodes number = " << nodes << std::endl;
     }
 
-    while ((edges < -1) || (edges > nodes*nodes)) {
+    while ((edges < -1) || (edges > nodes * nodes)) {
         std::cout << "Input edges number (0 - nodes^2, -1 to set random):";
         std::cin >> edges;
     }
@@ -762,10 +762,204 @@ void graph_bv32_demo() {
 //--------------- BENCHMARK MODE ---------------
 
 //--------------- INTERACTIVE MODE ---------------
+void interactive_graph_as() {
+    GraphAS graph = random_graph_as(0, 0);
+    int nodes, edges, command, val1, val2, val3;
+    while (true) {
+        command = -1;
+        std::cout
+                << "\nEnter command:\n"
+                   "\t#0 - print\n"
+                   "\t#1 - create new graph;\n"
+                   "\t#2 - add node;\n"
+                   "\t#3 - add edge\n"
+                   "\t#4 - dfs\n"
+                   "\t#5 - dfs by weights\n"
+                   "\t#6 - min distances\n"
+                   "\t#7 - topological sort\n"
+                   "\t#8 - demo\n"
+                   "#9 - back\n";
+        while ((command < 0) || (command > 9)) {
+            std::cout << "\n#";
+            std::cin >> command;
+        }
+        switch (command) {
+            case 0: {
+                graph.print();
+                break;
+            }
+            case 1: {
+                graph = random_graph_as(0, 0);
+                val1 = 2;
+                while ((val1 > 1) || (val1 < 0)) {
+                    std::cout << "Is weighted (0 or 1):";
+                    std::cin >> val1;
+                }
+                graph.weighted = val1;
+                val1 = 2;
+                while ((val1 > 1) || (val1 < 0)) {
+                    std::cout << "Is directed (0 or 1):";
+                    std::cin >> val1;
+                }
+                graph.directed = val1;
+                break;
+            }
+            case 2: {
+                std::cout << "data = ";
+                std::cin >> val1;
+                graph.add_node(val1);
+                break;
+            }
+            case 3: {
+                val1 = val2 = val3 = -1;
+                while ((val1 > graph.nodes.size()) || (val1 < 1)) {
+                    std::cout << "First node:";
+                    std::cin >> val1;
+                }
+                while ((val2 > graph.nodes.size()) || (val2 < 1)) {
+                    std::cout << "Second node:";
+                    std::cin >> val2;
+                }
+                if (graph.weighted) {
+                    while (val3 < 1) {
+                        std::cout << "Weight:";
+                        std::cin >> val3;
+                    }
+                } else {
+                    val3 = 1;
+                }
+                graph.add_edge(val1 - 1, val2 - 1, val3);
+                break;
+            }
+            case 4: {
+                graph.print_dfs();
+                break;
+            }
+            case 5: {
+                graph.print_dfs_by_weights();
+                break;
+            }
+            case 6: {
+                graph.floyds_algorithm();
+                break;
+            }
+            case 7: {
+                graph.topological_sort();
+                break;
+            }
+            case 8: {
+                demo_graph_as();
+                break;
+            }
+            case 9: {
+                return;
+            }
+            default:;
+        }
+    }
+}
+
+void interactive_graph_bv32() {
+    GraphBV32 graph = random_graph_bv32(0, 0);
+    int nodes, edges, command, val1, val2, val3;
+    while (true) {
+        command = -1;
+        std::cout
+                << "\nEnter command:\n"
+                   "\t#0 - print\n"
+                   "\t#1 - create new graph;\n"
+                   "\t#2 - add node;\n"
+                   "\t#3 - add edge\n"
+                   "\t#4 - dfs\n"
+                   "\t#5 - dfs by weights\n"
+                   "\t#6 - min distances\n"
+                   "\t#7 - topological sort\n"
+                   "\t#8 - demo\n"
+                   "#9 - back\n";
+        while ((command < 0) || (command > 9)) {
+            std::cout << "\n#";
+            std::cin >> command;
+        }
+        switch (command) {
+            case 0: {
+                graph.print();
+                break;
+            }
+            case 1: {
+                graph = random_graph_bv32(0, 0);
+                val1 = 2;
+                while ((val1 > 1) || (val1 < 0)) {
+                    std::cout << "Is weighted (0 or 1):";
+                    std::cin >> val1;
+                }
+                graph.weighted = val1;
+                val1 = 2;
+                while ((val1 > 1) || (val1 < 0)) {
+                    std::cout << "Is directed (0 or 1):";
+                    std::cin >> val1;
+                }
+                graph.directed = val1;
+                break;
+            }
+            case 2: {
+                std::cout << "data = ";
+                std::cin >> val1;
+                graph.add_node(val1);
+                break;
+            }
+            case 3: {
+                val1 = val2 = val3 = -1;
+                while ((val1 > graph.nodes.size()) || (val1 < 1)) {
+                    std::cout << "First node:";
+                    std::cin >> val1;
+                }
+                while ((val2 > graph.nodes.size()) || (val2 < 1)) {
+                    std::cout << "Second node:";
+                    std::cin >> val2;
+                }
+                if (graph.weighted) {
+                    while (val3 < 1) {
+                        std::cout << "Weight:";
+                        std::cin >> val3;
+                    }
+                } else {
+                    val3 = 1;
+                }
+                graph.add_edge(val1 - 1, val2 - 1, val3);
+                break;
+            }
+            case 4: {
+                graph.print_dfs();
+                break;
+            }
+            case 5: {
+                graph.print_dfs_by_weights();
+                break;
+            }
+            case 6: {
+                graph.floyds_algorithm();
+                break;
+            }
+            case 7: {
+                graph.topological_sort();
+                break;
+            }
+            case 8: {
+                demo_graph_bv32();
+                break;
+            }
+            case 9: {
+                return;
+            }
+            default:;
+        }
+    }
+}
 
 int main() {
-    graph_as_demo();
-    graph_bv32_demo();
+    interactive_graph_as();
+    demo_graph_as();
+    demo_graph_bv32();
 
     return 0;
 }
