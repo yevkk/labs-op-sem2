@@ -194,7 +194,7 @@ struct GraphAS {
         }
 
         if (print) {
-            std::cout << "Min distances:" << std::endl;
+            std::cout << "MIN DISTANCES:" << std::endl;
 
             std::cout << "   ";
             for (int i = 0; i < nodes.size(); i++) {
@@ -242,7 +242,7 @@ struct GraphAS {
     }
 
     void topological_sort(bool print = true) {
-        if (print) std::cout << "Topological sort:" << std::endl;
+        if (print) std::cout << "TOPOLOGICAL SORT:" << std::endl;
 
         if (directed && !cycle_exist()) {
             std::vector<int> marks;
@@ -666,17 +666,106 @@ GraphBV32 transform_graph(GraphAS &graph) {
     return result;
 }
 
+//--------------- DEMO MODE ---------------
+void graph_as_demo() {
+    std::cout << "=============== ADJACENCY STRUCTURE DEMO ===============" << std::endl << std::endl;
+    int nodes = -2, edges = -2;
+
+    while ((nodes < -1) || (nodes > 30)) {
+        std::cout << "Input nodes number (0 - 30, -1 to set random):";
+        std::cin >> nodes;
+    }
+    if (nodes == -1) {
+        nodes = rand_int(5, 20);
+        std::cout << "nodes number = " << nodes << std::endl;
+    }
+
+    while ((edges < -1) || (edges > nodes*nodes)) {
+        std::cout << "Input edges number (0 - nodes^2, -1 to set random):";
+        std::cin >> edges;
+    }
+    if (edges == -1) edges = rand_int(5, nodes * nodes);
+
+    GraphAS graph = random_graph_as(nodes, edges);
+    std::cout << "Created random graph with " << nodes << "nodes and " << edges << "edges;" << std::endl << std::endl;
+    graph.print();
+
+    std::cout << "CYCLE EXISTS:" << std::boolalpha << graph.cycle_exist() << std::endl << std::endl;
+
+    graph.print_dfs();
+    std::cout << std::endl;
+
+    if (graph.weighted) {
+        graph.print_dfs_by_weights();
+        std::cout << std::endl;
+    }
+
+    graph.floyds_algorithm();
+    std::cout << std::endl;
+
+    graph.topological_sort();
+    std::cout << std::endl;
+
+    GraphBV32 graph2 = transform_graph(graph);
+    std::cout << "Graph transformed to binary vector 32" << std::endl;
+    graph2.print();
+
+    std::cout << "=========================================" << std::endl << std::endl;
+}
+
+void graph_bv32_demo() {
+    std::cout << "=============== BINARY VECTOR 32 DEMO ===============" << std::endl << std::endl;
+    int nodes = -2, edges = -2;
+
+    while ((nodes < -1) || (nodes > 32)) {
+        std::cout << "Input nodes number (0 - 32, -1 to set random):";
+        std::cin >> nodes;
+    }
+    if (nodes == -1) {
+        nodes = rand_int(5, 20);
+        std::cout << "nodes number = " << nodes << std::endl;
+    }
+
+    while ((edges < -1) || (edges > nodes*nodes)) {
+        std::cout << "Input edges number (0 - nodes^2, -1 to set random):";
+        std::cin >> edges;
+    }
+    if (edges == -1) edges = rand_int(5, nodes * nodes);
+
+    GraphBV32 graph = random_graph_bv32(nodes, edges);
+    std::cout << "Created random graph with " << nodes << "nodes and " << edges << "edges;" << std::endl << std::endl;
+    graph.print();
+
+    std::cout << "CYCLE EXISTS:" << std::boolalpha << graph.cycle_exist() << std::endl << std::endl;
+
+    graph.print_dfs();
+    std::cout << std::endl;
+
+    if (graph.weighted) {
+        graph.print_dfs_by_weights();
+        std::cout << std::endl;
+    }
+
+    graph.floyds_algorithm();
+    std::cout << std::endl;
+
+    graph.topological_sort();
+    std::cout << std::endl;
+
+    GraphAS graph2 = transform_graph(graph);
+    std::cout << "Graph transformed to adjacency structure" << std::endl;
+    graph2.print();
+
+    std::cout << "=========================================" << std::endl << std::endl;
+}
+
+//--------------- BENCHMARK MODE ---------------
+
+//--------------- INTERACTIVE MODE ---------------
+
 int main() {
-    GraphAS graph1(false, true);
-
-    graph1 = random_graph_as(5, 7);
-    graph1.print();
-
-    std::cout << std::endl << std::endl;
-
-    //graph1.floyds_algorithm();
-    //graph1.topological_sort();
-    graph1.spanning_tree();
+    graph_as_demo();
+    graph_bv32_demo();
 
     return 0;
 }
